@@ -2,32 +2,141 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+textarea {
+  direction: rtl;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.CENTER {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loaderSvg {
+  width: 2rem;
+  transform-origin: center;
+  animation: rotate4 2s linear infinite;
+}
+
+.circle {
+  fill: none;
+
+  stroke-width: 4;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+  100% {
+    transform: rotate(360deg);
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@keyframes dash4 {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dashoffset: -125px;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+    -webkit-print-color-adjust: exact;
+  }
+
+  #print {
+    width: 100%;
+    border-width: 0;
+    margin: 0 !important;
+  }
+
+  #print,
+  #print * {
+    visibility: visible;
+    resize: none;
+  }
+
+  #buyerName {
+    border-width: 0;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    display: none;
+  }
+
+  .INVOICE_ACTION_BUTTONS {
+    display: none;
+  }
+
+  .NOTE {
+    border-width: 1px !important;
+  }
+
+  .removeList,
+  .AddButton {
+    display: none;
+  }
+
+  ::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: transparent;
+  }
+  :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: transparent;
+  }
+  ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: transparent;
+  }
+  :-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: transparent;
+  }
+  input::placeholder {
+    color: transparent;
+  }
+  textarea::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: transparent;
+  }
+  textarea:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: transparent;
+  }
+  textarea::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: transparent;
+  }
+  textarea:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: transparent;
+  }
+  textarea::placeholder {
+    color: transparent;
   }
 }
