@@ -48,7 +48,7 @@ export const POST = async (req: NextRequest) => {
 
     // Checking if a user already exists with the provided username
     const userExists = await User.findOne({
-      username,
+      username: username.toLowerCase(),
     });
 
     if (userExists) {
@@ -65,6 +65,7 @@ export const POST = async (req: NextRequest) => {
 
     // Updating the password in the data object
     data.password = hash;
+    data.username = username.toLowerCase();
 
     // Creating a new user with the hashed password
     const newUser = await User.create({

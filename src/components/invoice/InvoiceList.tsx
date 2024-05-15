@@ -54,7 +54,7 @@ const InvoiceList: React.FC<InvoiceListProps> = ({ invoices }) => {
                 onClick={() =>
                   router.push(`/dashboard/invoices/${invoice.invoiceNumber}`)
                 }
-                className="cursor-pointer w-full text-center text-sm md:text-[1rem]"
+                className="cursor-pointer w-full text-center text-sm md:text-[1rem] hover:bg-stone-200"
               >
                 <td className="font-sans py-2">
                   {invoice.total + (invoice.outstanding || 0)}

@@ -8,8 +8,14 @@ import ScreenModal from "../shared/ScreenModal";
 import AddUserForm from "./AddUserForm";
 import ChangePasswordForm from "./ChangePasswordForm";
 import RemoveUserForm from "./RemoveUserForm";
+import DeletionConfirmation from "../shared/DeletionConfirmation";
 
-type ModalType = "ADD_USER" | "REMOVE_USER" | "CHANGE_PASSWORD" | null;
+type ModalType =
+  | "ADD_USER"
+  | "REMOVE_USER"
+  | "CHANGE_PASSWORD"
+  | "DELETE_CONFIRMATION"
+  | null;
 
 const UserActionButtons = () => {
   const [selectedModal, setSelectedModal] = useState<null | ModalType>(null);
@@ -30,6 +36,13 @@ const UserActionButtons = () => {
         return <RemoveUserForm />;
       case "CHANGE_PASSWORD":
         return <ChangePasswordForm />;
+      case "DELETE_CONFIRMATION":
+        return (
+          <DeletionConfirmation
+            handleClick={deleteAccount}
+            closeModal={closeModal}
+          />
+        );
       default:
         return null;
     }
@@ -39,6 +52,7 @@ const UserActionButtons = () => {
   const deleteAccount = async () => {
     try {
       setIsLoading(true);
+      closeModal();
       // API CALL
       await removeUser(session?.user?._id!, headers, session?.user?._id!);
     } catch (error) {
@@ -56,7 +70,11 @@ const UserActionButtons = () => {
     >
       {/* Form modal */}
       {selectedModal && (
-        <ScreenModal closeModal={closeModal} isForm>
+        <ScreenModal
+          closeModal={closeModal}
+          showCancel={selectedModal !== "DELETE_CONFIRMATION"}
+          isForm
+        >
           {renderModalContent()}
         </ScreenModal>
       )}
@@ -82,7 +100,9 @@ const UserActionButtons = () => {
       )}
 
       {/* User action buttons */}
-      <ActionButton onClick={deleteAccount}>Delete Account</ActionButton>
+      <ActionButton onClick={() => openModal("DELETE_CONFIRMATION")}>
+        Delete Account
+      </ActionButton>
       <ActionButton onClick={() => openModal("CHANGE_PASSWORD")}>
         Change Password
       </ActionButton>

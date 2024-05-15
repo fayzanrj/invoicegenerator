@@ -33,7 +33,7 @@ export const DELETE = async (
     // Finding user
     const userDetails = await User.findById(user.userId);
     // If requesting user's userid is not same as userid of to be deleted user
-    if (userDetails.userId !== userId) {
+    if (userDetails._id.toString() !== userId) {
       // If requesting user is not an adming
       if (!userDetails || userDetails.role !== "admin") {
         return ThrowUnAuthorizedError();

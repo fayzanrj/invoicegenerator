@@ -54,16 +54,14 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
       <div className="text-center w-1/6 inline-block align-middle font-sans">
         <div className="flex">
           {variant === "NEW_INVOICE" && (
-            <button className="removeList" onClick={() => removeItem(index)}>
+            <button className="NO_PRINT" onClick={() => removeItem(index)}>
               <IoMdClose />
             </button>
           )}
           <input
             value={fields.total}
             readOnly
-            className={`text-center w-full  min-h-12 border h-full align-middle rounded-lg font-sans inputBorder ${
-              variant === "VIEW_INVOICE" ? "outline-none" : ""
-            }`}
+            className="text-center w-full  min-h-12 border h-full align-middle rounded-lg font-sans inputBorder outline-none"
           />
         </div>
       </div>
@@ -91,20 +89,24 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
       />
 
       {/* Details  */}
-      <textarea
-        value={fields.details}
-        onChange={handleDetailsChange}
-        readOnly={variant === "VIEW_INVOICE"}
-        placeholder="...تفصیل لکھیں"
-        className={`w-[45%] border rounded-lg text-right pt-2.5 h-12 align-middle px-2 overflow-hidden relative placeholder:pt-2 mr-1 inputBorder ${
-          variant === "VIEW_INVOICE" ? "outline-none" : ""
-        }`}
-        spellCheck={false}
-      />
+      <div className="inline-block w-1/2 align-middle">
+        <div className="flex items-center">
+          <textarea
+            value={fields.details}
+            onChange={handleDetailsChange}
+            readOnly={variant === "VIEW_INVOICE"}
+            placeholder="...تفصیل لکھیں"
+            className={`w-full [ border rounded-lg text-right pt-2.5 h-12 align-middle px-2 overflow-hidden relative placeholder:pt-2 mr-1 inputBorder ${
+              variant === "VIEW_INVOICE" ? "outline-none" : ""
+            }`}
+            spellCheck={false}
+          />
 
-      <p className="inline-block align-middle font-sans text-right">
-        &#46;{index + 1}
-      </p>
+          <p className="inline-block align-middle font-sans text-right min-w-[9%]">
+            &#46;{index + 1}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
