@@ -9,6 +9,8 @@ import PrintAndDownloadButton from "./PrintAndDownloadButton";
 import SaveButton from "./SaveButton";
 import { FaPhone } from "react-icons/fa";
 import AmountInputField from "./AmountInputField";
+import DeleteButton from "./DeleteButton";
+import { useSession } from "next-auth/react";
 
 // Font
 const font = Noto_Nastaliq_Urdu({
@@ -57,6 +59,8 @@ const Invoice: React.FC<InvoiceProps> = ({
   const [outstandingAmount, setOutStandingAmount] =
     useState<number>(outstanding);
 
+  const { data: session } = useSession();
+
   // Fucntion to add a new item in the list
   const addItem = () => {
     const newItem: ItemProps = {
@@ -97,7 +101,7 @@ const Invoice: React.FC<InvoiceProps> = ({
     <>
       <div>
         {/* Button to save invoice in database */}
-        {variant === "NEW_INVOICE" && (
+        {variant === "NEW_INVOICE" ? (
           <SaveButton
             buyerName={buyer}
             date={date}
@@ -107,6 +111,10 @@ const Invoice: React.FC<InvoiceProps> = ({
             outstanding={outstandingAmount}
             note={invoiceNote}
           />
+        ) : (
+          session?.user?.role === "admin" && (
+            <DeleteButton invoiceNumber={invoiceNumber} />
+          )
         )}
         <PrintAndDownloadButton />
       </div>

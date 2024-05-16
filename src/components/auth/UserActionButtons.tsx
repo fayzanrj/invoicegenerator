@@ -39,6 +39,7 @@ const UserActionButtons = () => {
       case "DELETE_CONFIRMATION":
         return (
           <DeletionConfirmation
+            variant="ACCOUNT"
             handleClick={deleteAccount}
             closeModal={closeModal}
           />
