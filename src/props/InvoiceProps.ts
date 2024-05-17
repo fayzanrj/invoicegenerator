@@ -1,5 +1,4 @@
 import ItemProps from "./ItemProps";
-import UserProps from "./UserProps";
 
 interface InvoiceProps {
   invoiceNumber: number;

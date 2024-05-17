@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NextAuthProvider from "@/provider/NextAuthProvider";
 import { Toaster } from "sonner";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} overflow-y-auto`}>
         <NextAuthProvider>
+          <NextTopLoader color="#000000" zIndex={1600} />
           <Toaster
             position="top-right"
             toastOptions={{
