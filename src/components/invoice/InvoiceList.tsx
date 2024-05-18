@@ -10,6 +10,9 @@ interface InvoiceListProps {
   invoices: InvoiceProps[];
 }
 
+// Type for search options
+type searchForType = "invoiceNumber" | "date" | "buyer" | null;
+
 // Font
 const font = Noto_Nastaliq_Urdu({
   subsets: ["arabic"],
@@ -21,12 +24,30 @@ const InvoiceList: React.FC<InvoiceListProps> = ({ invoices }) => {
   const router = useRouter();
 
   // Function to search for an invoice
-  const searchInvoice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value) {
-      const query = event.target.value.trim();
-      const filtered = invoices.filter((invoice) =>
-        invoice.invoiceNumber.toString().includes(query)
-      );
+  const searchInvoice = (text: string, type: searchForType) => {
+    if (text && type) {
+      let filtered: InvoiceProps[] = [];
+      const query = text.trim();
+
+      // If search option is invoice number
+      if (type === "invoiceNumber") {
+        filtered = invoices.filter((invoice) =>
+          invoice.invoiceNumber.toString().includes(query)
+        );
+      }
+
+      // if search option is buyer
+      if (type === "buyer") {
+        filtered = invoices.filter((invoice) =>
+          invoice.buyerName.toLowerCase().includes(query.toLowerCase())
+        );
+      }
+
+      // if search option is date
+      if (type === "date") {
+        filtered = invoices.filter((invoice) => invoice.date === query);
+      }
+
       setFilteredInvoices(filtered);
     } else {
       setFilteredInvoices(invoices);
