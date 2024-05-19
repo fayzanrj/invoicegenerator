@@ -14,8 +14,8 @@ export const DELETE = async (
 ) => {
   try {
     const { invoiceNumber } = params;
-    // Checking is provided invoiceNumber is valid
-    if (invoiceNumber?.length !== 6) {
+    // Checking is invoiceNumber is provided
+    if (!invoiceNumber) {
       return ThrowServerError();
     }
 

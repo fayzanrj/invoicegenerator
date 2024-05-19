@@ -1,16 +1,20 @@
 "use client";
+import addZero from "@/libs/client/AddZero";
 import ItemProps from "@/props/ItemProps";
+import { useSession } from "next-auth/react";
 import { Noto_Nastaliq_Urdu } from "next/font/google";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { RiWhatsappFill } from "react-icons/ri";
+import DateInput from "../shared/DateInput";
 import AddItem from "./AddItem";
+import AmountInputField from "./AmountInputField";
+import CreateNew from "./CreateNew";
+import DeleteButton from "./DeleteButton";
 import DetailsListItem from "./DetailsListItem";
+import InvoiceNote from "./InvoiceNote";
 import PrintAndDownloadButton from "./PrintAndDownloadButton";
 import SaveButton from "./SaveButton";
-import { FaPhone } from "react-icons/fa";
-import AmountInputField from "./AmountInputField";
-import DeleteButton from "./DeleteButton";
-import { useSession } from "next-auth/react";
 
 // Font
 const font = Noto_Nastaliq_Urdu({
@@ -45,50 +49,60 @@ const Invoice: React.FC<InvoiceProps> = ({
       quantity: 0,
       rate: 0,
       total: 0,
+      date: `${addZero(new Date().getDate())}-${addZero(
+        new Date().getMonth() + 1
+      )}-${new Date().getFullYear()}`,
     },
   ],
-  date = `${new Date().getDate()}-${
+  date = `${addZero(new Date().getDate())}-${addZero(
     new Date().getMonth() + 1
-  }-${new Date().getFullYear()}`,
+  )}-${new Date().getFullYear()}`,
 }) => {
   // States
   const [itemsList, setItemsList] = useState<ItemProps[]>(list);
   const [totalAmount, setTotalAmount] = useState<number>(total);
   const [buyer, setBuyer] = useState(buyerName);
   const [invoiceNote, setInvoiceNote] = useState(note);
+  const [invoiceDate, setInvoiceDate] = useState(date);
   const [outstandingAmount, setOutStandingAmount] =
     useState<number>(outstanding);
 
+  // Getting session
   const { data: session } = useSession();
 
-  // Fucntion to add a new item in the list
+  // Function to add a new item in the list
   const addItem = () => {
     const newItem: ItemProps = {
       details: "",
       quantity: 0,
       rate: 0,
       total: 0,
+      date: `${addZero(new Date().getDate())}-${addZero(
+        new Date().getMonth() + 1
+      )}-${new Date().getFullYear()}`,
     };
-    setItemsList([...itemsList, newItem]);
+    setItemsList((prevItemsList) => [...prevItemsList, newItem]);
   };
 
-  // Function to updating a list item
-  const updateItem = (index: number, updatedItem: ItemProps) => {
-    const updatedItemsList = [...itemsList];
-    updatedItemsList[index] = updatedItem;
-    setItemsList(updatedItemsList);
-  };
+  // Function to update a list item
+  const updateItem = useCallback((index: number, updatedItem: ItemProps) => {
+    setItemsList((prevItemsList) => {
+      const updatedItemsList = [...prevItemsList];
+      updatedItemsList[index] = updatedItem;
+      return updatedItemsList;
+    });
+  }, []);
 
   // Function to remove list item from list array
-  const removeItem = (index: number) => {
+  const removeItem = useCallback((index: number) => {
     setItemsList((prevItemsList) => {
       const newItemsList = [...prevItemsList];
       newItemsList.splice(index, 1);
       return newItemsList;
     });
-  };
+  }, []);
 
-  // Calculating total every time outstanding payment ot itemslist changes
+  // Calculating total every time outstanding payment or itemsList changes
   useEffect(() => {
     let totalAmount = 0;
     itemsList.forEach((item) => {
@@ -100,11 +114,12 @@ const Invoice: React.FC<InvoiceProps> = ({
   return (
     <>
       <div>
+        <PrintAndDownloadButton />
         {/* Button to save invoice in database */}
         {variant === "NEW_INVOICE" ? (
           <SaveButton
             buyerName={buyer}
-            date={date}
+            date={invoiceDate}
             invoiceNumber={invoiceNumber}
             list={itemsList}
             total={totalAmount}
@@ -113,22 +128,24 @@ const Invoice: React.FC<InvoiceProps> = ({
           />
         ) : (
           session?.user?.role === "admin" && (
-            <DeleteButton invoiceNumber={invoiceNumber} />
+            <>
+              <DeleteButton invoiceNumber={invoiceNumber} />
+              <CreateNew />
+            </>
           )
         )}
-        <PrintAndDownloadButton />
       </div>
 
       {/* Invoice */}
       <div
-        className={`${font.className} mt-3 w-[40rem] min-h-[90] rounded-lg border border-gray-300 p-4`}
+        className={`${font.className} mt-3 w-[49rem] min-h-[90] rounded-lg border border-gray-300 p-4 `}
         id="print"
       >
         {/* HEADER */}
         <div className="flex justify-between">
           <p>
-            <span className="font-semibold font-sans">{invoiceNumber}</span>{" "}
-            #رسید نمبر
+            <span className="font-semibold font-sans">{invoiceNumber}</span> #بل
+            نمبر
           </p>
           <Image src={"/logo.jpg"} alt="logo" width={110} height={100} />
         </div>
@@ -141,25 +158,28 @@ const Invoice: React.FC<InvoiceProps> = ({
           </h2>
           {/* Address */}
           <p className="text-xs mt-4 mb-3">
-            گلی نمبر4، عثمان کالونی، نوشہرہ روڈ گوجرانوالہ
+            گلی نمبر4، عثمانِ غنی کالونی، نوشہرہ روڈ گوجرانوالہ
           </p>
           {/* Contact number */}
           <p className="text-xs font-sans font-semibold">
             0300-8112024
             <span className="ml-1.5">
-              <FaPhone className="inline-block align-middle" />
+              <RiWhatsappFill
+                size={"1.05rem"}
+                className="inline-block align-middle"
+              />
             </span>
           </p>
         </div>
 
         {/* Date and buyer */}
-        <div className="flex justify-between itemsList-center my-8">
-          {/* Date */}
-          <p>
-            <span className="font-sans font-semibold">{date}</span>
-            {"  "}
-            &#58; تاریخ
-          </p>
+        <div className="flex justify-between items-center my-8">
+          <DateInput
+            variant="INVOICE"
+            date={invoiceDate}
+            setDate={setInvoiceDate}
+            invoiceVariant={variant}
+          />
 
           <div>
             <input
@@ -176,7 +196,7 @@ const Invoice: React.FC<InvoiceProps> = ({
           </div>
         </div>
 
-        {/* ITEMSList LIST */}
+        {/* ITEMS LIST LIST */}
 
         {/* HEADERS */}
         <div className="w-full bg-black flex h-10 itemsList-center py-1.5">
@@ -232,21 +252,11 @@ const Invoice: React.FC<InvoiceProps> = ({
           </div>
 
           {/* Note */}
-          <div className="w-1/2 text-right">
-            <label htmlFor="invoiceNote" className="text-right pr-1">
-              نوٹ
-            </label>
-            <br />
-            <textarea
-              placeholder=""
-              value={invoiceNote}
-              onChange={(e) => setInvoiceNote(e.target.value)}
-              readOnly={variant === "VIEW_INVOICE"}
-              className={`text-sm w-full border rounded-lg text-right h-28 px-2 overflow-hidden placeholder:pt-2 mt-1 ${
-                variant === "VIEW_INVOICE" ? "outline-none" : ""
-              }`}
-            />
-          </div>
+          <InvoiceNote
+            variant={variant}
+            note={invoiceNote}
+            setNote={setInvoiceNote}
+          />
         </div>
       </div>
     </>

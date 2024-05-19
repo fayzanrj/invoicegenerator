@@ -1,4 +1,5 @@
 "use client";
+import addZero from "@/libs/client/AddZero";
 import { Noto_Nastaliq_Urdu } from "next/font/google";
 import React, { useCallback, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
@@ -26,9 +27,9 @@ const SearchInputField: React.FC<SearchInputFieldProps> = ({
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (searchFor === "date") {
       let date = new Date(e.currentTarget.value);
-      let dateToFind = `${date.getDate()}-${
+      let dateToFind = `${addZero(date.getDate())}-${addZero(
         date.getMonth() + 1
-      }-${date.getFullYear()}`;
+      )}-${date.getFullYear()}`;
 
       // Calling the searchInvoice function with formatted date
       searchInvoice(dateToFind, "date");
@@ -67,7 +68,7 @@ const SearchInputField: React.FC<SearchInputFieldProps> = ({
   const getPlaceHolder = useCallback(() => {
     switch (searchFor) {
       case "invoiceNumber":
-        return "رسید# سے تلاش کریں";
+        return "بل# سے تلاش کریں";
       case "buyer":
         return "خریدار سے تلاش کریں";
       default:
@@ -86,7 +87,7 @@ const SearchInputField: React.FC<SearchInputFieldProps> = ({
           className={`${font.className} outline-none`}
           onChange={handleSearchForChange}
         >
-          <option value="invoiceNumber">#رسید</option>
+          <option value="invoiceNumber">#بل</option>
           <option value="buyer">خریدار</option>
           <option value="date">تاریخ</option>
         </select>

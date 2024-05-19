@@ -1,6 +1,7 @@
-import ItemProps from "@/props/ItemProps";
 import React, { useState, useEffect, ChangeEvent, useMemo } from "react";
 import { IoMdClose } from "react-icons/io";
+import DateInput from "../shared/DateInput";
+import ItemProps from "@/props/ItemProps";
 
 // Props
 interface DetailsListItemProps {
@@ -41,13 +42,18 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
     setFields({ ...fields, details: newDetails });
   };
 
+  // Function to change date
+  const handleDateChange = (newDate: string) => {
+    setFields({ ...fields, date: newDate });
+  };
+
   useEffect(() => {
     const newTotal: number = fields.quantity * fields.rate;
     if (newTotal !== fields.total) {
       setFields((prevFields) => ({ ...prevFields, total: newTotal }));
-      memoizedUpdateItem(index, { ...fields, total: newTotal });
     }
-  }, [fields.quantity, fields.rate]);
+    memoizedUpdateItem(index, { ...fields, total: newTotal });
+  }, [fields, memoizedUpdateItem, index]);
 
   return (
     <div className="borderBottom border-stone-300 text-black min-h-12 my-2 align-middle">
@@ -61,12 +67,12 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
           <input
             value={fields.total}
             readOnly
-            className="text-center w-full  min-h-12 border h-full align-middle rounded-lg font-sans inputBorder outline-none"
+            className="text-center w-full min-h-12 border h-full align-middle rounded-lg font-sans inputBorder outline-none"
           />
         </div>
       </div>
 
-      {/* Quatity */}
+      {/* Quantity */}
       <input
         type="number"
         readOnly={variant === "VIEW_INVOICE"}
@@ -88,7 +94,7 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
         }`}
       />
 
-      {/* Details  */}
+      {/* Details */}
       <div className="inline-block w-1/2 align-middle">
         <div className="flex items-center">
           <textarea
@@ -96,10 +102,18 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
             onChange={handleDetailsChange}
             readOnly={variant === "VIEW_INVOICE"}
             placeholder="...تفصیل لکھیں"
-            className={`w-full [ border rounded-lg text-right pt-2.5 h-12 align-middle px-2 overflow-hidden relative placeholder:pt-2 mr-1 inputBorder ${
+            className={`w-full border rounded-lg text-right pt-2.5 h-12 align-middle px-2 overflow-hidden relative placeholder:pt-2 mr-1 ${
               variant === "VIEW_INVOICE" ? "outline-none" : ""
             }`}
             spellCheck={false}
+          />
+
+          {/* Date input to have a dynamic date */}
+          <DateInput
+            variant="DETAIL"
+            invoiceVariant={variant}
+            date={fields.date}
+            setDate={handleDateChange}
           />
 
           <p className="inline-block align-middle font-sans text-right min-w-[9%]">
@@ -111,4 +125,4 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
   );
 };
 
-export default DetailsListItem;
+export default React.memo(DetailsListItem);

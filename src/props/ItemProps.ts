@@ -5,6 +5,7 @@ interface ItemProps {
   quantity: number;
   rate: number;
   total: number;
+  date: string;
 }
 
 export default ItemProps;

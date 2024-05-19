@@ -65,7 +65,7 @@ const InvoiceList: React.FC<InvoiceListProps> = ({ invoices }) => {
           <th className="py-3 bg-black text-white w-1/4">گرینڈ ٹوٹل</th>
           <th className="bg-black text-white w-1/4">تاریخ</th>
           <th className="bg-black text-white w-1/4">خریدار</th>
-          <th className="bg-black text-white w-1/4">#رسید</th>
+          <th className="bg-black text-white w-1/4">#بل</th>
 
           {/* Invoices list */}
           {filteredInvoices.length > 0 ? (

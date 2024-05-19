@@ -21,6 +21,7 @@ const invoiceSchema = new Schema(
         quantity: Number,
         rate: Number,
         total: Number,
+        date: String,
       },
     ],
     note: {

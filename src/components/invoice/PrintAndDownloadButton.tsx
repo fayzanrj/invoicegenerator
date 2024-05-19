@@ -22,7 +22,7 @@ const PrintAndDownloadButton = () => {
       {/* Print button */}
       <button
         onClick={handlePrint}
-        className="py-2 px-2 mx-2 bg-blue-600 rounded-md font-semibold text-white NO_PRINT"
+        className="my-1 py-2 px-2 bg-blue-600 rounded-md font-semibold text-white NO_PRINT"
       >
         Print Invoice
       </button>
