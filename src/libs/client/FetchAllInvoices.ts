@@ -2,11 +2,12 @@ import InvoiceProps from "@/props/InvoiceProps";
 import { authOptions } from "@/utilities/AuthOptions";
 import { getServerSession } from "next-auth";
 
-const fetchAllInvoices = async () => {
+const fetchAllInvoices = async (type: "INVOICES" | "DRAFT") => {
   const session = await getServerSession(authOptions);
   try {
+    const fetchType = type === "DRAFT" ? "getDrafts" : "getInvoices";
     const response = await fetch(
-      `${process.env.HOST}/api/invoice/getInvoices`,
+      `${process.env.HOST}/api/invoice/${fetchType}`,
       {
         method: "GET",
         cache: "no-store",

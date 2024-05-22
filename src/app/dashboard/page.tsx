@@ -31,6 +31,11 @@ const Dashboard = async () => {
               View invoices
             </button>
           </Link>
+          <Link href={"/dashboard/drafts"}>
+            <button className="my-1 py-2.5 w-full max-w-56 bg-black text-white rounded-md mx-2">
+              View drafts
+            </button>
+          </Link>
         </section>
 
         <UserActionButtons />

@@ -5,6 +5,7 @@ import RefreshPage from "@/components/shared/RefreshPage";
 import ServerError from "@/components/shared/ServerError";
 import fetchInvoice from "@/libs/client/FetchInvoice";
 import { Metadata } from "next";
+import { redirect } from "next/dist/server/api-utils";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -20,18 +21,17 @@ interface InvoiceDetailsProps {
 const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
   const invoice = await fetchInvoice(params.invoiceNumber);
 
-  const href = "/dashboard/invoices";
+  const href = "/dashboard/drafts";
 
-  if (invoice === undefined)
-    return <ServerError label="Dashboard" href={href} />;
+  if (invoice === undefined) return <ServerError label="Drafts" href={href} />;
 
-  if (invoice === null || invoice.isDraft)
+  if (invoice === null || !invoice.isDraft)
     return <NotFound label="Drafts" href={href} />;
 
   return (
     <main className="flex flex-col p-4 md:items-center">
-      <BackButton label="Invoices" href={href} />
-      <Invoice variant="VIEW_INVOICE" {...invoice} />
+      <BackButton label="Drafts" href={href} />
+      <Invoice variant="DRAFT" {...invoice} />
       <RefreshPage />
     </main>
   );

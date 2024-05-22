@@ -9,7 +9,7 @@ interface DetailsListItemProps {
   item: ItemProps;
   updateItem: (index: number, updatedItem: ItemProps) => void;
   removeItem: (index: number) => void;
-  variant: "NEW_INVOICE" | "VIEW_INVOICE";
+  variant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
 }
 
 const DetailsListItem: React.FC<DetailsListItemProps> = ({
@@ -55,11 +55,14 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
     memoizedUpdateItem(index, { ...fields, total: newTotal });
   }, [fields, memoizedUpdateItem, index]);
 
+  // Determining if the input fields should be read-only
+  const isReadOnly = variant === "VIEW_INVOICE" || variant === "DRAFT";
+
   return (
     <div className="borderBottom border-stone-300 text-black min-h-12 my-2 align-middle">
       <div className="text-center w-1/6 inline-block align-middle font-sans">
         <div className="flex">
-          {variant === "NEW_INVOICE" && (
+          {(variant === "NEW_INVOICE" || variant === "EDIT_INVOICE") && (
             <button className="NO_PRINT" onClick={() => removeItem(index)}>
               <IoMdClose />
             </button>
@@ -75,22 +78,22 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
       {/* Quantity */}
       <input
         type="number"
-        readOnly={variant === "VIEW_INVOICE"}
+        readOnly={isReadOnly}
         value={fields.quantity}
         onChange={handleQuantityChange}
         className={`text-center w-[15.3%] min-h-12 border h-full align-middle mx-1 rounded-lg font-sans inputBorder ${
-          variant === "VIEW_INVOICE" ? "outline-none" : ""
+          isReadOnly ? "outline-none" : ""
         }`}
       />
 
       {/* Rate */}
       <input
         type="number"
-        readOnly={variant === "VIEW_INVOICE"}
+        readOnly={isReadOnly}
         value={fields.rate}
         onChange={handleRateChange}
         className={`w-[15.3%] border mr-1 min-h-12 rounded-lg align-middle font-sans h-full font-lg text-center inputBorder  ${
-          variant === "VIEW_INVOICE" ? "outline-none" : ""
+          isReadOnly ? "outline-none" : ""
         }`}
       />
 
@@ -100,10 +103,10 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
           <textarea
             value={fields.details}
             onChange={handleDetailsChange}
-            readOnly={variant === "VIEW_INVOICE"}
+            readOnly={isReadOnly}
             placeholder="...تفصیل لکھیں"
             className={`w-full border rounded-lg text-right pt-2.5 h-12 align-middle px-2 overflow-hidden relative placeholder:pt-2 mr-1 ${
-              variant === "VIEW_INVOICE" ? "outline-none" : ""
+              isReadOnly ? "outline-none" : ""
             }`}
             spellCheck={false}
           />

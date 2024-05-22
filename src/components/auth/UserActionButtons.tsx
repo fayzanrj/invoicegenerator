@@ -1,14 +1,14 @@
 "use client";
-import useHeaders from "@/app/hooks/useHeaders";
+import useHeaders from "@/hooks/useHeaders";
 import removeUser from "@/libs/client/RemoveUser";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
+import DeletionConfirmation from "../shared/DeletionConfirmation";
 import Loader from "../shared/Loader";
 import ScreenModal from "../shared/ScreenModal";
 import AddUserForm from "./AddUserForm";
 import ChangePasswordForm from "./ChangePasswordForm";
 import RemoveUserForm from "./RemoveUserForm";
-import DeletionConfirmation from "../shared/DeletionConfirmation";
 
 type ModalType =
   | "ADD_USER"

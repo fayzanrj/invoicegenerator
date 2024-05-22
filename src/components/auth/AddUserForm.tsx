@@ -1,5 +1,5 @@
 "use client";
-import useHeaders from "@/app/hooks/useHeaders";
+import useHeaders from "@/hooks/useHeaders";
 import handleApiError from "@/libs/server/HandleApiError";
 import {
   RegisterUserInputType,

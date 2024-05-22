@@ -1,5 +1,5 @@
 "use client";
-import useHeaders from "@/app/hooks/useHeaders";
+import useHeaders from "@/hooks/useHeaders";
 import handleApiError from "@/libs/server/HandleApiError";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -67,7 +67,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ invoiceNumber }) => {
 
       {/* Delete button */}
       <button
-        className="my-1 py-2 px-2 mx-2 bg-red-600 rounded-md font-semibold text-white NO_PRINT"
+        className="my-1 py-2 px-2  bg-red-600 rounded-md font-semibold text-white NO_PRINT"
         onClick={() => setIsModalOpen(true)}
       >
         Delete Invoice

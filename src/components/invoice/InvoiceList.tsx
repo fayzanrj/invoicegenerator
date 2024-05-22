@@ -8,6 +8,7 @@ import SearchInputField from "./SearchInputField";
 // Props
 interface InvoiceListProps {
   invoices: InvoiceProps[];
+  variant: "invoices" | "drafts";
 }
 
 // Type for search options
@@ -19,7 +20,7 @@ const font = Noto_Nastaliq_Urdu({
   weight: ["400", "600"],
 });
 
-const InvoiceList: React.FC<InvoiceListProps> = ({ invoices }) => {
+const InvoiceList: React.FC<InvoiceListProps> = ({ invoices, variant }) => {
   const [filteredInvoices, setFilteredInvoices] = useState(invoices);
   const router = useRouter();
 
@@ -73,7 +74,7 @@ const InvoiceList: React.FC<InvoiceListProps> = ({ invoices }) => {
               <tr
                 key={invoice.invoiceNumber}
                 onClick={() =>
-                  router.push(`/dashboard/invoices/${invoice.invoiceNumber}`)
+                  router.push(`/dashboard/${variant}/${invoice.invoiceNumber}`)
                 }
                 className="cursor-pointer w-full text-center text-sm md:text-[1rem] hover:bg-stone-200"
               >

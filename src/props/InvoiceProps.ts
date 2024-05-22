@@ -9,6 +9,7 @@ interface InvoiceProps {
   note?: string;
   outstanding?: number;
   createdBy?: string;
+  isDraft: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }

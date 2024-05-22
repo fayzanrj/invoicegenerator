@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 interface InvoiceNoteProps {
   note: string;
   setNote: React.Dispatch<React.SetStateAction<string>>;
-  variant: "VIEW_INVOICE" | "NEW_INVOICE";
+  variant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
 }
 
 const InvoiceNote: React.FC<InvoiceNoteProps> = ({
@@ -26,7 +26,7 @@ const InvoiceNote: React.FC<InvoiceNoteProps> = ({
   };
 
   // If the note is not being shown and the variant is "NEW_INVOICE", it is rendering the button to add a note
-  if (!showNote && variant === "NEW_INVOICE") {
+  if (!showNote && (variant === "NEW_INVOICE" || variant === "EDIT_INVOICE")) {
     return (
       <button
         onClick={openNote}
@@ -42,7 +42,7 @@ const InvoiceNote: React.FC<InvoiceNoteProps> = ({
     showNote && (
       <div className="w-1/2 text-right">
         {/* Close button for "NEW_INVOICE" variant */}
-        {variant === "NEW_INVOICE" && (
+        {(variant === "NEW_INVOICE" || variant === "EDIT_INVOICE") && (
           <button className="NO_PRINT" onClick={closeNote}>
             <IoMdClose />
           </button>
@@ -59,7 +59,9 @@ const InvoiceNote: React.FC<InvoiceNoteProps> = ({
           onChange={(e) => setNote(e.target.value)}
           readOnly={variant === "VIEW_INVOICE"}
           className={`text-sm w-full border rounded-lg text-right h-28 px-2 overflow-hidden placeholder:pt-2 mt-1 ${
-            variant === "VIEW_INVOICE" ? "outline-none" : ""
+            variant === "VIEW_INVOICE" || variant === "DRAFT"
+              ? "outline-none"
+              : ""
           }`}
         />
       </div>

@@ -1,20 +1,17 @@
 "use client";
 import addZero from "@/libs/client/AddZero";
 import ItemProps from "@/props/ItemProps";
-import { useSession } from "next-auth/react";
 import { Noto_Nastaliq_Urdu } from "next/font/google";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { RiWhatsappFill } from "react-icons/ri";
 import DateInput from "../shared/DateInput";
 import AddItem from "./AddItem";
 import AmountInputField from "./AmountInputField";
-import CreateNew from "./CreateNew";
-import DeleteButton from "./DeleteButton";
 import DetailsListItem from "./DetailsListItem";
+import InvoiceActionButtons from "./InvoiceActionButtons";
 import InvoiceNote from "./InvoiceNote";
-import PrintAndDownloadButton from "./PrintAndDownloadButton";
-import SaveButton from "./SaveButton";
 
 // Font
 const font = Noto_Nastaliq_Urdu({
@@ -25,13 +22,14 @@ const font = Noto_Nastaliq_Urdu({
 // Props
 interface InvoiceProps {
   invoiceNumber: number;
-  variant: "NEW_INVOICE" | "VIEW_INVOICE";
+  variant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
   total?: number;
   buyerName?: string;
   date?: string;
   list?: ItemProps[];
   outstanding?: number;
   note?: string;
+  isDraft?: boolean;
 }
 
 // Giving default values to each props and then passing it to states to give an initial value, in order to reuse same component for creating and displaying saved invoice
@@ -43,6 +41,7 @@ const Invoice: React.FC<InvoiceProps> = ({
   note = "",
   outstanding = 0,
   total = 0,
+  isDraft = false,
   list = [
     {
       details: "",
@@ -66,9 +65,12 @@ const Invoice: React.FC<InvoiceProps> = ({
   const [invoiceDate, setInvoiceDate] = useState(date);
   const [outstandingAmount, setOutStandingAmount] =
     useState<number>(outstanding);
+  const router = useRouter();
 
-  // Getting session
-  const { data: session } = useSession();
+  useLayoutEffect(() => {
+    if (variant === "EDIT_INVOICE" && !isDraft)
+      router.push("/dashboard/drafts");
+  }, []);
 
   // Function to add a new item in the list
   const addItem = () => {
@@ -113,28 +115,18 @@ const Invoice: React.FC<InvoiceProps> = ({
 
   return (
     <>
-      <div>
-        <PrintAndDownloadButton />
-        {/* Button to save invoice in database */}
-        {variant === "NEW_INVOICE" ? (
-          <SaveButton
-            buyerName={buyer}
-            date={invoiceDate}
-            invoiceNumber={invoiceNumber}
-            list={itemsList}
-            total={totalAmount}
-            outstanding={outstandingAmount}
-            note={invoiceNote}
-          />
-        ) : (
-          session?.user?.role === "admin" && (
-            <>
-              <DeleteButton invoiceNumber={invoiceNumber} />
-              <CreateNew />
-            </>
-          )
-        )}
-      </div>
+      {/* Button to save invoice in database */}
+      <InvoiceActionButtons
+        variant={variant}
+        buyerName={buyer}
+        date={invoiceDate}
+        invoiceNumber={invoiceNumber}
+        list={itemsList}
+        total={totalAmount}
+        outstanding={outstandingAmount}
+        note={invoiceNote}
+        isDraft={false}
+      />
 
       {/* Invoice */}
       <div
@@ -185,12 +177,14 @@ const Invoice: React.FC<InvoiceProps> = ({
             <input
               id="buyerName"
               className={`min-w-80 p-1 text-right h-12 border-gray-200 mr-2 mt-.5 outline-none ${
-                variant === "NEW_INVOICE" ? "border" : "border-0"
+                variant === "VIEW_INVOICE" || variant === "DRAFT"
+                  ? "border-0"
+                  : "border"
               }`}
               placeholder="خریدار کا نام"
               value={buyer}
               onChange={(e) => setBuyer(e.currentTarget.value)}
-              readOnly={variant === "VIEW_INVOICE"}
+              readOnly={variant === "VIEW_INVOICE" || variant === "DRAFT"}
             />
             <label htmlFor="buyerName">&#58; خریدار</label>
           </div>
@@ -210,7 +204,7 @@ const Invoice: React.FC<InvoiceProps> = ({
         {itemsList.length > -1 &&
           itemsList.map((item, index) => (
             <DetailsListItem
-              key={index}
+              key={item.total}
               index={index}
               item={item}
               variant={variant}
@@ -220,7 +214,9 @@ const Invoice: React.FC<InvoiceProps> = ({
           ))}
 
         {/* add item button */}
-        {variant === "NEW_INVOICE" && <AddItem handleClick={addItem} />}
+        {(variant === "NEW_INVOICE" || variant === "EDIT_INVOICE") && (
+          <AddItem handleClick={addItem} />
+        )}
 
         {/* Display total */}
         <div className="mt-4 flex justify-between">
@@ -237,7 +233,7 @@ const Invoice: React.FC<InvoiceProps> = ({
               label="سابقہ"
               value={outstandingAmount}
               setValue={setOutStandingAmount}
-              readOnly={variant === "VIEW_INVOICE"}
+              readOnly={variant === "VIEW_INVOICE" || variant === "DRAFT"}
             />
 
             <AmountInputField

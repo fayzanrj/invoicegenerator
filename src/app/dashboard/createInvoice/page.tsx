@@ -11,14 +11,13 @@ export const metadata: Metadata = {
 const CreateInvoice = async () => {
   const invoiceNumber: number | undefined = await GetInvoiceNumber();
 
+  if (!invoiceNumber)
+    return <ServerError label="Dashboard" href="/dashboard" />;
+
   return (
     <div className="min-h-svh overflow-y-auto flex flex-col p-4 md:items-center pb-10">
       <BackButton label="Dashboard" href="/dashboard" />
-      {invoiceNumber ? (
-        <Invoice invoiceNumber={invoiceNumber} variant={"NEW_INVOICE"} />
-      ) : (
-        <ServerError />
-      )}
+      <Invoice variant="NEW_INVOICE" invoiceNumber={invoiceNumber} />
     </div>
   );
 };

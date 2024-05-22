@@ -11,30 +11,29 @@ export const metadata: Metadata = {
   title: "Invoice",
 };
 
-interface InvoiceDetailsProps {
+interface EditInvoiceProps {
   params: {
     invoiceNumber: string;
   };
 }
 
-const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
+const EditInvoice: React.FC<EditInvoiceProps> = async ({ params }) => {
   const invoice = await fetchInvoice(params.invoiceNumber);
 
-  const href = "/dashboard/invoices";
+  const href = "/dashboard/drafts";
 
-  if (invoice === undefined)
-    return <ServerError label="Dashboard" href={href} />;
+  if (invoice === undefined) return <ServerError label="Drafts" href={href} />;
 
-  if (invoice === null || invoice.isDraft)
+  if (invoice === null || !invoice.isDraft)
     return <NotFound label="Drafts" href={href} />;
 
   return (
     <main className="flex flex-col p-4 md:items-center">
-      <BackButton label="Invoices" href={href} />
-      <Invoice variant="VIEW_INVOICE" {...invoice} />
+      <BackButton label="Invoices" href="/dashboard/invoices" />
+      <Invoice variant="EDIT_INVOICE" {...invoice} />
       <RefreshPage />
     </main>
   );
 };
 
-export default InvoiceDetails;
+export default EditInvoice;

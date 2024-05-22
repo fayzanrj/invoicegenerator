@@ -24,7 +24,7 @@ export const GET = async (req: NextRequest) => {
 
     // Finding all invoices and sorting by latest
     const invoices = await Invoice.find({
-      isDraft: false,
+      isDraft: true,
     }).sort({ date: -1 });
 
     // Response

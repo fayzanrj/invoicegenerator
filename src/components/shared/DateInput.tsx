@@ -6,7 +6,7 @@ interface DateInputProps {
   date: string;
   setDate: (newDate: string) => void;
   variant: "INVOICE" | "DETAIL";
-  invoiceVariant: "NEW_INVOICE" | "VIEW_INVOICE";
+  invoiceVariant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
 }
 
 const DateInput: React.FC<DateInputProps> = ({
@@ -43,7 +43,10 @@ const DateInput: React.FC<DateInputProps> = ({
 
   // Handling clicks on the text input to open the date picker
   const handleTextInputClick = () => {
-    if (invoiceVariant === "NEW_INVOICE" && datePickerRef.current) {
+    if (
+      (invoiceVariant === "NEW_INVOICE" || invoiceVariant === "EDIT_INVOICE") &&
+      datePickerRef.current
+    ) {
       if (isSafari) {
         // Focusing and clicking the date input for Safari
         datePickerRef.current.focus();

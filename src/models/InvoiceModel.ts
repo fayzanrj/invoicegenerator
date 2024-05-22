@@ -37,6 +37,9 @@ const invoiceSchema = new Schema(
     createdBy: {
       type: String,
     },
+    isDraft: {
+      type: Boolean,
+    },
   },
   { timestamps: true }
 );
