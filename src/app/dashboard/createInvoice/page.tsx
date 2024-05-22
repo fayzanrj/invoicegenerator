@@ -17,6 +17,9 @@ const CreateInvoice = async () => {
   return (
     <div className="min-h-svh overflow-y-auto flex flex-col p-4 md:items-center pb-10">
       <BackButton label="Dashboard" href="/dashboard" />
+      <h1 className="ml-2 md:ml-4 my-2 font-bold text-4xl self-start">
+        New Invoice
+      </h1>
       <Invoice variant="NEW_INVOICE" invoiceNumber={invoiceNumber} />
     </div>
   );

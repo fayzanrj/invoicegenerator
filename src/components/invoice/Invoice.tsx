@@ -204,7 +204,7 @@ const Invoice: React.FC<InvoiceProps> = ({
         {itemsList.length > -1 &&
           itemsList.map((item, index) => (
             <DetailsListItem
-              key={item.total}
+              key={item.total + index}
               index={index}
               item={item}
               variant={variant}

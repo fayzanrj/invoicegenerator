@@ -18,6 +18,7 @@ const Invoices = async () => {
   return (
     <main className="p-4">
       <BackButton label="Dashboard" href="/dashboard" />
+      <h1 className="ml-2 md:ml-4 my-2 font-bold text-4xl">INVOICES</h1>
       <InvoiceList variant="invoices" invoices={invoices} />
 
       <RefreshPage />

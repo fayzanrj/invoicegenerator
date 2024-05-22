@@ -29,7 +29,11 @@ const EditInvoice: React.FC<EditInvoiceProps> = async ({ params }) => {
 
   return (
     <main className="flex flex-col p-4 md:items-center">
-      <BackButton label="Invoices" href="/dashboard/invoices" />
+      <BackButton label="Drafts" href="/dashboard/drafts" />
+
+      <h1 className="ml-2 md:ml-4 my-2 font-bold text-4xl self-start">
+        EDIT DRAFT
+      </h1>
       <Invoice variant="EDIT_INVOICE" {...invoice} />
       <RefreshPage />
     </main>

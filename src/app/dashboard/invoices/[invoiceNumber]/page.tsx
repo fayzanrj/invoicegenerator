@@ -31,6 +31,10 @@ const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
   return (
     <main className="flex flex-col p-4 md:items-center">
       <BackButton label="Invoices" href={href} />
+
+      <h1 className="ml-2 md:ml-4 my-2 font-bold text-4xl self-start">
+        Invoice#{invoice.invoiceNumber}
+      </h1>
       <Invoice variant="VIEW_INVOICE" {...invoice} />
       <RefreshPage />
     </main>

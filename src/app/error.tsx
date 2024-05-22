@@ -2,7 +2,7 @@
 import ServerError from "@/components/shared/ServerError";
 
 const Error = () => {
-  return <ServerError />;
+  return <ServerError label="Dashboard" href="/dashboard" />;
 };
 
 export default Error;

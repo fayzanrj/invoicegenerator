@@ -17,6 +17,7 @@ const Drafts = async () => {
   return (
     <main className="p-4">
       <BackButton label="Dashboard" href="/dashboard" />
+      <h1 className="ml-2 md:ml-4 my-2 font-bold text-4xl">DRAFTS</h1>
       <InvoiceList variant="drafts" invoices={invoices} />
       <RefreshPage />
     </main>
