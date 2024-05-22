@@ -17,7 +17,7 @@ const AmountInputField: React.FC<AmountInputFieldProps> = ({
   readOnly = false,
 }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue && setValue(parseInt(e.currentTarget.value));
+    setValue && setValue(parseInt(e.currentTarget.value) || 0);
   };
 
   return (

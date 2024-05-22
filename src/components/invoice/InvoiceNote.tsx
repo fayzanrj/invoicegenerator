@@ -57,7 +57,7 @@ const InvoiceNote: React.FC<InvoiceNoteProps> = ({
           placeholder=""
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          readOnly={variant === "VIEW_INVOICE"}
+          readOnly={variant === "VIEW_INVOICE" || variant === "DRAFT"}
           className={`text-sm w-full border rounded-lg text-right h-28 px-2 overflow-hidden placeholder:pt-2 mt-1 ${
             variant === "VIEW_INVOICE" || variant === "DRAFT"
               ? "outline-none"
