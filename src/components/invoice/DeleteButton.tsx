@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import DeletionConfirmation from "../shared/DeletionConfirmation";
 import Loader from "../shared/Loader";
 import ScreenModal from "../shared/ScreenModal";
+import { useSession } from "next-auth/react";
 
 interface DeleteButtonProps {
   invoiceNumber: number;
@@ -18,6 +19,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ invoiceNumber }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const headers = useHeaders();
   const router = useRouter();
+  const { data: session } = useSession();
 
   // Process to delete invoice
   const handleClick = async () => {
@@ -66,12 +68,14 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ invoiceNumber }) => {
       )}
 
       {/* Delete button */}
-      <button
-        className="my-1 py-2 px-2  bg-red-600 rounded-md font-semibold text-white NO_PRINT"
-        onClick={() => setIsModalOpen(true)}
-      >
-        Delete Invoice
-      </button>
+      {session?.user.role === "admin" && (
+        <button
+          className="my-1 py-2 px-2  bg-red-600 rounded-md font-semibold text-white NO_PRINT"
+          onClick={() => setIsModalOpen(true)}
+        >
+          Delete Invoice
+        </button>
+      )}
     </>
   );
 };

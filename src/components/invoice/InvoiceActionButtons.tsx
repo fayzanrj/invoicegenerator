@@ -4,6 +4,8 @@ import SaveButton from "./SaveButton";
 import DeleteButton from "./DeleteButton";
 import PrintAndDownloadButton from "./PrintAndDownloadButton";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/utilities/AuthOptions";
 
 const CreateNewButton = () => (
   <Link href="/dashboard/createInvoice">
@@ -39,6 +41,7 @@ const InvoiceActionButtons: React.FC<InvoiceActionButtonsProps> = ({
 
       {(variant === "EDIT_INVOICE" || variant === "DRAFT") && (
         <>
+          <DeleteButton invoiceNumber={props.invoiceNumber} />
           <SaveButton variant={variant} {...props} />
           {variant === "DRAFT" && (
             <Link href={`/dashboard/drafts/${props.invoiceNumber}/edit`}>

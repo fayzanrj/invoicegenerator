@@ -5,20 +5,23 @@ import RefreshPage from "@/components/shared/RefreshPage";
 import ServerError from "@/components/shared/ServerError";
 import fetchInvoice from "@/libs/client/FetchInvoice";
 import { Metadata } from "next";
-import { redirect } from "next/dist/server/api-utils";
 import React from "react";
 
-export const metadata: Metadata = {
-  title: "Invoice",
-};
-
-interface InvoiceDetailsProps {
+// Props
+interface DraftDetailsProps {
   params: {
     invoiceNumber: string;
   };
 }
 
-const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
+// Function to generate dynamic page title
+export async function generateMetadata({
+  params,
+}: DraftDetailsProps): Promise<Metadata> {
+  return { title: `Invoice#${params.invoiceNumber}(Draft)` };
+}
+
+const DraftDetails: React.FC<DraftDetailsProps> = async ({ params }) => {
   const invoice = await fetchInvoice(params.invoiceNumber);
 
   const href = "/dashboard/drafts";
@@ -31,7 +34,7 @@ const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
   return (
     <main className="flex flex-col p-4 md:items-center">
       <BackButton label="Drafts" href={href} />
-      <h1 className="ml-2 md:ml-4 my-2 font-bold text-4xl self-start">
+      <h1 className="ml-2 md:ml-4 my-2 font-bold text-4xl self-start NO_PRINT">
         Invoice#{invoice.invoiceNumber} <span className="text-xl">(Draft)</span>
       </h1>
       <Invoice variant="DRAFT" {...invoice} />
@@ -40,4 +43,4 @@ const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
   );
 };
 
-export default InvoiceDetails;
+export default DraftDetails;

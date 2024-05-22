@@ -7,14 +7,18 @@ import fetchInvoice from "@/libs/client/FetchInvoice";
 import { Metadata } from "next";
 import React from "react";
 
-export const metadata: Metadata = {
-  title: "Invoice",
-};
-
+// Props
 interface InvoiceDetailsProps {
   params: {
     invoiceNumber: string;
   };
+}
+
+// Function to generate dynamic page title
+export async function generateMetadata({
+  params,
+}: InvoiceDetailsProps): Promise<Metadata> {
+  return { title: `Invoice#${params.invoiceNumber}` };
 }
 
 const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
@@ -32,7 +36,7 @@ const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
     <main className="flex flex-col p-4 md:items-center">
       <BackButton label="Invoices" href={href} />
 
-      <h1 className="ml-2 md:ml-4 my-2 font-bold text-4xl self-start">
+      <h1 className="ml-2 md:ml-4 my-2 font-bold text-4xl self-start NO_PRINT">
         Invoice#{invoice.invoiceNumber}
       </h1>
       <Invoice variant="VIEW_INVOICE" {...invoice} />

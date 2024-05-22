@@ -2,7 +2,7 @@ import LogInForm from "@/components/auth/LogInForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Log in",
+  title: "Gulshan Steels",
 };
 
 export default function Home() {
