@@ -10,6 +10,7 @@ import InvoiceActionButtons from "./InvoiceActionButtons";
 import InvoiceDetailsList from "./InvoiceDetailsList";
 import InvoiceNote from "./InvoiceNote";
 import TotalAndSignature from "./TotalAndSignature";
+import { v4 as uuidv4 } from "uuid";
 
 // Function to get latest date
 const getDate = () =>
@@ -48,6 +49,7 @@ const Invoice: React.FC<InvoiceProps> = ({
   isDraft = false,
   list = [
     {
+      id: uuidv4(),
       details: "",
       quantity: 0,
       rate: 0,
@@ -69,6 +71,7 @@ const Invoice: React.FC<InvoiceProps> = ({
   // Function to add a new item in the list
   const addItem = () => {
     const newItem: ItemProps = {
+      id: uuidv4(),
       details: "",
       quantity: 0,
       rate: 0,

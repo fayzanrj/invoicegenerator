@@ -33,7 +33,7 @@ const InvoiceDetailsList: React.FC<InvoiceDetailsListProps> = ({
       {items.length > -1 &&
         items.map((item, index) => (
           <DetailsListItem
-            key={item.total + index + item.date}
+            key={item.id}
             index={index}
             item={item}
             variant={variant}

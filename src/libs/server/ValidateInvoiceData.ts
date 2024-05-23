@@ -15,6 +15,7 @@ const validateInvoiceData = (data: InvoiceProps) => {
   // Checking if each item in the list is valid
   for (const item of list) {
     if (
+      typeof item.id !== "string" ||
       typeof item.details !== "string" ||
       typeof item.quantity !== "number" ||
       typeof item.rate !== "number" ||

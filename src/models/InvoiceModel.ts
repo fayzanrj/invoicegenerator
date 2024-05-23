@@ -17,6 +17,7 @@ const invoiceSchema = new Schema(
     },
     list: [
       {
+        id: String,
         details: String,
         quantity: Number,
         rate: Number,
