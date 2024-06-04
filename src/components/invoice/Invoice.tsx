@@ -110,7 +110,7 @@ const Invoice: React.FC<InvoiceProps> = ({
 
   return (
     <>
-      {/* Button to save invoice in database */}
+      {/* All Invoice buttons */}
       <InvoiceActionButtons
         variant={variant}
         buyerName={buyer}

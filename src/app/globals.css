@@ -6,18 +6,6 @@ textarea {
   direction: rtl;
 }
 
-.no-arrow {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  line-height: 2rem;
-  height: 3rem;
-}
-
-.placeholder:disabled {
-  display: none;
-}
-
 .CENTER {
   position: absolute;
   top: 50%;
@@ -104,12 +92,10 @@ input[type="number"] {
     display: none;
   }
 
-  select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    line-height: 2rem;
-    height: 3rem;
+  input[list]::-webkit-calendar-picker-indicator,
+  input[list]::-webkit-list-button {
+    display: none;
+    opacity: 0 !important;
   }
 
   .NOTE {

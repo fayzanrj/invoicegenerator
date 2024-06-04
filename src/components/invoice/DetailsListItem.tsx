@@ -38,7 +38,7 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
   };
 
   // Function to change details
-  const handleDetailsChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleDetailsChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newDetails: string = e.target.value;
     setFields({ ...fields, details: newDetails });
   };
@@ -101,24 +101,24 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
       {/* Details */}
       <div className="inline-block w-1/2 align-middle">
         <div className="flex items-center">
-          <select
-            id="details"
+          <input
             value={fields.details}
             onChange={handleDetailsChange}
-            className={`w-full border rounded-lg text-right h-12 align-middle px-2 overflow-hidden relative mr-1 disabled:opacity-100 ${
-              isReadOnly ? "outline-none no-arrow" : ""
-            } `}
-            disabled={isReadOnly}
-          >
-            <option value={""} selected disabled className="placeholder">
-              تفصیل لکھیں
-            </option>
+            readOnly={isReadOnly}
+            placeholder="...تفصیل لکھیں"
+            className={`w-full border rounded-lg text-right h-12 align-middle px-2 overflow-hidden relative placeholder:pt-2 mr-1 ${
+              isReadOnly ? "outline-none" : ""
+            }`}
+            spellCheck={false}
+            list="allProducts"
+          />
+          <datalist id="allProducts">
             {AllProducts.map((product, index) => (
-              <option key={index} value={product} disabled={!product}>
+              <option key={index} value={product}>
                 {product}
               </option>
             ))}
-          </select>
+          </datalist>
 
           {/* Date input to have a dynamic date */}
           <DateInput
