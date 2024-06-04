@@ -6,6 +6,18 @@ textarea {
   direction: rtl;
 }
 
+.no-arrow {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  line-height: 2rem;
+  height: 3rem;
+}
+
+.placeholder:disabled {
+  display: none;
+}
+
 .CENTER {
   position: absolute;
   top: 50%;
@@ -90,6 +102,14 @@ input[type="number"] {
   input::placeholder,
   textarea::placeholder {
     display: none;
+  }
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    line-height: 2rem;
+    height: 3rem;
   }
 
   .NOTE {

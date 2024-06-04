@@ -19,7 +19,8 @@ const validateInvoiceData = (data: InvoiceProps) => {
       typeof item.details !== "string" ||
       typeof item.quantity !== "number" ||
       typeof item.rate !== "number" ||
-      typeof item.total !== "number"
+      typeof item.total !== "number" ||
+      item.details === ""
     ) {
       return false;
     }
