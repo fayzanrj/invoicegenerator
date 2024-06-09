@@ -22,10 +22,10 @@ export const GET = async (req: NextRequest) => {
     const isConnected = await connectToDB();
     if (!isConnected) throw ThrowServerError();
 
-    // Finding all invoices and sorting by latest
+    // Finding all drafts and sorting by latest
     const invoices = await Invoice.find({
       isDraft: true,
-    }).sort({ date: -1 });
+    }).sort({ invoiceNumber: -1 });
 
     // Response
     return NextResponse.json({ invoices });

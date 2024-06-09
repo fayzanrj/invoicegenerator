@@ -27,13 +27,13 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
 
   // Function to change rate
   const handleRateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newRate: number = parseFloat(e.target.value) || 0;
+    const newRate: number = Number.parseFloat(e.target.value) || 0;
     setFields({ ...fields, rate: newRate });
   };
 
   // Function to change quantity
   const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newQuantity: number = parseInt(e.target.value) || 0;
+    const newQuantity: number = Number.parseFloat(e.target.value) || 0;
     setFields({ ...fields, quantity: newQuantity });
   };
 
@@ -76,24 +76,26 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
         </div>
       </div>
 
-      {/* Quantity */}
-      <input
-        type="number"
-        readOnly={isReadOnly}
-        value={fields.quantity}
-        onChange={handleQuantityChange}
-        className={`text-center w-[15.3%] min-h-12 border h-full align-middle mx-1 rounded-lg font-sans inputBorder ${
-          isReadOnly ? "outline-none" : ""
-        }`}
-      />
-
       {/* Rate */}
       <input
         type="number"
         readOnly={isReadOnly}
-        value={fields.rate}
+        aria-label="rate"
+        value={fields.rate.toString()}
         onChange={handleRateChange}
         className={`w-[15.3%] border mr-1 min-h-12 rounded-lg align-middle font-sans h-full font-lg text-center inputBorder  ${
+          isReadOnly ? "outline-none" : ""
+        }`}
+      />
+
+      {/* Quantity */}
+      <input
+        type="number"
+        aria-label="quantity"
+        readOnly={isReadOnly}
+        value={fields.quantity.toString()}
+        onChange={handleQuantityChange}
+        className={`text-center w-[15.3%] min-h-12 border h-full align-middle mx-1 rounded-lg font-sans inputBorder ${
           isReadOnly ? "outline-none" : ""
         }`}
       />
