@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ItemProps {
   id?: string;
   details: string;
@@ -7,6 +5,7 @@ interface ItemProps {
   rate: number;
   total: number;
   date: string;
+  builtyNo?: string
 }
 
 export default ItemProps;

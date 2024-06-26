@@ -23,9 +23,10 @@ const InvoiceDetailsList: React.FC<InvoiceDetailsListProps> = ({
     <>
       {/* Detail headers */}
       <div className="w-full bg-black flex h-10 py-1.5">
-        <p className="text-white w-1/6 text-center">روپے</p>
-        <p className="text-white w-1/6 text-center">ریٹ</p>
-        <p className="text-white w-1/6 text-center">مقدار</p>
+        <p className="text-white w-[15%] text-center">بلٹی نمبر</p>
+        <p className="text-white w-[15%] text-center">روپے</p>
+        <p className="text-white w-[10%] text-center">ریٹ</p>
+        <p className="text-white w-[10%] text-center">مقدار</p>
         <p className="text-white w-3/6 text-center">تفصیل</p>
       </div>
 

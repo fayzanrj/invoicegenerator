@@ -25,7 +25,7 @@ const font = Noto_Nastaliq_Urdu({
 });
 
 // Props
-interface InvoiceProps {
+interface InvoiceFormProps {
   invoiceNumber: number;
   variant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
   total?: number;
@@ -35,11 +35,22 @@ interface InvoiceProps {
   outstanding?: number;
   note?: string;
   isDraft?: boolean;
+  builtyNo?: string;
 }
+
+let EmptyListItem: ItemProps = {
+  id: uuidv4(),
+  details: "",
+  quantity: 0,
+  rate: 0,
+  total: 0,
+  date: getDate(),
+  builtyNo: "",
+};
 
 // Giving default values to each props and then passing it to states to give an initial value, in order to reuse same component for creating and displaying saved invoice
 
-const Invoice: React.FC<InvoiceProps> = ({
+const Invoice: React.FC<InvoiceFormProps> = ({
   invoiceNumber,
   variant,
   buyerName = "",
@@ -47,16 +58,7 @@ const Invoice: React.FC<InvoiceProps> = ({
   outstanding = 0,
   total = 0,
   isDraft = false,
-  list = [
-    {
-      id: uuidv4(),
-      details: "",
-      quantity: 0,
-      rate: 0,
-      total: 0,
-      date: getDate(),
-    },
-  ],
+  list = [EmptyListItem],
   date = getDate(),
 }) => {
   // States
@@ -70,15 +72,9 @@ const Invoice: React.FC<InvoiceProps> = ({
 
   // Function to add a new item in the list
   const addItem = () => {
-    const newItem: ItemProps = {
-      id: uuidv4(),
-      details: "",
-      quantity: 0,
-      rate: 0,
-      total: 0,
-      date: getDate(),
-    };
-    setItemsList((prevItemsList) => [...prevItemsList, newItem]);
+    const newId = uuidv4();
+    EmptyListItem = { ...EmptyListItem, id: newId };
+    setItemsList((prevItemsList) => [...prevItemsList, EmptyListItem]);
   };
 
   // Function to update a list item

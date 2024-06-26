@@ -23,6 +23,10 @@ const invoiceSchema = new Schema(
         rate: Number,
         total: Number,
         date: String,
+        builtyNo: {
+          type: String,
+          required: false
+        }
       },
     ],
     note: {

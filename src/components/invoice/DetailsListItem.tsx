@@ -25,6 +25,12 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
   // Memoizing the updateItem function to prevent unnecessary re-renders
   const memoizedUpdateItem = useMemo(() => updateItem, []);
 
+  // Function to change builty number
+  const handleBuiltyChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newBuiltyNo: string = e.target.value;
+    setFields({ ...fields, builtyNo: newBuiltyNo });
+  };
+
   // Function to change rate
   const handleRateChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newRate: number = Number.parseFloat(e.target.value) || 0;
@@ -61,13 +67,26 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
 
   return (
     <div className="borderBottom border-stone-300 text-black min-h-12 my-2 align-middle">
-      <div className="text-center w-1/6 inline-block align-middle font-sans">
-        <div className="flex">
+      <div className="text-center w-[29%] inline-block align-middle font-sans">
+        <div className="flex gap-1">
+          {/* DELETE INVOICE BUTTON */}
           {(variant === "NEW_INVOICE" || variant === "EDIT_INVOICE") && (
             <button className="NO_PRINT" onClick={() => removeItem(index)}>
               <IoMdClose />
             </button>
           )}
+
+          {/* Builty number input field */}
+          <input
+            type="text"
+            readOnly={isReadOnly}
+            aria-label="builtyNo"
+            onChange={handleBuiltyChange}
+            value={fields.builtyNo}
+            className="text-center w-full min-h-12 border h-full align-middle rounded-lg font-sans inputBorder outline-none"
+          />
+
+          {/* Total input field */}
           <input
             value={fields.total}
             readOnly
@@ -83,7 +102,7 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
         aria-label="rate"
         value={fields.rate.toString()}
         onChange={handleRateChange}
-        className={`w-[15.3%] border mr-1 min-h-12 rounded-lg align-middle font-sans h-full font-lg text-center inputBorder  ${
+        className={`w-[10%] border mx-1 min-h-12 rounded-lg align-middle font-sans h-full font-lg text-center inputBorder  ${
           isReadOnly ? "outline-none" : ""
         }`}
       />
@@ -95,13 +114,13 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
         readOnly={isReadOnly}
         value={fields.quantity.toString()}
         onChange={handleQuantityChange}
-        className={`text-center w-[15.3%] min-h-12 border h-full align-middle mx-1 rounded-lg font-sans inputBorder ${
+        className={`text-center w-[10%] min-h-12 border h-full align-middle mr-1 rounded-lg font-sans inputBorder ${
           isReadOnly ? "outline-none" : ""
         }`}
       />
 
       {/* Details */}
-      <div className="inline-block w-1/2 align-middle">
+      <div className="inline-block w-[48%] align-middle">
         <div className="flex items-center">
           <input
             value={fields.details}
