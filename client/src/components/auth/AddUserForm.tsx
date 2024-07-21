@@ -15,7 +15,9 @@ import FormLayout from "./FormLayout";
 import RoleSelectInput from "./RoleSelectInput";
 
 const AddUserForm = () => {
+  // State
   const [isLoading, setIsLoading] = useState(false);
+  // Headers
   const headers = useHeaders();
 
   // React-hook-form
@@ -32,6 +34,7 @@ const AddUserForm = () => {
 
   // Form Submition
   const processForm: SubmitHandler<RegisterUserInputType> = async (data) => {
+    // Destructuring
     const { confirmPassword, password } = data;
 
     // Checing if confirm password is same as password

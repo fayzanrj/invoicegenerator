@@ -1,10 +1,12 @@
 import React from "react";
 
+// Props
 interface AuthInputLabelProps {
   label: string;
   errors: any;
   id: string;
 }
+
 const AuthInputLabel: React.FC<AuthInputLabelProps> = ({
   errors,
   id,

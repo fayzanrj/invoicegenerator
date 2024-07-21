@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { IoEye, IoEyeOff } from "react-icons/io5";
 import AuthInputLabel from "./AuthInputLabel";
+import ShowPasswordButton from "./ShowPasswordButton";
 
 // Props
 interface AuthInputFieldProps {
@@ -23,10 +23,11 @@ const AuthInputField: React.FC<AuthInputFieldProps> = ({
   register,
   disabled,
 }) => {
+  // State
   const [inputType, setInputType] = useState(type);
 
   // Function to toggle password visibility
-  const showPassword = () =>
+  const togglePassword = () =>
     setInputType((prev) => (prev === "password" ? "text" : "password"));
 
   return (
@@ -47,18 +48,7 @@ const AuthInputField: React.FC<AuthInputFieldProps> = ({
 
         {/* Show password button */}
         {type === "password" && (
-          <button
-            onClick={showPassword}
-            type="button"
-            className="absolute -translate-y-1/2 right-3 top-1/2"
-          >
-            {/* Toggling eye icon based on password visibility */}
-            {inputType === "password" ? (
-              <IoEye color={"#000000"} size={"1.2rem"} />
-            ) : (
-              <IoEyeOff color={"#000000"} size={"1.2rem"} />
-            )}
-          </button>
+          <ShowPasswordButton inputType={inputType} onClick={togglePassword} />
         )}
       </div>
     </div>

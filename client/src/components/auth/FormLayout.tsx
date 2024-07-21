@@ -1,6 +1,7 @@
 import React, { FormEvent } from "react";
 import Loader from "../shared/Loader";
 import Image from "next/image";
+import ButtonLayout from "../shared/ButtonLayout";
 
 // Props
 interface FormLayoutProps {
@@ -22,7 +23,7 @@ const FormLayout: React.FC<FormLayoutProps> = ({
       onSubmit={handleSubmit}
     >
       {/* Heading */}
-      <div className="flex justify-between items-center px-4">
+      <section className="flex justify-between items-center px-4">
         {variant === "LOG IN" && (
           <Image
             src={"/logo.jpg"}
@@ -35,16 +36,13 @@ const FormLayout: React.FC<FormLayoutProps> = ({
         )}
 
         <h3 className="text-2xl font-semibold">{variant}</h3>
-      </div>
+      </section>
 
-      <div className="py-6 text-left">{children}</div>
+      <section className="py-6 text-left">{children}</section>
 
-      <button
-        disabled={isLoading}
-        className="w-full h-10 text-lg rounded-lg font-semibold bg-black text-white disabled:opacity-50 relative"
-      >
+      <ButtonLayout type="submit" disabled={isLoading} fullWidth>
         {isLoading ? <Loader /> : variant}
-      </button>
+      </ButtonLayout>
     </form>
   );
 };

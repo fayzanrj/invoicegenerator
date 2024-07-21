@@ -1,6 +1,7 @@
 import Invoice from "@/components/invoice/Invoice";
 import BackButton from "@/components/shared/BackButton";
 import NotFound from "@/components/shared/NotFound";
+import PageHeading from "@/components/shared/PageHeading";
 import RefreshPage from "@/components/shared/RefreshPage";
 import ServerError from "@/components/shared/ServerError";
 import fetchInvoice from "@/libs/FetchInvoice";
@@ -22,24 +23,31 @@ export async function generateMetadata({
 }
 
 const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
+  // Fetching a specific invoice
   const invoice = await fetchInvoice(params.invoiceNumber);
+  // Href for errors
+  const href = "/dashboard/drafts";
 
-  const href = "/dashboard/invoices";
-
+  // If error occurs while fetching invoice
   if (invoice === undefined)
-    return <ServerError label="Dashboard" href={href} />;
+    return <ServerError label="Invoices" href={href} />;
 
+  // If invoice is not found || invoice is drafts (as it is not drafts page)
   if (invoice === null || invoice.isDraft)
-    return <NotFound label="Drafts" href={href} />;
+    return <NotFound label="Invoices" href={href} />;
 
   return (
     <main className="flex flex-col p-4 md:items-center">
-      <BackButton label="Invoices" href={href} />
+      {/* BACK NAVIGATION BUTTON */}
+      <BackButton label="Drafts" href={href} />
 
-      <h1 className="ml-2 md:ml-4 my-2 font-bold text-4xl self-start NO_PRINT">
-        Invoice#{invoice.invoiceNumber}
-      </h1>
-      <Invoice variant="VIEW_INVOICE" {...invoice} />
+      {/* HEADING*/}
+      <PageHeading name={`Invoice#${invoice.invoiceNumber} `} />
+
+      {/* INVOICE DATA */}
+      <Invoice variant="DRAFT" {...invoice} />
+
+      {/* COMPONENT TO REFRESH PAGE ON EVERY MOUNT */}
       <RefreshPage />
     </main>
   );

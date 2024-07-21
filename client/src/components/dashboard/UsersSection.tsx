@@ -3,13 +3,16 @@ import useHeaders from "@/hooks/useHeaders";
 import removeUser from "@/libs/RemoveUser";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
+import AddUserForm from "../auth/AddUserForm";
+import ChangePasswordForm from "../auth/ChangePasswordForm";
+import RemoveUserForm from "../auth/RemoveUserForm";
+import ButtonLayout from "../shared/ButtonLayout";
 import DeletionConfirmation from "../shared/DeletionConfirmation";
-import Loader from "../shared/Loader";
+import ScreenLoader from "../shared/ScreenLoader";
 import ScreenModal from "../shared/ScreenModal";
-import AddUserForm from "./AddUserForm";
-import ChangePasswordForm from "./ChangePasswordForm";
-import RemoveUserForm from "./RemoveUserForm";
+import SectionHeading from "./SectionHeading";
 
+// User modal type
 type ModalType =
   | "ADD_USER"
   | "REMOVE_USER"
@@ -17,9 +20,12 @@ type ModalType =
   | "DELETE_CONFIRMATION"
   | null;
 
-const UserActionButtons = () => {
+const UsersSection = () => {
+  // States
   const [selectedModal, setSelectedModal] = useState<null | ModalType>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Hooks
   const { data: session } = useSession();
   const headers = useHeaders();
 
@@ -69,26 +75,10 @@ const UserActionButtons = () => {
         session?.user?.role === "admin" ? "sm:text-center" : "sm:text-left"
       }`}
     >
-      {/* Form modal */}
-      {selectedModal && (
-        <ScreenModal
-          closeModal={closeModal}
-          showCancel={selectedModal !== "DELETE_CONFIRMATION"}
-          isForm
-        >
-          {renderModalContent()}
-        </ScreenModal>
-      )}
-
-      {/* Loading modal */}
-      {isLoading && (
-        <ScreenModal isLoader>
-          <Loader />
-        </ScreenModal>
-      )}
-
       {/* Admin action buttons */}
-      <h3 className="text-xl my-2 font-semibold text-left">Users</h3>
+      <SectionHeading name="Users" />
+
+      {/* ONLY IF LOGGED IN USER IS ADMIN */}
       {session?.user?.role === "admin" && (
         <>
           <ActionButton onClick={() => openModal("ADD_USER")}>
@@ -100,18 +90,32 @@ const UserActionButtons = () => {
         </>
       )}
 
-      {/* User action buttons */}
+      {/* ALL USER BUTTONS*/}
       <ActionButton onClick={() => openModal("DELETE_CONFIRMATION")}>
         Delete Account
       </ActionButton>
       <ActionButton onClick={() => openModal("CHANGE_PASSWORD")}>
         Change Password
       </ActionButton>
+
+      {/* ACTION MODAL */}
+      {selectedModal && (
+        <ScreenModal
+          closeModal={closeModal}
+          showCancel={selectedModal !== "DELETE_CONFIRMATION"}
+          isForm
+        >
+          {renderModalContent()}
+        </ScreenModal>
+      )}
+
+      {/* LOADING MODAL */}
+      {isLoading && <ScreenLoader />}
     </section>
   );
 };
 
-export default UserActionButtons;
+export default UsersSection;
 
 // Action button props
 interface ActionButtonProps {
@@ -120,10 +124,7 @@ interface ActionButtonProps {
 }
 
 const ActionButton: React.FC<ActionButtonProps> = ({ children, onClick }) => (
-  <button
-    onClick={onClick}
-    className="my-1 h-10 w-full max-w-36 text-sm bg-black text-white rounded-md mx-1 relative"
-  >
+  <ButtonLayout onClick={onClick} fullWidth className="max-w-36 text-sm !h-10">
     {children}
-  </button>
+  </ButtonLayout>
 );

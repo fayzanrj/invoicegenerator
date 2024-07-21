@@ -21,8 +21,9 @@ const RemoveUserForm = () => {
   const [selectedUser, setSelectedUser] = useState<UserProps | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Hooks
   const { data: session } = useSession();
-  // Headers
   const headers = useHeaders();
 
   useEffect(() => {
@@ -37,13 +38,14 @@ const RemoveUserForm = () => {
       }
     };
 
+    // Calling function
     fetchUsers();
   }, []);
 
   // Function to closemodal
   const closeModal = () => setIsModalOpen(false);
 
-  // Handle clic
+  // Handling click
   const handleRemove = async () => {
     if (!selectedUser) {
       return;
@@ -52,8 +54,10 @@ const RemoveUserForm = () => {
     try {
       setIsLoading(true);
       closeModal();
+      
       // API CALL
       await removeUser(selectedUser._id, headers, session?.user._id!);
+      
       // Removing user from user's list
       setUsers((prev) => prev.filter((user) => user._id !== selectedUser._id));
       setSelectedUser(null);

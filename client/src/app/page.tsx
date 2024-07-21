@@ -1,6 +1,7 @@
 import LogInForm from "@/components/auth/LogInForm";
 import { Metadata } from "next";
 
+// Metadata
 export const metadata: Metadata = {
   title: "Gulshan Steels",
 };

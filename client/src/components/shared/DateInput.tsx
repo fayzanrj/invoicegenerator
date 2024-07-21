@@ -2,6 +2,7 @@
 import addZero from "@/libs/AddZero";
 import React, { useRef } from "react";
 
+// Props
 interface DateInputProps {
   date: string;
   setDate: (newDate: string) => void;
@@ -9,10 +10,12 @@ interface DateInputProps {
   invoiceVariant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
 }
 
+const currentDate = `${addZero(new Date().getDate())}-${addZero(
+  new Date().getMonth() + 1
+)}-${new Date().getFullYear()}`;
+
 const DateInput: React.FC<DateInputProps> = ({
-  date = `${addZero(new Date().getDate())}-${addZero(
-    new Date().getMonth() + 1
-  )}-${new Date().getFullYear()}`,
+  date = currentDate,
   setDate,
   variant,
   invoiceVariant,
@@ -33,11 +36,7 @@ const DateInput: React.FC<DateInputProps> = ({
 
       setDate(newDate);
     } else {
-      setDate(
-        `${addZero(new Date().getDate())}-${addZero(
-          new Date().getMonth() + 1
-        )}-${new Date().getFullYear()}`
-      );
+      setDate(currentDate);
     }
   };
 

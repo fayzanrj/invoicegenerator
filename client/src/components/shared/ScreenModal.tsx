@@ -4,24 +4,27 @@ import { IoMdClose } from "react-icons/io";
 // Props
 interface ScreenModalFormProps {
   children: React.ReactNode;
-  closeModal: () => void; // Make closeModal required
+  closeModal: () => void;
   isForm: true;
   showCancel?: boolean;
 }
 
-// Props
+// Loader props
 interface ScreenModalLoaderProps {
   children: React.ReactNode;
   isLoader: true;
 }
 
+// Props
 type ScreenModalProps = ScreenModalFormProps | ScreenModalLoaderProps;
 
 const ScreenModal: React.FC<ScreenModalProps> = (props) => {
+  // Extracting items from FORM PROPS
   const isForm = (props as ScreenModalFormProps).isForm === true;
   const closeModal = (props as ScreenModalFormProps).closeModal;
   const showCancel = (props as ScreenModalFormProps).showCancel;
 
+  // State to keep track of page offset
   const [scrollPosition, setScrollPosition] = useState(window.pageYOffset);
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const ScreenModal: React.FC<ScreenModalProps> = (props) => {
 
   return (
     <main
-      className="flex flex-col justify-center items-center min-h-svh py-6 absolute w-screen h-svh left-0 z-40 overflow-y-auto bg-black/40"
+      className="flex flex-col justify-center items-center min-h-svh py-6 absolute w-screen h-dvh left-0 z-40 overflow-y-auto bg-black/40"
       style={{ top: `${scrollPosition}px` }}
     >
       {isForm && closeModal && showCancel && (

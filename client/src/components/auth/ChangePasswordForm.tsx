@@ -30,6 +30,7 @@ const ChangePasswordForm = () => {
 
   // Form submission
   const processForm: SubmitHandler<ChangePasswordInputType> = async (data) => {
+    // Destructuring
     const { confirmNewPassword, newPassword } = data;
 
     // Checking if confirm password is same as password

@@ -15,7 +15,9 @@ import AuthInputField from "./AuthInputField";
 import ScreenLoader from "../shared/ScreenLoader";
 
 const LogInForm = () => {
+  // States
   const [isLoading, setIsLoading] = useState(false);
+  // Hooks
   const router = useRouter();
   const { status } = useSession();
 
@@ -39,6 +41,7 @@ const LogInForm = () => {
         redirect: false,
       });
 
+      // Toast based on response
       if (res && res.ok) {
         toast.success("Logged in successfully. Redirecting to dashboard.");
         router.push("/dashboard");

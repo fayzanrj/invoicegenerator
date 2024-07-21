@@ -1,36 +1,48 @@
 "use client";
 import React from "react";
+import ButtonLayout from "./ButtonLayout";
 
-// Props
-interface DeletionConfirmationProps {
+// Base Props
+interface DeletionConfirmationBaseProps {
   handleClick: () => void;
   closeModal: () => void;
 }
 
 // Props for acount deletion
-interface DeletionConfirmationAccountProps extends DeletionConfirmationProps {
+interface DeletionConfirmationAccountProps
+  extends DeletionConfirmationBaseProps {
   variant: "ACCOUNT";
 }
 
 // Props for invoice deletion
-interface DeletionConfirmationInvoiceProps extends DeletionConfirmationProps {
+interface DeletionConfirmationInvoiceProps
+  extends DeletionConfirmationBaseProps {
   variant: "INVOICE";
   invoiceNumber: number;
 }
 
-interface DeletionConfirmationUserProps extends DeletionConfirmationProps {
+interface DeletionConfirmationUserProps extends DeletionConfirmationBaseProps {
   variant: "USER";
   username: string;
 }
 
-const DeletionConfirmation: React.FC<
+// Props
+type DeletionConfirmationProps =
   | DeletionConfirmationAccountProps
   | DeletionConfirmationInvoiceProps
-  | DeletionConfirmationUserProps
-> = ({ handleClick, closeModal, variant, ...props }) => {
+  | DeletionConfirmationUserProps;
+
+const DeletionConfirmation: React.FC<DeletionConfirmationProps> = ({
+  handleClick,
+  closeModal,
+  variant,
+  ...props
+}) => {
+  // Extracting invoice number from invoice props
   const invoiceNumber = (props as DeletionConfirmationInvoiceProps)
     .invoiceNumber;
 
+    // Extracting username from user props
   const username = (props as DeletionConfirmationUserProps).username;
 
   // For text
@@ -78,15 +90,20 @@ const DeletionConfirmation: React.FC<
         <p className="text-sm font-bold">This action is irreversible.</p>
       </div>
       <div className="text-right">
-        <button className="py-1 px-3" onClick={closeModal}>
+        <ButtonLayout
+          className="px-3 !text-black"
+          background="transparent"
+          onClick={closeModal}
+        >
           Cancel
-        </button>
-        <button
-          className="py-1.5 px-3 bg-red-600 text-white rounded-md"
+        </ButtonLayout>
+        <ButtonLayout
+          className="px-3"
           onClick={handleClick}
+          background="danger"
         >
           {renderButtonText()}
-        </button>
+        </ButtonLayout>
       </div>
     </div>
   );
