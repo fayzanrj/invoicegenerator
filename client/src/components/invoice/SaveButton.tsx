@@ -9,6 +9,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import validateInvoiceData from "@/libs/ValidateInvoiceData";
+import ButtonLayout from "../shared/ButtonLayout";
 
 interface SaveButtonProps extends InvoiceProps {
   variant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
@@ -51,14 +52,15 @@ const SaveButton: React.FC<SaveButtonProps> = ({ variant, ...props }) => {
           headers,
         }
       );
-
+      
       toast.success(response.data.message);
       // Pushing to saved invoice
       router.push(
-        `/dashboard/${invoiceType === "DRAFT" ? "drafts" : "invoices"}/${
-          response.data.invoiceNumber
-        }`
+        invoiceType === "DRAFT"
+        ? `/dashboard/invoices/drafts/${response.data.invoiceNumber}`
+        : `/dashboard/invoices/${response.data.invoiceNumber}`
       );
+
     } catch (error) {
       console.error(error);
       handleApiError(error);
@@ -76,19 +78,21 @@ const SaveButton: React.FC<SaveButtonProps> = ({ variant, ...props }) => {
         </ScreenModal>
       )}
       {/* Save button */}
-      <button
-        className="my-1 py-2 px-2 bg-[#009e74] rounded-md font-semibold text-white NO_PRINT"
+      <ButtonLayout
+        className="font-semibold text-white NO_PRINT"
+        background="saveInvoice"
         onClick={() => handleClick("NEW")}
       >
         Save Invoice
-      </button>
+      </ButtonLayout>
       {variant !== "DRAFT" && (
-        <button
-          className="my-1 py-2 px-2 bg-[#FFA500] rounded-md font-semibold text-white NO_PRINT"
+        <ButtonLayout
+          className="font-semibold NO_PRINT"
+          background="saveDraft"
           onClick={() => handleClick("DRAFT")}
         >
           Save as Draft
-        </button>
+        </ButtonLayout>
       )}
     </>
   );

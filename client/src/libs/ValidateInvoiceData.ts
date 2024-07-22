@@ -1,5 +1,6 @@
 import InvoiceProps from "@/props/InvoiceProps";
 
+// Function to validate all invoice data to make sure all required fields are filled
 const validateInvoiceData = (data: InvoiceProps) => {
   // Checking if all required fields are present
   const { buyerName, date, list, total } = data;

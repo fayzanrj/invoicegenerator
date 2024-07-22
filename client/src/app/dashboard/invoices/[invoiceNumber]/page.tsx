@@ -26,7 +26,7 @@ const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
   // Fetching a specific invoice
   const invoice = await fetchInvoice(params.invoiceNumber);
   // Href for errors
-  const href = "/dashboard/drafts";
+  const href = "/dashboard/invoices";
 
   // If error occurs while fetching invoice
   if (invoice === undefined)
@@ -39,13 +39,13 @@ const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
   return (
     <main className="flex flex-col p-4 md:items-center">
       {/* BACK NAVIGATION BUTTON */}
-      <BackButton label="Drafts" href={href} />
+      <BackButton label="Invoices" href={href} />
 
       {/* HEADING*/}
       <PageHeading name={`Invoice#${invoice.invoiceNumber} `} />
 
       {/* INVOICE DATA */}
-      <Invoice variant="DRAFT" {...invoice} />
+      <Invoice variant="VIEW_INVOICE" {...invoice} />
 
       {/* COMPONENT TO REFRESH PAGE ON EVERY MOUNT */}
       <RefreshPage />

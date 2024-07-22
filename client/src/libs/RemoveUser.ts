@@ -4,6 +4,7 @@ import axios, { AxiosRequestHeaders } from "axios";
 import { toast } from "sonner";
 import { signOut } from "next-auth/react";
 
+// Function to remove user wiyth api call
 const removeUser = async (
   selectedUser: string,
   headers: any,
@@ -15,9 +16,12 @@ const removeUser = async (
   }
 
   try {
-    const res = await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/users/removeUser/${selectedUser}`, {
-      headers,
-    });
+    const res = await axios.delete(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/users/removeUser/${selectedUser}`,
+      {
+        headers,
+      }
+    );
     toast.success(res.data.message);
     if (selectedUser === loggedInUserId) signOut();
   } catch (error) {

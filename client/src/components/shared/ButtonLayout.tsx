@@ -7,7 +7,12 @@ interface ButtonLayoutBaseProps {
   fullWidth?: boolean;
   className?: string;
   disabled?: boolean;
-  background?: "primary" | "danger" | "transparent";
+  background?:
+    | "primary"
+    | "danger"
+    | "transparent"
+    | "saveDraft"
+    | "saveInvoice" | "editInvoice";
 }
 
 // Type Button props
@@ -24,7 +29,7 @@ interface SubmitTypeProps extends ButtonLayoutBaseProps {
 
 // Type Nav props
 interface NavTypeProps extends ButtonLayoutBaseProps {
-  type: "button";
+  type?: "button";
   isNav: boolean;
   onClick?: never;
 }
@@ -48,6 +53,12 @@ const ButtonLayout: React.FC<ButtonLayoutProps> = ({
         return COLORS["primaryButton"];
       case "danger":
         return COLORS["dangerButton"];
+      case "saveDraft":
+        return COLORS["saveDraft"];
+      case "saveInvoice":
+        return COLORS["saveInvoice"];
+      case "editInvoice":
+        return COLORS["editInvoice"];
       case "transparent":
       default:
         return "";
@@ -56,7 +67,7 @@ const ButtonLayout: React.FC<ButtonLayoutProps> = ({
 
   // Default styles
   const defaultStyles = `
-    relative h-11 text-white rounded-lg m-1 disabled:opacity-50
+    relative h-11 text-white rounded-lg m-1 disabled:opacity-50 NO_PRINT
     ${fullWidth ? "w-full" : "w-fit px-2"}
   `;
 

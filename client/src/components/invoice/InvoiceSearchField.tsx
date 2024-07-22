@@ -5,7 +5,7 @@ import React, { useCallback, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 
 // Props
-interface SearchInputFieldProps {
+interface InvoiceSearchFieldProps {
   searchInvoice: (text: string, type: searchForType | null) => void;
 }
 
@@ -18,7 +18,7 @@ const font = Noto_Nastaliq_Urdu({
 // Type for search options
 type searchForType = "invoiceNumber" | "date" | "buyer";
 
-const SearchInputField: React.FC<SearchInputFieldProps> = ({
+const InvoiceSearchField: React.FC<InvoiceSearchFieldProps> = ({
   searchInvoice,
 }) => {
   const [searchFor, setSearchFor] = useState<searchForType>("invoiceNumber");
@@ -111,4 +111,4 @@ const SearchInputField: React.FC<SearchInputFieldProps> = ({
   );
 };
 
-export default SearchInputField;
+export default InvoiceSearchField;

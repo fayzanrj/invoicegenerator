@@ -1,6 +1,7 @@
 import { authOptions } from "@/utilities/AuthOptions";
 import { getServerSession } from "next-auth";
 
+// Function to get latest invoice number
 const GetInvoiceNumber = async () => {
   const session = await getServerSession(authOptions);
   try {

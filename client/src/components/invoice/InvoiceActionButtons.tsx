@@ -1,17 +1,16 @@
 import InvoiceProps from "@/props/InvoiceProps";
+import Link from "next/link";
 import React from "react";
-import SaveButton from "./SaveButton";
 import DeleteButton from "./DeleteButton";
 import PrintAndDownloadButton from "./PrintAndDownloadButton";
-import Link from "next/link";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/utilities/AuthOptions";
+import SaveButton from "./SaveButton";
+import ButtonLayout from "../shared/ButtonLayout";
 
 const CreateNewButton = () => (
-  <Link href="/dashboard/createInvoice">
-    <button className="my-1 py-2 px-2 bg-black rounded-md font-semibold text-white NO_PRINT">
+  <Link href="/dashboard/invoices/createInvoice">
+    <ButtonLayout isNav className="font-semibold">
       Create new invoice
-    </button>
+    </ButtonLayout>
   </Link>
 );
 
@@ -29,25 +28,29 @@ const InvoiceActionButtons: React.FC<InvoiceActionButtonsProps> = ({
       {/* Rendering the PrintAndDownloadButton for all variants */}
       <PrintAndDownloadButton />
 
-      {/* Conditional rendering based on the variant */}
+      {/* IF NEW INVOICE PAGE IS OPEN */}
       {variant === "NEW_INVOICE" && <SaveButton variant={variant} {...props} />}
 
+      {/* IF VIEW IMVOICE PAGE IS OPEN */}
       {variant === "VIEW_INVOICE" && (
         <>
-          <DeleteButton invoiceNumber={props.invoiceNumber} />
+          <DeleteButton isDraft={false} invoiceNumber={props.invoiceNumber} />
           <CreateNewButton />
         </>
       )}
 
+      {/* IF INVOICE IS DRAFT OR EDIT INVOICE PAGE IS OPENED */}
       {(variant === "EDIT_INVOICE" || variant === "DRAFT") && (
         <>
-          <DeleteButton invoiceNumber={props.invoiceNumber} />
+          <DeleteButton isDraft invoiceNumber={props.invoiceNumber} />
           <SaveButton variant={variant} {...props} />
           {variant === "DRAFT" && (
-            <Link href={`/dashboard/drafts/${props.invoiceNumber}/edit`}>
-              <button className="my-1 py-2 px-2 bg-[#4682B4] rounded-md font-semibold text-white NO_PRINT">
+            <Link
+              href={`/dashboard/invoices/drafts/${props.invoiceNumber}/edit`}
+            >
+              <ButtonLayout isNav background="editInvoice" className="font-semibold">
                 Edit Draft
-              </button>
+              </ButtonLayout>
             </Link>
           )}
           <CreateNewButton />

@@ -9,14 +9,20 @@ import DeletionConfirmation from "../shared/DeletionConfirmation";
 import Loader from "../shared/Loader";
 import ScreenModal from "../shared/ScreenModal";
 import { useSession } from "next-auth/react";
+import ButtonLayout from "../shared/ButtonLayout";
 
+// Props
 interface DeleteButtonProps {
   invoiceNumber: number;
+  isDraft: boolean;
 }
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({ invoiceNumber }) => {
+const DeleteButton: React.FC<DeleteButtonProps> = ({ invoiceNumber ,isDraft}) => {
+  // States
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Hooks
   const headers = useHeaders();
   const router = useRouter();
   const { data: session } = useSession();
@@ -34,7 +40,9 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ invoiceNumber }) => {
       );
 
       toast.success(res.data.message);
-      router.push("/dashboard/invoices");
+      router.push(
+        isDraft ? "/dashboard/invoices/drafts" : "/dashboard/invoices"
+      );
     } catch (error) {
       console.error(error);
       handleApiError(error);
@@ -69,12 +77,13 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ invoiceNumber }) => {
 
       {/* Delete button */}
       {session?.user.role === "admin" && (
-        <button
-          className="my-1 py-2 px-2  bg-red-600 rounded-md font-semibold text-white NO_PRINT"
+        <ButtonLayout
           onClick={() => setIsModalOpen(true)}
+          background="danger"
+          className="font-semibold"
         >
           Delete Invoice
-        </button>
+        </ButtonLayout>
       )}
     </>
   );

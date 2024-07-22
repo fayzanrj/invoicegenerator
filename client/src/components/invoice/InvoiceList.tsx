@@ -3,7 +3,7 @@ import InvoiceProps from "@/props/InvoiceProps";
 import { Noto_Nastaliq_Urdu } from "next/font/google";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import SearchInputField from "./SearchInputField";
+import InvoiceSearchField from "./InvoiceSearchField";
 
 // Props
 interface InvoiceListProps {
@@ -58,7 +58,7 @@ const InvoiceList: React.FC<InvoiceListProps> = ({ invoices, variant }) => {
   return (
     <main className="py-4 md:px-4">
       {/* Input field */}
-      <SearchInputField searchInvoice={searchInvoice} />
+      <InvoiceSearchField searchInvoice={searchInvoice} />
 
       <div className={`${font.className} my-4 mt-10 w-full`}>
         <table className="w-full">
@@ -74,7 +74,11 @@ const InvoiceList: React.FC<InvoiceListProps> = ({ invoices, variant }) => {
               <tr
                 key={invoice.invoiceNumber}
                 onClick={() =>
-                  router.push(`/dashboard/${variant}/${invoice.invoiceNumber}`)
+                  router.push(
+                    variant === "invoices"
+                      ? `/dashboard/invoices/${invoice.invoiceNumber}`
+                      : `/dashboard/invoices/drafts/${invoice.invoiceNumber}`
+                  )
                 }
                 className="cursor-pointer w-full text-center text-sm md:text-[1rem] hover:bg-stone-200"
               >

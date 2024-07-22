@@ -27,7 +27,7 @@ const DraftDetails: React.FC<DraftDetailsProps> = async ({ params }) => {
   const invoice = await fetchInvoice(params.invoiceNumber);
 
   // Href for errors
-  const href = "/dashboard/drafts";
+  const href = "/dashboard/invoices/drafts";
 
   // If error occurs while fetching invoice
   if (invoice === undefined) return <ServerError label="Drafts" href={href} />;
@@ -43,7 +43,7 @@ const DraftDetails: React.FC<DraftDetailsProps> = async ({ params }) => {
 
       {/* HEADING*/}
       <PageHeading
-        name={`Invoice#${invoice.invoiceNumber} <span className="text-xl">(Draft)</span>`}
+        name={`Invoice#${invoice.invoiceNumber}(Draft)`}
       />
 
       {/* INVOICE DATA */}

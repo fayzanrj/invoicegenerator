@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent, useMemo } from "react";
+import React, { useState, useEffect, ChangeEvent, useCallback } from "react";
 import { IoMdClose } from "react-icons/io";
 import DateInput from "../shared/DateInput";
 import ItemProps from "@/props/ItemProps";
@@ -20,47 +20,46 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
   removeItem,
   variant,
 }) => {
+  // State to manage input fields
   const [fields, setFields] = useState<ItemProps>({ ...item });
 
-  // Memoizing the updateItem function to prevent unnecessary re-renders
-  const memoizedUpdateItem = useMemo(() => updateItem, []);
-
-  // Function to change builty number
-  const handleBuiltyChange = (e: ChangeEvent<HTMLInputElement>) => {
+  // Handler for builty number change
+  const handleBuiltyChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const newBuiltyNo: string = e.target.value;
-    setFields({ ...fields, builtyNo: newBuiltyNo });
-  };
+    setFields((prevFields) => ({ ...prevFields, builtyNo: newBuiltyNo }));
+  }, []);
 
-  // Function to change rate
-  const handleRateChange = (e: ChangeEvent<HTMLInputElement>) => {
+  // Handler for rate change
+  const handleRateChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const newRate: number = Number.parseFloat(e.target.value) || 0;
-    setFields({ ...fields, rate: newRate });
-  };
+    setFields((prevFields) => ({ ...prevFields, rate: newRate }));
+  }, []);
 
-  // Function to change quantity
-  const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
+  // Handler for quantity change
+  const handleQuantityChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const newQuantity: number = Number.parseFloat(e.target.value) || 0;
-    setFields({ ...fields, quantity: newQuantity });
-  };
+    setFields((prevFields) => ({ ...prevFields, quantity: newQuantity }));
+  }, []);
 
-  // Function to change details
-  const handleDetailsChange = (e: ChangeEvent<HTMLInputElement>) => {
+  // Handler for details change
+  const handleDetailsChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const newDetails: string = e.target.value;
-    setFields({ ...fields, details: newDetails });
-  };
+    setFields((prevFields) => ({ ...prevFields, details: newDetails }));
+  }, []);
 
-  // Function to change date
-  const handleDateChange = (newDate: string) => {
-    setFields({ ...fields, date: newDate });
-  };
+  // Handler for date change
+  const handleDateChange = useCallback((newDate: string) => {
+    setFields((prevFields) => ({ ...prevFields, date: newDate }));
+  }, []);
 
+  // Effect to calculate the total and update the parent component
   useEffect(() => {
     const newTotal: number = fields.quantity * fields.rate;
     if (newTotal !== fields.total) {
       setFields((prevFields) => ({ ...prevFields, total: newTotal }));
     }
-    memoizedUpdateItem(index, { ...fields, total: newTotal });
-  }, [fields, memoizedUpdateItem, index]);
+    updateItem(index, { ...fields, total: newTotal });
+  }, [fields, updateItem, index]);
 
   // Determining if the input fields should be read-only
   const isReadOnly = variant === "VIEW_INVOICE" || variant === "DRAFT";
@@ -95,7 +94,7 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
         </div>
       </div>
 
-      {/* Rate */}
+      {/* Rate input field */}
       <input
         type="number"
         readOnly={isReadOnly}
@@ -107,7 +106,7 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
         }`}
       />
 
-      {/* Quantity */}
+      {/* Quantity input field */}
       <input
         type="number"
         aria-label="quantity"
@@ -119,7 +118,7 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
         }`}
       />
 
-      {/* Details */}
+      {/* Details input field */}
       <div className="inline-block w-[48%] align-middle">
         <div className="flex items-center">
           <input
@@ -141,7 +140,7 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
             ))}
           </datalist>
 
-          {/* Date input to have a dynamic date */}
+          {/* Date input field */}
           <DateInput
             variant="DETAIL"
             invoiceVariant={variant}

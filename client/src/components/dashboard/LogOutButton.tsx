@@ -7,7 +7,6 @@ import ButtonLayout from "../shared/ButtonLayout";
 const LogOutButton = () => {
   return (
     <ButtonLayout
-      type="button"
       background="transparent"
       onClick={() => signOut()}
     >

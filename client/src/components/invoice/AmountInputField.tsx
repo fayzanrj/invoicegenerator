@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
-import { toast } from "sonner";
 
+// Props
 interface AmountInputFieldProps {
   id: "outstandingAmount" | "grandTotal" | "total";
   label: string;
@@ -16,6 +16,7 @@ const AmountInputField: React.FC<AmountInputFieldProps> = ({
   setValue,
   readOnly = false,
 }) => {
+  // Function to handle amount change
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue && setValue(parseInt(e.currentTarget.value) || 0);
   };

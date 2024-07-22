@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import ButtonLayout from "../shared/ButtonLayout";
 
+// Props
 interface InvoiceNoteProps {
   note: string;
   setNote: React.Dispatch<React.SetStateAction<string>>;
@@ -28,12 +30,12 @@ const InvoiceNote: React.FC<InvoiceNoteProps> = ({
   // If the note is not being shown and the variant is "NEW_INVOICE", it is rendering the button to add a note
   if (!showNote && (variant === "NEW_INVOICE" || variant === "EDIT_INVOICE")) {
     return (
-      <button
+      <ButtonLayout
         onClick={openNote}
-        className="NO_PRINT border-2 h-10 text-xs rounded-lg border-black pb-2 px-2 bg-black text-white"
+        className="text-xs !h-10 !pb-2"
       >
         نوٹ شامل کریں <span className="text-lg font-bold">&#43;</span>
-      </button>
+      </ButtonLayout>
     );
   }
 

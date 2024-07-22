@@ -1,17 +1,21 @@
 import InvoiceProps from "@/props/InvoiceProps";
 import { authOptions } from "@/utilities/AuthOptions";
 import { getServerSession } from "next-auth";
-import { number } from "zod";
 
+// Function to fetch a specific invoice
 const fetchInvoice = async (invoiceNumber: string) => {
+  // Parsing
   const invoice = Number.parseInt(invoiceNumber) || null;
 
+  // Checking is invoice number is valid
   if (!invoice) {
     return null;
   }
 
+  // Getting session
   const session = await getServerSession(authOptions);
   try {
+    // API CALL
     const response = await fetch(
       `${process.env.SERVER_URL}/api/v1/invoices/getInvoice/${invoice}`,
       {
