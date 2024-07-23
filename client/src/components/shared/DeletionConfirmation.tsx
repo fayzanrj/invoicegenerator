@@ -21,8 +21,9 @@ interface DeletionConfirmationInvoiceProps
   invoiceNumber: number;
 }
 
+// Props for removing user
 interface DeletionConfirmationUserProps extends DeletionConfirmationBaseProps {
-  variant: "USER";
+  variant: "USER" | "CUSTOMER";
   username: string;
 }
 
@@ -42,7 +43,7 @@ const DeletionConfirmation: React.FC<DeletionConfirmationProps> = ({
   const invoiceNumber = (props as DeletionConfirmationInvoiceProps)
     .invoiceNumber;
 
-    // Extracting username from user props
+  // Extracting username from user props
   const username = (props as DeletionConfirmationUserProps).username;
 
   // For text
@@ -53,6 +54,7 @@ const DeletionConfirmation: React.FC<DeletionConfirmationProps> = ({
       case "INVOICE":
         return `delete invoice# ${invoiceNumber}?`;
       case "USER":
+      case "CUSTOMER":
         return `remove ${username}?`;
       default:
         return "delete";
@@ -67,6 +69,7 @@ const DeletionConfirmation: React.FC<DeletionConfirmationProps> = ({
       case "INVOICE":
         return `Delete Invoice# ${invoiceNumber}`;
       case "USER":
+      case "CUSTOMER":
         return `Remove ${
           username.length > 10 ? username.slice(0, 8) + "..." : username
         }`;

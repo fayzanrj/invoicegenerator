@@ -1,10 +1,10 @@
 import InvoiceProps from "@/props/InvoiceProps";
 import Link from "next/link";
 import React from "react";
-import DeleteButton from "./DeleteButton";
+import ButtonLayout from "../shared/ButtonLayout";
+import InvoiceDeleteButton from "./InvoiceDeleteButton";
 import PrintAndDownloadButton from "./PrintAndDownloadButton";
 import SaveButton from "./SaveButton";
-import ButtonLayout from "../shared/ButtonLayout";
 
 const CreateNewButton = () => (
   <Link href="/dashboard/invoices/createInvoice">
@@ -34,7 +34,7 @@ const InvoiceActionButtons: React.FC<InvoiceActionButtonsProps> = ({
       {/* IF VIEW IMVOICE PAGE IS OPEN */}
       {variant === "VIEW_INVOICE" && (
         <>
-          <DeleteButton isDraft={false} invoiceNumber={props.invoiceNumber} />
+          <InvoiceDeleteButton isDraft={false} invoiceNumber={props.invoiceNumber} />
           <CreateNewButton />
         </>
       )}
@@ -42,7 +42,7 @@ const InvoiceActionButtons: React.FC<InvoiceActionButtonsProps> = ({
       {/* IF INVOICE IS DRAFT OR EDIT INVOICE PAGE IS OPENED */}
       {(variant === "EDIT_INVOICE" || variant === "DRAFT") && (
         <>
-          <DeleteButton isDraft invoiceNumber={props.invoiceNumber} />
+          <InvoiceDeleteButton isDraft invoiceNumber={props.invoiceNumber} />
           <SaveButton variant={variant} {...props} />
           {variant === "DRAFT" && (
             <Link

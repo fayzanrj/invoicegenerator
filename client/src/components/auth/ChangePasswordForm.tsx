@@ -11,7 +11,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import AuthInputField from "./AuthInputField";
-import FormLayout from "./FormLayout";
+import FormLayout from "../shared/FormLayout";
 
 const ChangePasswordForm = () => {
   const [isLoading, setIsLoading] = useState(false);

@@ -179,7 +179,12 @@ export const updateInvoice = async (req: Request, res: Response) => {
       return ThrowServerError(res);
     }
     // Response
-    return res.status(200).json({ message: "Invoice updated" });
+    return res
+      .status(200)
+      .json({
+        message: "Invoice updated",
+        invoiceNumber: updatedInvoice.invoiceNumber,
+      });
   } catch (error) {
     console.error(error);
     ThrowServerError(res);

@@ -12,12 +12,12 @@ import { useSession } from "next-auth/react";
 import ButtonLayout from "../shared/ButtonLayout";
 
 // Props
-interface DeleteButtonProps {
+interface InvoiceDeleteButtonProps {
   invoiceNumber: number;
   isDraft: boolean;
 }
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({ invoiceNumber ,isDraft}) => {
+const InvoiceDeleteButton: React.FC<InvoiceDeleteButtonProps> = ({ invoiceNumber ,isDraft}) => {
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -89,4 +89,4 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ invoiceNumber ,isDraft}) =>
   );
 };
 
-export default DeleteButton;
+export default InvoiceDeleteButton;

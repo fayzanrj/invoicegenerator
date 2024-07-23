@@ -4,7 +4,7 @@ import NotFound from "@/components/shared/NotFound";
 import PageHeading from "@/components/shared/PageHeading";
 import RefreshPage from "@/components/shared/RefreshPage";
 import ServerError from "@/components/shared/ServerError";
-import fetchInvoice from "@/libs/FetchInvoice";
+import fetchInvoice from "@/libs/fetch/FetchInvoice";
 import { Metadata } from "next";
 import React from "react";
 

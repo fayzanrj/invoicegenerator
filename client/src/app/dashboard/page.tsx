@@ -1,3 +1,4 @@
+import CustomersSection from "@/components/dashboard/CustomersSection";
 import InvoicesSection from "@/components/dashboard/InvoicesSection";
 import LogOutButton from "@/components/dashboard/LogOutButton";
 import UsersSection from "@/components/dashboard/UsersSection";
@@ -28,6 +29,7 @@ const Dashboard = async () => {
 
         {/* SECTIONS */}
         <InvoicesSection />
+        <CustomersSection/>
         <UsersSection />
       </div>
     </main>

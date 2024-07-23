@@ -9,6 +9,7 @@ import connectToMongo from "./connectToMongo";
 import authRoutes from "./routes/AuthRoutes";
 import userRoutes from "./routes/UserRoutes";
 import invoiceRoutes from "./routes/InvoiceRoutes";
+import customerRoutes from "./routes/CustomerRoutes";
 
 // Loading environment variables from .env file
 env.config();
@@ -34,6 +35,7 @@ connectToMongo();
 app.use("/api/v1/auth", authRoutes); // Routes for authentication
 app.use("/api/v1/users", userRoutes); // Routes for user management
 app.use("/api/v1/invoices", invoiceRoutes); // Routes for invoice management
+app.use("/api/v1/customers", customerRoutes); // Routes for customers management
 
 // Default route to indicate server is running
 app.use("/api/v1/", (req: Request, res: Response) =>

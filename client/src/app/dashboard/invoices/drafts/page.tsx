@@ -3,7 +3,7 @@ import BackButton from "@/components/shared/BackButton";
 import PageHeading from "@/components/shared/PageHeading";
 import RefreshPage from "@/components/shared/RefreshPage";
 import ServerError from "@/components/shared/ServerError";
-import fetchAllInvoices from "@/libs/FetchAllInvoices";
+import fetchAllInvoices from "@/libs/fetch/FetchAllInvoices";
 import { Metadata } from "next";
 
 // Page;'s metdata

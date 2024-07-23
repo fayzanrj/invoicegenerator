@@ -5,7 +5,7 @@ import handleApiError from "@/libs/HandleApiError";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
-import FormLayout from "./FormLayout";
+import FormLayout from "../shared/FormLayout";
 import ScreenModal from "../shared/ScreenModal";
 import DeletionConfirmation from "../shared/DeletionConfirmation";
 
