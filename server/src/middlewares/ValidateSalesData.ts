@@ -1,13 +1,13 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
+import { SalesIncomingDataProps } from "props/SalesProps";
 import { ThrowIncompleteError } from "../libs/ResponseErrors";
-import SalesDataProps from "props/SalesDataProps";
 
 // Helper function to check if a value is a non-empty string
 const isNonEmptyString = (value: any): boolean =>
   typeof value === "string" && value.trim() !== "";
 
 const validateSalesData = (req: Request, res: Response, next: NextFunction) => {
-  const { customer, items }: SalesDataProps = req.body;
+  const { customer, items }: SalesIncomingDataProps = req.body;
 
   // Check the main fields of the salesData object
   if (!isNonEmptyString(customer)) {
@@ -22,7 +22,7 @@ const validateSalesData = (req: Request, res: Response, next: NextFunction) => {
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
 
-    if (!isNonEmptyString(item.item)) {
+    if (!isNonEmptyString(item.details)) {
       return ThrowIncompleteError(res);
     }
 

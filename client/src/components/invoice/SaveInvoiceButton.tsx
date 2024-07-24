@@ -1,14 +1,12 @@
 "use client";
-import handleApiError from "@/libs/HandleApiError";
-import React, { useState } from "react";
-import ScreenModal from "../shared/ScreenModal";
-import Loader from "../shared/Loader";
-import InvoiceProps from "@/props/InvoiceProps";
 import useHeaders from "@/hooks/useHeaders";
-import axios from "axios";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import handleApiError from "@/libs/HandleApiError";
 import validateInvoiceData from "@/libs/ValidateInvoiceData";
+import InvoiceProps from "@/props/InvoiceProps";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { toast } from "sonner";
 import ButtonLayout from "../shared/ButtonLayout";
 import ScreenLoader from "../shared/ScreenLoader";
 
@@ -44,7 +42,8 @@ const SaveInvoiceButton: React.FC<SaveInvoiceButtonProps> = ({
       }
 
       const route =
-        variant === "NEW_INVOICE" ? "SaveInvoiceButton" : "updateInvoice";
+        variant === "NEW_INVOICE" ? "SaveInvoice" : "updateInvoice";
+
 
       const modifiedProps = {
         ...props,

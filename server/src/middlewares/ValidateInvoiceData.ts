@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import InvoiceProps from "../props/InvoiceProps";
+import {InvoiceProps} from "../props/InvoiceProps";
 import {
   ThrowIncompleteError,
   ThrowServerError,

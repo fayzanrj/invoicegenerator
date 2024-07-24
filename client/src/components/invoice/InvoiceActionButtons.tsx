@@ -4,7 +4,7 @@ import React from "react";
 import ButtonLayout from "../shared/ButtonLayout";
 import InvoiceDeleteButton from "./InvoiceDeleteButton";
 import PrintAndDownloadButton from "./PrintAndDownloadButton";
-import { default as SaveButton, default as SaveInvoiceButton } from "./SaveInvoice";
+import { default as SaveButton, default as SaveInvoiceButton } from "./SaveInvoiceButton";
 
 const CreateNewButton = () => (
   <Link href="/dashboard/invoices/createInvoice">

@@ -19,7 +19,7 @@ interface AddSalesSectionProps {
 const getInitialItem = (): AddSalesItemProps => {
   return {
     id: uuidv4(),
-    item: "",
+    details: "",
     quantity: 0,
     builtyNo: "",
     date: getCurrentDate(),

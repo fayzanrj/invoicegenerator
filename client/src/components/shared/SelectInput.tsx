@@ -1,5 +1,7 @@
 import React from "react";
 import CustomerProps from "@/props/CustomerProps";
+import { SaleMonthProps } from "@/props/SaleProps";
+import UrduFont from "@/constants/UrduFont";
 
 // Props
 interface SelectInputBaseProps {
@@ -18,12 +20,12 @@ interface SelectCustomerProps extends SelectInputBaseProps {
   options: CustomerProps[];
 }
 
-interface SelectInputOptionProps extends SelectInputBaseProps {
-  variant: "OPTIONS";
-  options: string[];
+interface SelectInputMonthProps extends SelectInputBaseProps {
+  variant: "MONTH";
+  options: SaleMonthProps[];
 }
 
-type SelectInputProps = SelectCustomerProps | SelectInputOptionProps;
+type SelectInputProps = SelectCustomerProps | SelectInputMonthProps;
 
 const SelectInput: React.FC<SelectInputProps> = ({
   label,
@@ -44,7 +46,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
         htmlFor={id}
         className={`text-sm font-semibold float-right ${
           srOnly ? "sr-only" : ""
-        }`}
+        } ${variant === "MONTH" ? `${UrduFont} !text-lg` : "font-sans"}`}
       >
         {label}
       </label>
@@ -66,17 +68,13 @@ const SelectInput: React.FC<SelectInputProps> = ({
         <option value="" disabled>
           {placeholder}
         </option>
-        {variant === "CUSTOMERS"
-          ? (options as CustomerProps[]).map((option) => (
-              <option key={option._id} value={option._id}>
-                {option.name}
-              </option>
-            ))
-          : (options as string[]).map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
+        {options.map((option) => (
+          <option key={option._id} value={option._id}>
+            {variant === "CUSTOMERS"
+              ? (option as CustomerProps).name
+              : (option as SaleMonthProps).monthName}
+          </option>
+        ))}
       </select>
     </div>
   );

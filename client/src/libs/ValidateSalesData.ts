@@ -29,7 +29,7 @@ const validateSalesData = (salesData: SalesDataProps) => {
       return false;
     }
 
-    if (!isNonEmptyString(item.item)) {
+    if (!isNonEmptyString(item.details)) {
       return false;
     }
 

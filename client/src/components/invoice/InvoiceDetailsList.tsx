@@ -1,4 +1,4 @@
-import ItemProps from "@/props/ItemProps";
+import { InvoiceItemProps } from "@/props/InvoiceProps";
 import React from "react";
 import AddNewItem from "../shared/AddNewItem";
 import DetailsListItem from "./InvoiceDetailsListItem";
@@ -6,9 +6,9 @@ import InvoiceDetailsListItem from "./InvoiceDetailsListItem";
 
 // Props
 interface InvoiceDetailsListProps {
-  items: ItemProps[];
+  items: InvoiceItemProps[];
   addItem: () => void;
-  updateItem: (index: number, updatedItem: ItemProps) => void;
+  updateItem: (index: number, updatedItem: InvoiceItemProps) => void;
   removeItem: (index: number) => void;
   variant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
 }

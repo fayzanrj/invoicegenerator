@@ -1,8 +1,9 @@
 "use client";
-import addZero from "@/libs/AddZero";
-import ItemProps from "@/props/ItemProps";
+import getCurrentDate from "@/libs/GetCurrentDate";
+import { InvoiceItemProps } from "@/props/InvoiceProps";
 import { Noto_Nastaliq_Urdu } from "next/font/google";
 import { useCallback, useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import DateInput from "../shared/DateInput";
 import BuyerInputField from "./BuyerInputField";
 import CompanyInfoInvoiceNumber from "./CompanyInfoInvoiceNumber";
@@ -10,9 +11,6 @@ import InvoiceActionButtons from "./InvoiceActionButtons";
 import InvoiceDetailsList from "./InvoiceDetailsList";
 import InvoiceNote from "./InvoiceNote";
 import TotalAndSignature from "./TotalAndSignature";
-import { v4 as uuidv4 } from "uuid";
-import getCurrentDate from "@/libs/GetCurrentDate";
-
 
 // Font
 const font = Noto_Nastaliq_Urdu({
@@ -27,14 +25,14 @@ interface InvoiceFormProps {
   total?: number;
   buyerName?: string;
   date?: string;
-  list?: ItemProps[];
+  list?: InvoiceItemProps[];
   outstanding?: number;
   note?: string;
   isDraft?: boolean;
   builtyNo?: string;
 }
 
-let EmptyListItem: ItemProps = {
+let EmptyListItem: InvoiceItemProps = {
   id: uuidv4(),
   details: "",
   quantity: 0,
@@ -58,7 +56,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
   date = getCurrentDate(),
 }) => {
   // States
-  const [itemsList, setItemsList] = useState<ItemProps[]>(list);
+  const [itemsList, setItemsList] = useState<InvoiceItemProps[]>(list);
   const [totalAmount, setTotalAmount] = useState<number>(total);
   const [buyer, setBuyer] = useState(buyerName);
   const [invoiceNote, setInvoiceNote] = useState(note);
@@ -74,13 +72,16 @@ const Invoice: React.FC<InvoiceFormProps> = ({
   };
 
   // Function to update a list item
-  const updateItem = useCallback((index: number, updatedItem: ItemProps) => {
-    setItemsList((prevItemsList) => {
-      const updatedItemsList = [...prevItemsList];
-      updatedItemsList[index] = updatedItem;
-      return updatedItemsList;
-    });
-  }, []);
+  const updateItem = useCallback(
+    (index: number, updatedItem: InvoiceItemProps) => {
+      setItemsList((prevItemsList) => {
+        const updatedItemsList = [...prevItemsList];
+        updatedItemsList[index] = updatedItem;
+        return updatedItemsList;
+      });
+    },
+    []
+  );
 
   // Function to remove list item from list array
   const removeItem = useCallback((index: number) => {

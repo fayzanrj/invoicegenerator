@@ -10,7 +10,7 @@ import authRoutes from "./routes/AuthRoutes";
 import userRoutes from "./routes/UserRoutes";
 import invoiceRoutes from "./routes/InvoiceRoutes";
 import customerRoutes from "./routes/CustomerRoutes";
-import salesRoutes from "./routes/SalesRoute";
+import salesRoutes from "./routes/SalesRoutes";
 
 // Loading environment variables from .env file
 env.config();

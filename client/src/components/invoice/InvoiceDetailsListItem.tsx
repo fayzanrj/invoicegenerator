@@ -1,14 +1,14 @@
 import React, { useState, useEffect, ChangeEvent, useCallback } from "react";
 import { IoMdClose } from "react-icons/io";
 import DateInput from "../shared/DateInput";
-import ItemProps from "@/props/ItemProps";
+import { InvoiceItemProps } from "@/props/InvoiceProps";
 import AllProducts from "@/constants/AllProducts";
 
 // Props
-interface DetailsListItemProps {
+interface DetailsListItemProps{
   index: number;
-  item: ItemProps;
-  updateItem: (index: number, updatedItem: ItemProps) => void;
+  item: InvoiceItemProps;
+  updateItem: (index: number, updatedItem: InvoiceItemProps) => void;
   removeItem: (index: number) => void;
   variant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
 }
@@ -21,7 +21,7 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
   variant,
 }) => {
   // State to manage input fields
-  const [fields, setFields] = useState<ItemProps>({ ...item });
+  const [fields, setFields] = useState<InvoiceItemProps>({ ...item });
 
   // Handler for builty number change
   const handleBuiltyChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -36,16 +36,22 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
   }, []);
 
   // Handler for quantity change
-  const handleQuantityChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const newQuantity: number = Number.parseFloat(e.target.value) || 0;
-    setFields((prevFields) => ({ ...prevFields, quantity: newQuantity }));
-  }, []);
+  const handleQuantityChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const newQuantity: number = Number.parseFloat(e.target.value) || 0;
+      setFields((prevFields) => ({ ...prevFields, quantity: newQuantity }));
+    },
+    []
+  );
 
   // Handler for details change
-  const handleDetailsChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const newDetails: string = e.target.value;
-    setFields((prevFields) => ({ ...prevFields, details: newDetails }));
-  }, []);
+  const handleDetailsChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const newDetails: string = e.target.value;
+      setFields((prevFields) => ({ ...prevFields, details: newDetails }));
+    },
+    []
+  );
 
   // Handler for date change
   const handleDateChange = useCallback((newDate: string) => {

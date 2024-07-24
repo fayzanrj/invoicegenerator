@@ -62,44 +62,49 @@ const InvoiceList: React.FC<InvoiceListProps> = ({ invoices, variant }) => {
 
       <div className={`${font.className} my-4 mt-10 w-full`}>
         <table className="w-full">
-          {/* Table header */}
-          <th className="py-3 bg-black text-white w-1/4">گرینڈ ٹوٹل</th>
-          <th className="bg-black text-white w-1/4">تاریخ</th>
-          <th className="bg-black text-white w-1/4">خریدار</th>
-          <th className="bg-black text-white w-1/4">#بل</th>
+          <thead>
+            {/* Table header */}
+            <th className="py-3 bg-black text-white w-1/4">گرینڈ ٹوٹل</th>
+            <th className="bg-black text-white w-1/4">تاریخ</th>
+            <th className="bg-black text-white w-1/4">خریدار</th>
+            <th className="bg-black text-white w-1/4">#بل</th>
+          </thead>
 
-          {/* Invoices list */}
-          {filteredInvoices.length > 0 ? (
-            filteredInvoices.map((invoice) => (
-              <tr
-                key={invoice.invoiceNumber}
-                onClick={() =>
-                  router.push(
-                    variant === "invoices"
-                      ? `/dashboard/invoices/${invoice.invoiceNumber}`
-                      : `/dashboard/invoices/drafts/${invoice.invoiceNumber}`
-                  )
-                }
-                className="cursor-pointer w-full text-center text-sm md:text-[1rem] hover:bg-stone-200"
-              >
-                <td className="font-sans py-2">
-                  {invoice.total + (invoice.outstanding || 0)}
+          <tbody>
+            {" "}
+            {/* Invoices list */}
+            {filteredInvoices.length > 0 ? (
+              filteredInvoices.map((invoice) => (
+                <tr
+                  key={invoice.invoiceNumber}
+                  onClick={() =>
+                    router.push(
+                      variant === "invoices"
+                        ? `/dashboard/invoices/${invoice.invoiceNumber}`
+                        : `/dashboard/invoices/drafts/${invoice.invoiceNumber}`
+                    )
+                  }
+                  className="cursor-pointer w-full text-center text-sm md:text-[1rem] hover:bg-stone-200"
+                >
+                  <td className="font-sans py-2">
+                    {invoice.total + (invoice.outstanding || 0)}
+                  </td>
+                  <td className="font-sans">{invoice.date}</td>
+                  <td>{invoice.buyerName}</td>
+                  <td className="font-sans">{invoice.invoiceNumber}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={4}
+                  className="text-center py-10 text-xl font-sans font-semibold"
+                >
+                  NO INVOICES FOUND
                 </td>
-                <td className="font-sans">{invoice.date}</td>
-                <td>{invoice.buyerName}</td>
-                <td className="font-sans">{invoice.invoiceNumber}</td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td
-                colSpan={4}
-                className="text-center py-10 text-xl font-sans font-semibold"
-              >
-                NO INVOICES FOUND
-              </td>
-            </tr>
-          )}
+            )}
+          </tbody>
         </table>
       </div>
     </main>

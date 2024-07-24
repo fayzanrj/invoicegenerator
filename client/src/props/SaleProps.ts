@@ -1,14 +1,28 @@
 import CustomerProps from "./CustomerProps";
 
-interface SaleProps {
-  item: string;
+export interface SaleMonthProps {
+  _id: string;
+  monthName: string;
+}
+
+export interface MonthlyStatItemProps {
+  details: string;
+  quantity: number;
+}
+
+export interface CustomerSalesProps {
+  date: string;
+  items: SaleItemProps[];
+}
+
+export interface SaleItemProps {
+  _id?: string;
+  details: string;
   quantity: number;
   builtyNo: string;
   date: string;
-  month: string;
+  month: SaleMonthProps;
   customer?: CustomerProps;
   createdAt?: Date;
   updatedAt?: Date;
 }
-
-export default SaleProps;

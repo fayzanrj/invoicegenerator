@@ -1,10 +1,18 @@
-import ItemProps from "./ItemProps";
+export interface InvoiceItemProps {
+  id?: string;
+  details: string;
+  quantity: number;
+  rate: number;
+  total: number;
+  date: string;
+  builtyNo?: string;
+}
 
 interface InvoiceProps {
   invoiceNumber: number;
   buyerName: string;
   date: string;
-  list: ItemProps[];
+  list: InvoiceItemProps[];
   total: number;
   note?: string;
   outstanding?: number;

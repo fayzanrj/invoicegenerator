@@ -1,7 +1,7 @@
 
 interface AddSalesItemProps {
   id : string,
-  item: string;
+  details: string;
   quantity: number;
   builtyNo: string;
   date: string;

@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const saleSchema = new Schema(
   {
-    item: {
+    details: {
       type: String,
       required: true,
     },
@@ -19,8 +19,9 @@ const saleSchema = new Schema(
       required: true,
     },
     month: {
-      type: String,
-      required: true,
+      type: Schema.ObjectId,
+      ref: "MonthlySale",
+      required: false,
     },
     customer: {
       type: Schema.ObjectId,

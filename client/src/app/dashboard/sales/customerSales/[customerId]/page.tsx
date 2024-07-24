@@ -1,14 +1,26 @@
-import MonthlySaleStats from "@/components/sales/monthlySale/MonthlySaleStats";
+import NotFound from "@/app/not-found";
+import CustomerSaleStats from "@/components/sales/customerSales/CustomerSalesStats";
 import NoSalesFound from "@/components/sales/NoSalesFound";
 import BackButton from "@/components/shared/BackButton";
 import PageHeading from "@/components/shared/PageHeading";
 import RefreshPage from "@/components/shared/RefreshPage";
 import ServerError from "@/components/shared/ServerError";
 import fetchSalesMonthList from "@/libs/fetch/FetchSalesMonthList";
-import React from "react";
 
-const Sales = async () => {
-  // Fetching sales months list from database
+// Page Params
+interface ParamsProps {
+  params: {
+    customerId: string;
+  };
+}
+
+const CustomerSales = async ({ params }: ParamsProps) => {
+  const { customerId } = params;
+
+  // Validating params
+  if (customerId.length !== 24) return <NotFound />;
+
+  //   Fetching months
   const months = await fetchSalesMonthList();
 
   // If months are null
@@ -17,13 +29,13 @@ const Sales = async () => {
   return (
     <main className="p-4 relative min-h-dvh">
       {/* BACK NAVIGATION BUTTON */}
-      <BackButton label="Dashboard" href="/dashboard" />
+      <BackButton label="Customers" href="/dashboard/customers" />
 
       {/*  HEADING*/}
-      <PageHeading name="SALES" />
+      <PageHeading name="CUSTOMER SALES" />
 
       {months.length > 0 ? (
-        <MonthlySaleStats months={months} />
+        <CustomerSaleStats months={months} customerId={customerId} />
       ) : (
         <NoSalesFound />
       )}
@@ -34,4 +46,4 @@ const Sales = async () => {
   );
 };
 
-export default Sales;
+export default CustomerSales;

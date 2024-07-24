@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 
@@ -26,23 +26,27 @@ const ScreenModal: React.FC<ScreenModalProps> = (props) => {
   const showCancel = (props as ScreenModalFormProps).showCancel;
 
   // State to keep track of page offset
-  const [scrollPosition, setScrollPosition] = useState(window.pageYOffset);
+  const [scrollPosition, setScrollPosition] = useState(
+    window && window.pageYOffset
+  );
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollPosition(window.pageYOffset);
-    };
+    if (window) {
+      const handleScroll = () => {
+        setScrollPosition(window.pageYOffset);
+      };
 
-    document.documentElement.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
 
-    document.addEventListener("scroll", handleScroll);
+      document.addEventListener("scroll", handleScroll);
 
-    return () => {
-      document.removeEventListener("scroll", handleScroll);
+      return () => {
+        document.removeEventListener("scroll", handleScroll);
 
-      document.documentElement.style.overflow = "auto";
-    };
-  }, []);
+        document.documentElement.style.overflow = "auto";
+      };
+    }
+  }, [window]);
 
   return (
     <main

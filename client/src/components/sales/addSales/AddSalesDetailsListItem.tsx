@@ -71,10 +71,10 @@ const AddSalesDetailsList: React.FC<AddSalesDetailsListProps> = ({
 
       {/* ITEM DETAILS INPUT */}
       <input
-        name="item"
+        name="details"
         aria-label="Item Description"
         onChange={handleChange}
-        value={fields.item}
+        value={fields.details}
         placeholder="...تفصیل لکھیں"
         className="w-full border h-12 rounded-lg p-2 text-right"
         list="allProducts"

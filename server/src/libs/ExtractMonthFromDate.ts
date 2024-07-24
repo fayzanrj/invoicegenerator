@@ -21,7 +21,7 @@ const extractMonthFromDate = (date: string) => {
     splitted[1] = splitted[1].charAt(1);
   }
 
-  return `${months[Number.parseInt(splitted[1]) - 1]} - ${splitted[2]}`;
+  return `${months[Number.parseInt(splitted[1]) - 1]}-${splitted[2]}`;
 };
 
 export default extractMonthFromDate;
