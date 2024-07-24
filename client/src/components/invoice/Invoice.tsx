@@ -11,12 +11,8 @@ import InvoiceDetailsList from "./InvoiceDetailsList";
 import InvoiceNote from "./InvoiceNote";
 import TotalAndSignature from "./TotalAndSignature";
 import { v4 as uuidv4 } from "uuid";
+import getCurrentDate from "@/libs/GetCurrentDate";
 
-// Function to get latest date
-const getDate = () =>
-  `${addZero(new Date().getDate())}-${addZero(
-    new Date().getMonth() + 1
-  )}-${new Date().getFullYear()}`;
 
 // Font
 const font = Noto_Nastaliq_Urdu({
@@ -44,7 +40,7 @@ let EmptyListItem: ItemProps = {
   quantity: 0,
   rate: 0,
   total: 0,
-  date: getDate(),
+  date: getCurrentDate(),
   builtyNo: "",
 };
 
@@ -59,7 +55,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
   total = 0,
   isDraft = false,
   list = [EmptyListItem],
-  date = getDate(),
+  date = getCurrentDate(),
 }) => {
   // States
   const [itemsList, setItemsList] = useState<ItemProps[]>(list);
@@ -132,7 +128,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
             variant="INVOICE"
             date={invoiceDate}
             setDate={setInvoiceDate}
-            invoiceVariant={variant}
+            subVariant={variant}
           />
 
           <BuyerInputField

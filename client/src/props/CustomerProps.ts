@@ -1,7 +1,7 @@
-
 interface CustomerProps {
-  _id : string,
+  _id: string;
   name: string;
+  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

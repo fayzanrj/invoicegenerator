@@ -10,6 +10,7 @@ import authRoutes from "./routes/AuthRoutes";
 import userRoutes from "./routes/UserRoutes";
 import invoiceRoutes from "./routes/InvoiceRoutes";
 import customerRoutes from "./routes/CustomerRoutes";
+import salesRoutes from "./routes/SalesRoute";
 
 // Loading environment variables from .env file
 env.config();
@@ -36,6 +37,7 @@ app.use("/api/v1/auth", authRoutes); // Routes for authentication
 app.use("/api/v1/users", userRoutes); // Routes for user management
 app.use("/api/v1/invoices", invoiceRoutes); // Routes for invoice management
 app.use("/api/v1/customers", customerRoutes); // Routes for customers management
+app.use("/api/v1/sales", salesRoutes); // Routes for sales management
 
 // Default route to indicate server is running
 app.use("/api/v1/", (req: Request, res: Response) =>

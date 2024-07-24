@@ -1,8 +1,7 @@
-import ScreenLoader from "@/components/shared/ScreenLoader";
-import React from "react";
+import MainLoader from "@/components/shared/MainLoader";
 
 const loading = () => {
-  return <ScreenLoader />;
+  return <MainLoader />;
 };
 
 export default loading;

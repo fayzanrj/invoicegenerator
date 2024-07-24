@@ -6,6 +6,13 @@ import {
   ThrowServerError,
 } from "../libs/ResponseErrors";
 
+/**
+ * Controller to get customers list
+ * @param req Request object from Express.
+ * @param res Response object from Express.
+ * @returns A JSON response containing an array of customers.
+ */
+
 export const getAllCustomers = async (req: Request, res: Response) => {
   try {
     const customers = await Customer.find();
@@ -17,6 +24,12 @@ export const getAllCustomers = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Controller to add a new customer.
+ * @param req Request object from Express.
+ * @param res Response object from Express.
+ * @returns A JSON response containing message and newly added customer.
+ */
 export const addCustomer = async (req: Request, res: Response) => {
   try {
     // Destructuring
@@ -40,6 +53,7 @@ export const addCustomer = async (req: Request, res: Response) => {
     // Creating new customerName
     const newCustomer = await Customer.create({
       name: customerName,
+      isActive: true,
     });
 
     if (!newCustomer) return ThrowServerError(res);

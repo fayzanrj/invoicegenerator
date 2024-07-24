@@ -7,7 +7,7 @@ interface DateInputProps {
   date: string;
   setDate: (newDate: string) => void;
   variant: "INVOICE" | "DETAIL";
-  invoiceVariant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
+  subVariant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT" | "ADD SALE";
 }
 
 const currentDate = `${addZero(new Date().getDate())}-${addZero(
@@ -18,7 +18,7 @@ const DateInput: React.FC<DateInputProps> = ({
   date = currentDate,
   setDate,
   variant,
-  invoiceVariant,
+  subVariant,
 }) => {
   // Creating a ref to reference the date input element
   const datePickerRef = useRef<HTMLInputElement>(null);
@@ -43,7 +43,7 @@ const DateInput: React.FC<DateInputProps> = ({
   // Handling clicks on the text input to open the date picker
   const handleTextInputClick = () => {
     if (
-      (invoiceVariant === "NEW_INVOICE" || invoiceVariant === "EDIT_INVOICE") &&
+      (subVariant === "NEW_INVOICE" || subVariant === "EDIT_INVOICE" || subVariant === "ADD SALE") &&
       datePickerRef.current
     ) {
       if (isSafari) {

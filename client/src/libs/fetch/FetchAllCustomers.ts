@@ -4,8 +4,8 @@ import { getServerSession } from "next-auth";
 
 // Function to fetch all customers
 const fetchAllCustomers = async () => {
-  const session = await getServerSession(authOptions);
   try {
+    const session = await getServerSession(authOptions);
     const response = await fetch(
       `${process.env.SERVER_URL}/api/v1/customers/getAllCustomers`,
       {

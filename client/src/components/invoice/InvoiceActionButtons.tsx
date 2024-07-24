@@ -4,7 +4,7 @@ import React from "react";
 import ButtonLayout from "../shared/ButtonLayout";
 import InvoiceDeleteButton from "./InvoiceDeleteButton";
 import PrintAndDownloadButton from "./PrintAndDownloadButton";
-import SaveButton from "./SaveButton";
+import { default as SaveButton, default as SaveInvoiceButton } from "./SaveInvoice";
 
 const CreateNewButton = () => (
   <Link href="/dashboard/invoices/createInvoice">
@@ -43,7 +43,7 @@ const InvoiceActionButtons: React.FC<InvoiceActionButtonsProps> = ({
       {(variant === "EDIT_INVOICE" || variant === "DRAFT") && (
         <>
           <InvoiceDeleteButton isDraft invoiceNumber={props.invoiceNumber} />
-          <SaveButton variant={variant} {...props} />
+          <SaveInvoiceButton variant={variant} {...props} />
           {variant === "DRAFT" && (
             <Link
               href={`/dashboard/invoices/drafts/${props.invoiceNumber}/edit`}

@@ -15,7 +15,15 @@ export const InvoiceLinks: LinkProps[] = [
   },
 ];
 
-export const CustomerLinks: LinkProps[] = [
+export const CustomersAndSalesLinks: LinkProps[] = [
+  {
+    label: "Add Sales",
+    href: "/dashboard/sales/addSale",
+  },
+  {
+    label: "Sales",
+    href: "/dashboard/sales",
+  },
   {
     label: "Add Customer",
     href: "/dashboard/customers?addNew=true",

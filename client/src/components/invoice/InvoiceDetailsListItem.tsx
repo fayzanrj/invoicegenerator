@@ -143,7 +143,7 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
           {/* Date input field */}
           <DateInput
             variant="DETAIL"
-            invoiceVariant={variant}
+            subVariant={variant}
             date={fields.date}
             setDate={handleDateChange}
           />

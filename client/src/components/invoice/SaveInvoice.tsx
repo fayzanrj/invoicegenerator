@@ -10,13 +10,21 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import validateInvoiceData from "@/libs/ValidateInvoiceData";
 import ButtonLayout from "../shared/ButtonLayout";
+import ScreenLoader from "../shared/ScreenLoader";
 
-interface SaveButtonProps extends InvoiceProps {
+// Props
+interface SaveInvoiceButtonProps extends InvoiceProps {
   variant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
 }
 
-const SaveButton: React.FC<SaveButtonProps> = ({ variant, ...props }) => {
+const SaveInvoiceButton: React.FC<SaveInvoiceButtonProps> = ({
+  variant,
+  ...props
+}) => {
+  // State
   const [isLoading, setIsLoading] = useState(false);
+
+  // Hooks
   const headers = useHeaders();
   const router = useRouter();
 
@@ -35,7 +43,8 @@ const SaveButton: React.FC<SaveButtonProps> = ({ variant, ...props }) => {
         return;
       }
 
-      const route = variant === "NEW_INVOICE" ? "saveInvoice" : "updateInvoice";
+      const route =
+        variant === "NEW_INVOICE" ? "SaveInvoiceButton" : "updateInvoice";
 
       const modifiedProps = {
         ...props,
@@ -52,15 +61,14 @@ const SaveButton: React.FC<SaveButtonProps> = ({ variant, ...props }) => {
           headers,
         }
       );
-      
+
       toast.success(response.data.message);
       // Pushing to saved invoice
       router.push(
         invoiceType === "DRAFT"
-        ? `/dashboard/invoices/drafts/${response.data.invoiceNumber}`
-        : `/dashboard/invoices/${response.data.invoiceNumber}`
+          ? `/dashboard/invoices/drafts/${response.data.invoiceNumber}`
+          : `/dashboard/invoices/${response.data.invoiceNumber}`
       );
-
     } catch (error) {
       console.error(error);
       handleApiError(error);
@@ -72,11 +80,7 @@ const SaveButton: React.FC<SaveButtonProps> = ({ variant, ...props }) => {
   return (
     <>
       {/* Loading modal */}
-      {isLoading && (
-        <ScreenModal isLoader>
-          <Loader />
-        </ScreenModal>
-      )}
+      {isLoading && <ScreenLoader />}
       {/* Save button */}
       <ButtonLayout
         className="font-semibold text-white NO_PRINT"
@@ -98,5 +102,4 @@ const SaveButton: React.FC<SaveButtonProps> = ({ variant, ...props }) => {
   );
 };
 
-// 009e74
-export default SaveButton;
+export default SaveInvoiceButton;

@@ -1,11 +1,12 @@
 import React from "react";
 import Loader from "./Loader";
+import ScreenModal from "./ScreenModal";
 
 const ScreenLoader = () => {
   return (
-    <main className="relative h-svh">
+    <ScreenModal isLoader>
       <Loader color="#000000" />
-    </main>
+    </ScreenModal>
   );
 };
 

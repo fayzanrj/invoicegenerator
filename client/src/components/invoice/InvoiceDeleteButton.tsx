@@ -2,14 +2,14 @@
 import useHeaders from "@/hooks/useHeaders";
 import handleApiError from "@/libs/HandleApiError";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
-import DeletionConfirmation from "../shared/DeletionConfirmation";
-import Loader from "../shared/Loader";
-import ScreenModal from "../shared/ScreenModal";
-import { useSession } from "next-auth/react";
 import ButtonLayout from "../shared/ButtonLayout";
+import DeletionConfirmation from "../shared/DeletionConfirmation";
+import ScreenLoader from "../shared/ScreenLoader";
+import ScreenModal from "../shared/ScreenModal";
 
 // Props
 interface InvoiceDeleteButtonProps {
@@ -17,7 +17,10 @@ interface InvoiceDeleteButtonProps {
   isDraft: boolean;
 }
 
-const InvoiceDeleteButton: React.FC<InvoiceDeleteButtonProps> = ({ invoiceNumber ,isDraft}) => {
+const InvoiceDeleteButton: React.FC<InvoiceDeleteButtonProps> = ({
+  invoiceNumber,
+  isDraft,
+}) => {
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,11 +60,7 @@ const InvoiceDeleteButton: React.FC<InvoiceDeleteButtonProps> = ({ invoiceNumber
   return (
     <>
       {/* Loading modal */}
-      {isLoading && (
-        <ScreenModal isLoader>
-          <Loader />
-        </ScreenModal>
-      )}
+      {isLoading && <ScreenLoader />}
 
       {/* Confirmation modal */}
       {isModalOpen && (

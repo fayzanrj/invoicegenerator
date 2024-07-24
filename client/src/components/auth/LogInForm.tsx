@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import FormLayout from "../shared/FormLayout";
 import AuthInputField from "./AuthInputField";
 import ScreenLoader from "../shared/ScreenLoader";
+import MainLoader from "../shared/MainLoader";
 
 const LogInForm = () => {
   // States
@@ -62,7 +63,7 @@ const LogInForm = () => {
 
   // Loading state if authetication is loading
   if (status === "loading" || status === "authenticated") {
-    return <ScreenLoader />;
+    return <MainLoader />;
   }
 
   return (

@@ -13,8 +13,8 @@ const fetchInvoice = async (invoiceNumber: string) => {
   }
 
   // Getting session
-  const session = await getServerSession(authOptions);
   try {
+    const session = await getServerSession(authOptions);
     // API CALL
     const response = await fetch(
       `${process.env.SERVER_URL}/api/v1/invoices/getInvoice/${invoice}`,

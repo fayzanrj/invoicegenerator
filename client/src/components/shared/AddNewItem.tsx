@@ -1,15 +1,16 @@
 "use client";
 import React from "react";
-import ButtonLayout from "../shared/ButtonLayout";
+import ButtonLayout from "./ButtonLayout";
+import UrduFont from "@/constants/UrduFont";
 
 // Props
-interface AddItemProps {
+interface AddNewItemProps {
   handleClick: () => void;
 }
 
-const AddItem: React.FC<AddItemProps> = ({ handleClick }) => {
+const AddNewItem: React.FC<AddNewItemProps> = ({ handleClick }) => {
   return (
-    <div className="text-right my-1">
+    <div className={`${UrduFont} text-right my-1`}>
       <ButtonLayout
         onClick={handleClick}
       >
@@ -19,4 +20,4 @@ const AddItem: React.FC<AddItemProps> = ({ handleClick }) => {
   );
 };
 
-export default AddItem;
+export default AddNewItem;

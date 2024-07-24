@@ -1,7 +1,8 @@
 import ItemProps from "@/props/ItemProps";
 import React from "react";
-import DetailsListItem from "./DetailsListItem";
-import AddItem from "./AddItem";
+import AddNewItem from "../shared/AddNewItem";
+import DetailsListItem from "./InvoiceDetailsListItem";
+import InvoiceDetailsListItem from "./InvoiceDetailsListItem";
 
 // Props
 interface InvoiceDetailsListProps {
@@ -33,7 +34,7 @@ const InvoiceDetailsList: React.FC<InvoiceDetailsListProps> = ({
       {/* All details items */}
       {items.length > -1 &&
         items.map((item, index) => (
-          <DetailsListItem
+          <InvoiceDetailsListItem
             key={item.id}
             index={index}
             item={item}
@@ -45,7 +46,7 @@ const InvoiceDetailsList: React.FC<InvoiceDetailsListProps> = ({
 
       {/* add item button */}
       {(variant === "NEW_INVOICE" || variant === "EDIT_INVOICE") && (
-        <AddItem handleClick={addItem} />
+        <AddNewItem handleClick={addItem} />
       )}
     </>
   );

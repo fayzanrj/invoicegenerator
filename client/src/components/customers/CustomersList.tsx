@@ -1,6 +1,6 @@
 "use client";
 import CustomerProps from "@/props/CustomerProps";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import AddCustomerButton from "./AddCustomerButton";
 import CustomerSearchField from "./CustomerSearchField";
 import CustomersListItem from "./CustomersListItem";
@@ -43,10 +43,9 @@ const CustomersList: React.FC<CustomersListProps> = ({ customers }) => {
   };
 
   // Function to add user to list
-  const addCustomerToList = (customer: CustomerProps) => {
-    customers.push(customer);
-    setFilteredCustomers(customers);
-  };
+  const addCustomerToList = useCallback((customer: CustomerProps) => {
+    setFilteredCustomers((prev) => [...prev, customer]);
+  }, []);
 
   return (
     <>

@@ -4,8 +4,8 @@ import { getServerSession } from "next-auth";
 
 // Function to fetch all invoice based on if they are drafts or simple invoices
 const fetchAllInvoices = async (type: "INVOICES" | "DRAFT") => {
-  const session = await getServerSession(authOptions);
   try {
+    const session = await getServerSession(authOptions);
     const fetchType = type === "DRAFT" ? "drafts" : "saved";
     const response = await fetch(
       `${process.env.SERVER_URL}/api/v1/invoices/getInvoices/${fetchType}`,
