@@ -1,6 +1,7 @@
 import UrduFont from "@/constants/UrduFont";
 import { SaleItemProps } from "@/props/SaleProps";
 import React from "react";
+import SalesByDateListItem from "./SalesByDateListItem";
 
 // Props
 interface SalesByDateListProps {
@@ -27,15 +28,7 @@ const SalesByDateList: React.FC<SalesByDateListProps> = ({ sales }) => {
 
       <tbody>
         {sales.map((sale, index) => (
-          <tr key={sale._id}>
-            <td className="w-1/5 text-center font-sans py-3">
-              {sale.builtyNo}
-            </td>
-            <td className="w-1/5 text-center font-sans">{sale.quantity}</td>
-            <td className="w-1/5 text-center">{sale.details}</td>
-            <td className="w-1/5 text-center py-3"> {sale.customer?.name}</td>
-            <td className="w-1/5 text-center py-3 font-sans"> {index + 1}</td>
-          </tr>
+          <SalesByDateListItem key={sale._id} index={index} {...sale} />
         ))}
       </tbody>
     </table>

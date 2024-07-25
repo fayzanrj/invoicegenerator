@@ -11,9 +11,8 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import FormLayout from "../shared/FormLayout";
-import AuthInputField from "./AuthInputField";
-import ScreenLoader from "../shared/ScreenLoader";
 import MainLoader from "../shared/MainLoader";
+import AuthInputField from "./AuthInputField";
 
 const LogInForm = () => {
   // States

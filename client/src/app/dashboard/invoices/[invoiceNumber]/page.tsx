@@ -1,8 +1,6 @@
 import Invoice from "@/components/invoice/Invoice";
-import BackButton from "@/components/shared/BackButton";
 import NotFound from "@/components/shared/NotFound";
-import PageHeading from "@/components/shared/PageHeading";
-import RefreshPage from "@/components/shared/RefreshPage";
+import PageLayout from "@/components/shared/PageLayout";
 import ServerError from "@/components/shared/ServerError";
 import fetchInvoice from "@/libs/fetch/FetchInvoice";
 import { Metadata } from "next";
@@ -37,19 +35,13 @@ const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
     return <NotFound label="Invoices" href={href} />;
 
   return (
-    <main className="flex flex-col p-4 md:items-center">
-      {/* BACK NAVIGATION BUTTON */}
-      <BackButton label="Invoices" href={href} />
-
-      {/* HEADING*/}
-      <PageHeading name={`Invoice#${invoice.invoiceNumber} `} />
-
-      {/* INVOICE DATA */}
+    <PageLayout
+      pageName="INVOICE_DETAILS"
+      invoiceNo={invoice.invoiceNumber}
+      className="flex flex-col p-4 md:items-center"
+    > 
       <Invoice variant="VIEW_INVOICE" {...invoice} />
-
-      {/* COMPONENT TO REFRESH PAGE ON EVERY MOUNT */}
-      <RefreshPage />
-    </main>
+    </PageLayout>
   );
 };
 

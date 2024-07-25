@@ -14,6 +14,7 @@ import AuthInputField from "./AuthInputField";
 import FormLayout from "../shared/FormLayout";
 
 const ChangePasswordForm = () => {
+  // States
   const [isLoading, setIsLoading] = useState(false);
   const headers = useHeaders();
 

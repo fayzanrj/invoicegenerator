@@ -64,14 +64,15 @@ const InvoiceList: React.FC<InvoiceListProps> = ({ invoices, variant }) => {
         <table className="w-full">
           <thead>
             {/* Table header */}
-            <th className="py-3 bg-black text-white w-1/4">گرینڈ ٹوٹل</th>
-            <th className="bg-black text-white w-1/4">تاریخ</th>
-            <th className="bg-black text-white w-1/4">خریدار</th>
-            <th className="bg-black text-white w-1/4">#بل</th>
+            <tr>
+              <th className="py-3 bg-black text-white w-1/4">گرینڈ ٹوٹل</th>
+              <th className="bg-black text-white w-1/4">تاریخ</th>
+              <th className="bg-black text-white w-1/4">خریدار</th>
+              <th className="bg-black text-white w-1/4">#بل</th>
+            </tr>
           </thead>
 
           <tbody>
-            {" "}
             {/* Invoices list */}
             {filteredInvoices.length > 0 ? (
               filteredInvoices.map((invoice) => (

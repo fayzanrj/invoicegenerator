@@ -1,8 +1,5 @@
 import InvoiceList from "@/components/invoice/InvoiceList";
-import BackButton from "@/components/shared/BackButton";
-import NotFound from "@/components/shared/NotFound";
-import PageHeading from "@/components/shared/PageHeading";
-import RefreshPage from "@/components/shared/RefreshPage";
+import PageLayout from "@/components/shared/PageLayout";
 import ServerError from "@/components/shared/ServerError";
 import fetchAllInvoices from "@/libs/fetch/FetchAllInvoices";
 import { Metadata } from "next";
@@ -20,19 +17,9 @@ const Invoices = async () => {
   if (!invoices) return <ServerError label="Dashboard" href="/dashboard" />;
 
   return (
-    <main className="p-4">
-      {/* BACK NAVIGATION BUTTON */}
-      <BackButton label="Dashboard" href="/dashboard" />
-      
-      {/*  HEADING*/}
-      <PageHeading name="INVOICES" />
-
-      {/* LIST */}
+    <PageLayout pageName="INVOICES">
       <InvoiceList variant="invoices" invoices={invoices} />
-
-      {/* COMPONENT TO REFRESH PAGE ON EVERY MOUNT */}
-      <RefreshPage />
-    </main>
+    </PageLayout>
   );
 };
 

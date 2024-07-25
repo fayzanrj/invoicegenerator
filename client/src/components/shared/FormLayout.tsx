@@ -31,7 +31,7 @@ const FormLayout: React.FC<FormLayoutProps> = ({
     >
       {/* Heading */}
       {showHeading && (
-        <section className="flex justify-between items-center px-4">
+        <div className="flex justify-between items-center px-4">
           {variant === "LOG IN" && (
             <Image
               src={"/logo.jpg"}
@@ -44,10 +44,10 @@ const FormLayout: React.FC<FormLayoutProps> = ({
           )}
 
           <h3 className="text-2xl font-semibold">{variant}</h3>
-        </section>
+        </div>
       )}
 
-      <section className="py-6 text-left">{children}</section>
+      <div className="py-6 text-left">{children}</div>
 
       <ButtonLayout type="submit" disabled={isLoading} fullWidth>
         {isLoading ? <Loader /> : variant}

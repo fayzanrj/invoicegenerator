@@ -1,6 +1,8 @@
 import UrduFont from "@/constants/UrduFont";
 import { MonthlyStatItemProps } from "@/props/SaleProps";
 import React from "react";
+import MonthlySaleStats from "./MonthlySaleStats";
+import MonthlyStatsListItem from "./MonthlyStatsListItem";
 
 // Props
 interface MonthlyStatsListProps {
@@ -27,11 +29,12 @@ const MonthlyStatsList: React.FC<MonthlyStatsListProps> = ({ stats }) => {
         {/* TABLE BODY */}
         <tbody>
           {stats.map((stat, index) => (
-            <tr className="text-center" key={stat.details}>
-              <td className="font-sans py-3">{stat.quantity}</td>
-              <td>{stat.details}</td>
-              <td className="font-sans py-3">{index + 1}</td>
-            </tr>
+            <MonthlyStatsListItem
+              key={stat.details}
+              index={index}
+              details={stat.details}
+              quantity={stat.quantity}
+            />
           ))}
         </tbody>
       </table>

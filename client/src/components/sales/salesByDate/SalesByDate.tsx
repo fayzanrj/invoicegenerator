@@ -17,6 +17,7 @@ const SalesByDate = () => {
   const [selectedDate, setSelectedDate] = useState(getCurrentDate());
   const [sales, setSales] = useState<SaleItemProps[] | null>(null);
 
+  // Hook
   const headers = useHeaders();
 
   // Handler for date change
@@ -24,6 +25,7 @@ const SalesByDate = () => {
     setSelectedDate(newDate);
   }, []);
 
+  // Function to fetch sales
   const fetchSales = async () => {
     try {
       setIsLoading(true);
@@ -37,7 +39,6 @@ const SalesByDate = () => {
         }
       );
 
-      console.log(res.data);
       setSales(res.data.sales);
     } catch (error) {
       handleApiError(error);
@@ -68,7 +69,7 @@ const SalesByDate = () => {
           />
         </section>
 
-        {sales && sales.length > 0 ? (
+        {sales && sales.length > 0 && !isLoading ? (
           <SalesByDateList sales={sales} />
         ) : (
           <NoSalesFound />

@@ -3,9 +3,10 @@ import { IoMdClose } from "react-icons/io";
 import DateInput from "../shared/DateInput";
 import { InvoiceItemProps } from "@/props/InvoiceProps";
 import AllProducts from "@/constants/AllProducts";
+import DetailsDataList from "../shared/DetailsDataList";
 
 // Props
-interface DetailsListItemProps{
+interface DetailsListItemProps {
   index: number;
   item: InvoiceItemProps;
   updateItem: (index: number, updatedItem: InvoiceItemProps) => void;
@@ -138,13 +139,8 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
             spellCheck={false}
             list="allProducts"
           />
-          <datalist id="allProducts">
-            {AllProducts.map((product, index) => (
-              <option key={index} value={product}>
-                {product}
-              </option>
-            ))}
-          </datalist>
+          {/* SUGGESTIONS */}
+          <DetailsDataList />
 
           {/* Date input field */}
           <DateInput

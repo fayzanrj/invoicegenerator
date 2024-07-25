@@ -26,7 +26,7 @@ const UsersSection = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Hooks
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const headers = useHeaders();
 
   // Functions to open and close modals
@@ -69,13 +69,15 @@ const UsersSection = () => {
     }
   };
 
+  // If auth is loading
+  if (status === "loading") return null;
+
   return (
     <section
       className={`my-6 text-center ${
         session?.user?.role === "admin" ? "sm:text-center" : "sm:text-left"
       }`}
     >
-      {/* Admin action buttons */}
       <SectionHeading name="Users" />
 
       {/* ONLY IF LOGGED IN USER IS ADMIN */}

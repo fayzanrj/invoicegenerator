@@ -60,7 +60,6 @@ const AddCustomerModal: React.FC<AddCustomerModalProps> = ({
     <ScreenModal isForm closeModal={closeModal} showCancel>
       <FormLayout
         variant="ADD CUSTOMER"
-        showHeading={false}
         handleSubmit={handleSubmit}
         isLoading={isLoading}
       >

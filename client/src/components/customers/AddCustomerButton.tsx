@@ -19,7 +19,7 @@ const AddCustomerButton: React.FC<AddCustomerButtonProps> = ({
   const params = useSearchParams();
   // States 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(
-    !!params.get("addNew") // opening modal is params includes addNew
+    !!params.get("addNew") // opening modal if params includes addNew
   );
 
   // Function to open and close modal

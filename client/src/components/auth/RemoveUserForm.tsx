@@ -31,7 +31,10 @@ const RemoveUserForm = () => {
     const fetchUsers = async () => {
       try {
         // API CALL
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/users/getUsers`, { headers });
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/users/getUsers`,
+          { headers }
+        );
         setUsers(res.data.users || []);
       } catch (error) {
         handleApiError(error);
@@ -54,10 +57,10 @@ const RemoveUserForm = () => {
     try {
       setIsLoading(true);
       closeModal();
-      
+
       // API CALL
       await removeUser(selectedUser._id, headers, session?.user._id!);
-      
+
       // Removing user from user's list
       setUsers((prev) => prev.filter((user) => user._id !== selectedUser._id));
       setSelectedUser(null);
@@ -65,6 +68,21 @@ const RemoveUserForm = () => {
       handleApiError(error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // Function to handle value change in drop down menu
+  const handleChange = (id: string) => {
+    const index = users.findIndex((user) => user._id === id);
+    if (index === -1) return;
+    setSelectedUser(users[index]);
+  };
+
+  // Form submission
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (selectedUser) {
+      setIsModalOpen(true);
     }
   };
 
@@ -81,21 +99,6 @@ const RemoveUserForm = () => {
       </ScreenModal>
     );
   }
-
-  // Function to handle value change in drop down menu
-  const handleChange = (id: string) => {
-    const index = users.findIndex((user) => user._id === id);
-    if (index === -1) return;
-    setSelectedUser(users[index]);
-  };
-
-  // Form submission
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (selectedUser) {
-      setIsModalOpen(true);
-    }
-  };
 
   return (
     <FormLayout

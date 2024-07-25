@@ -3,6 +3,7 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import DateInput from "../../shared/DateInput";
 import { AddSalesItemProps } from "@/props/SaleProps";
+import DetailsDataList from "@/components/shared/DetailsDataList";
 
 // Props
 interface AddSalesDetailsListProps {
@@ -80,13 +81,7 @@ const AddSalesDetailsList: React.FC<AddSalesDetailsListProps> = ({
         list="allProducts"
       />
       {/* SUGGESTIONS */}
-      <datalist id="allProducts">
-        {AllProducts.map((product, index) => (
-          <option key={index} value={product}>
-            {product}
-          </option>
-        ))}
-      </datalist>
+      <DetailsDataList />
 
       {/* DATE INPUT */}
       <DateInput

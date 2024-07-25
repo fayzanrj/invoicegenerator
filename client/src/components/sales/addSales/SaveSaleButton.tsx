@@ -25,7 +25,7 @@ const SaveSaleButton: React.FC<SaveSaleButtonProps> = ({
   // Hook
   const headers = useHeaders();
 
-  // Function to save invoice in database
+  // Function to save sale in database
   const saveSale = async () => {
     try {
       setIsLoading(true);
@@ -35,9 +35,8 @@ const SaveSaleButton: React.FC<SaveSaleButtonProps> = ({
         items: saleItems,
       };
 
-      // Valodatong data
-      const isValidData = validateSalesData(data);
-      if (!isValidData) {
+      // Validating data;
+      if (!validateSalesData(data)) {
         toast.error("نامکمل ڈیٹا، براہ کرم تمام جگہوں کو پُر کریں۔");
         return; // Early exit if data is not valid
       }

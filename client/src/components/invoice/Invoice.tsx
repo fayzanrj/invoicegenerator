@@ -32,16 +32,17 @@ interface InvoiceFormProps {
   builtyNo?: string;
 }
 
-let EmptyListItem: InvoiceItemProps = {
-  _id: uuidv4(),
-  details: "",
-  quantity: 0,
-  rate: 0,
-  total: 0,
-  date: getCurrentDate(),
-  builtyNo: "",
+const getEmptyItem = (): InvoiceItemProps => {
+  return {
+    _id: uuidv4(),
+    details: "",
+    quantity: 0,
+    rate: 0,
+    total: 0,
+    date: getCurrentDate(),
+    builtyNo: "",
+  };
 };
-
 // Giving default values to each props and then passing it to states to give an initial value, in order to reuse same component for creating and displaying saved invoice
 
 const Invoice: React.FC<InvoiceFormProps> = ({
@@ -52,7 +53,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
   outstanding = 0,
   total = 0,
   isDraft = false,
-  list = [EmptyListItem],
+  list = [getEmptyItem()],
   date = getCurrentDate(),
 }) => {
   // States
@@ -66,9 +67,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
 
   // Function to add a new item in the list
   const addItem = () => {
-    const newId = uuidv4();
-    EmptyListItem = { ...EmptyListItem, _id: newId };
-    setItemsList((prevItemsList) => [...prevItemsList, EmptyListItem]);
+    setItemsList((prevItemsList) => [...prevItemsList, getEmptyItem()]);
   };
 
   // Function to update a list item

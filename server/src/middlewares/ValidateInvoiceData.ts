@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import {InvoiceProps} from "../props/InvoiceProps";
+import { InvoiceProps } from "../props/InvoiceProps";
 import {
   ThrowIncompleteError,
   ThrowServerError,
 } from "../libs/ResponseErrors";
 
- /**
+/**
  * Middleware function to validate invoice data.
  * Checks if all required fields are present and if list items have valid types.
  * If validation fails, it throws an Incomplete Data error.
@@ -14,7 +14,6 @@ import {
  * @param next Next function to pass control to the next middleware.
  * @returns Calls the next function if data is valid, otherwise throws a Server Error.
  */
-
 const validateInvoiceData = (
   req: Request,
   res: Response,
@@ -34,8 +33,16 @@ const validateInvoiceData = (
       return ThrowIncompleteError(res);
     }
 
-    // Checking if each item in the list is valid
-    for (const item of list) {
+    // Removing _id and checking if each item in the list is valid
+    const updatedList = list.map(item => {
+      const { _id, ...rest } = item;
+      return rest;
+    });
+
+    // Updating req.body.invoice with the modified list
+    req.body.invoice.list = updatedList;
+
+    for (const item of updatedList) {
       if (
         typeof item.details !== "string" ||
         typeof item.quantity !== "number" ||

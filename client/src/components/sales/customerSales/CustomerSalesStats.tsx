@@ -87,7 +87,7 @@ const CustomerSaleStats: React.FC<CustomerSaleStatsProps> = ({
         <Link
           href={`/dashboard/invoices/invoiceBySales?customerId=${customer?._id}&monthId=${selectedMonth._id}`}
         >
-          <ButtonLayout isNav>Make Invoice</ButtonLayout>
+          <ButtonLayout isNav>بل بنائیں</ButtonLayout>
         </Link>
 
         <h2 className="text-3xl">
@@ -96,7 +96,7 @@ const CustomerSaleStats: React.FC<CustomerSaleStatsProps> = ({
         </h2>
       </section>
 
-      {!sales || sales.length <= 0 ? (
+      {(!sales || sales.length <= 0) && !isLoading ? (
         <NoSalesFound />
       ) : (
         <CustomerSalesList sales={sales || []} />
