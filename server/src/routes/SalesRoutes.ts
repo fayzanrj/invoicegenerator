@@ -21,6 +21,25 @@ router.get(
   salesControllers.getMonthlySalesStats
 );
 
+// Route to get sales for a specifc date
+// This route is protected by the authorised middleware, meaning only authroised users can access it
+// /api/v1/sales/getSalesByDate
+router.get(
+  "/getSalesByDate",
+  authorised,
+  salesControllers.getSalesByDate
+);
+
+// Route to get monthly sales data for invoice of a specific month and user
+// This route is protected by the authorised middleware, meaning only authorized users can access it
+// /api/v1/sales/getMonthlySalesInvoiceData
+router.get(
+  "/getMonthlySalesInvoiceData/:id",
+  authorised,
+  isValidId,
+  salesControllers.getMonthlySalesInvoiceData
+);
+
 // Route to get a customer's stats of a specific month
 // This route is protected by the authorised middleware, meaning only authroised users can access it
 // /api/v1/sales/getSalesByCustomerId/:customerId?monthId=monthId

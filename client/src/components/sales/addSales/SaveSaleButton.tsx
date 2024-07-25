@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import ButtonLayout from "../../shared/ButtonLayout";
-import AddSalesItemProps from "@/props/AddSalesItemProps";
+import { AddSalesItemProps } from "@/props/SaleProps";
 import handleApiError from "@/libs/HandleApiError";
 import useHeaders from "@/hooks/useHeaders";
 import axios from "axios";

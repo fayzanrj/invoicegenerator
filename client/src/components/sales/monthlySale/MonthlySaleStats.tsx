@@ -42,7 +42,6 @@ const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
         }
       );
 
-      console.log(res.data.sales);
       setSaleStats(res.data.sales);
     } catch (error) {
       handleApiError(error);
@@ -71,7 +70,7 @@ const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
         />
       </section>
 
-      {!saleStats || saleStats.length <= 0 ? (
+      {(!saleStats || saleStats.length <= 0) && !isLoading ? (
         <NoSalesFound />
       ) : (
         <MonthlyStatsList stats={saleStats || []} />

@@ -1,7 +1,6 @@
 import { InvoiceItemProps } from "@/props/InvoiceProps";
 import React from "react";
 import AddNewItem from "../shared/AddNewItem";
-import DetailsListItem from "./InvoiceDetailsListItem";
 import InvoiceDetailsListItem from "./InvoiceDetailsListItem";
 
 // Props
@@ -35,7 +34,7 @@ const InvoiceDetailsList: React.FC<InvoiceDetailsListProps> = ({
       {items.length > -1 &&
         items.map((item, index) => (
           <InvoiceDetailsListItem
-            key={item.id}
+            key={item._id}
             index={index}
             item={item}
             variant={variant}

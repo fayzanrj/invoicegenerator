@@ -1,4 +1,5 @@
 "use client";
+import UrduFont from "@/constants/UrduFont";
 import addZero from "@/libs/AddZero";
 import React, { useRef } from "react";
 
@@ -6,8 +7,14 @@ import React, { useRef } from "react";
 interface DateInputProps {
   date: string;
   setDate: (newDate: string) => void;
-  variant: "INVOICE" | "DETAIL";
-  subVariant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT" | "ADD SALE";
+  variant: "INVOICE" | "DETAIL" | "SALE";
+  subVariant:
+    | "NEW_INVOICE"
+    | "VIEW_INVOICE"
+    | "EDIT_INVOICE"
+    | "DRAFT"
+    | "ADD SALE"
+    | "SALES";
 }
 
 const currentDate = `${addZero(new Date().getDate())}-${addZero(
@@ -43,7 +50,10 @@ const DateInput: React.FC<DateInputProps> = ({
   // Handling clicks on the text input to open the date picker
   const handleTextInputClick = () => {
     if (
-      (subVariant === "NEW_INVOICE" || subVariant === "EDIT_INVOICE" || subVariant === "ADD SALE") &&
+      (subVariant === "NEW_INVOICE" ||
+        subVariant === "EDIT_INVOICE" ||
+        subVariant === "ADD SALE" ||
+        subVariant === "SALES") &&
       datePickerRef.current
     ) {
       if (isSafari) {
@@ -69,7 +79,11 @@ const DateInput: React.FC<DateInputProps> = ({
       {/* The button displaying the current date */}
       <button
         className={`${
-          variant === "DETAIL" ? "w-20 text-xs font-semibold" : "w-24 "
+          variant === "DETAIL"
+            ? "w-20 text-xs font-semibold"
+            : variant === "INVOICE"
+            ? "w-24"
+            : "text-2xl p-2 h-fit border-2 border-gray-300 mb-1 mt-3 outline-none rounded-md "
         } font-sans h-10 cursor-pointer outline-none`}
         onClick={handleTextInputClick}
       >
@@ -78,7 +92,9 @@ const DateInput: React.FC<DateInputProps> = ({
       {/* The label for the date input, conditionally hidden */}
       <label
         htmlFor={variant + "date"}
-        className={variant === "DETAIL" ? "sr-only" : ""}
+        className={
+          variant === "DETAIL" ? "sr-only" : variant === "SALE" ? `${UrduFont} text-lg font-semibold mx-1` : ""
+        }
       >
         &#58; تاریخ
       </label>

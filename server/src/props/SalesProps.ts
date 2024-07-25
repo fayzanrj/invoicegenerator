@@ -2,7 +2,7 @@ import { Customer } from "./CustomerProps";
 import { MonthlySaleProps } from "./MonthlySaleProps";
 
 export interface SaleIncomingDataItemProps {
-  id: string;
+  _id: string;
   details: string;
   date: string;
   quantity: number;

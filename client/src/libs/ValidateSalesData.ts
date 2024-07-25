@@ -1,4 +1,4 @@
-import AddSalesItemProps from "@/props/AddSalesItemProps";
+import {AddSalesItemProps} from "@/props/SaleProps";
 
 // Props
 interface SalesDataProps {
@@ -24,10 +24,6 @@ const validateSalesData = (salesData: SalesDataProps) => {
   // Check each item in the items array
   for (let i = 0; i < salesData.items.length; i++) {
     const item = salesData.items[i];
-
-    if (!isNonEmptyString(item.id)) {
-      return false;
-    }
 
     if (!isNonEmptyString(item.details)) {
       return false;

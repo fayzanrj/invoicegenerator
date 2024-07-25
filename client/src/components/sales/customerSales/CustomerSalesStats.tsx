@@ -84,7 +84,9 @@ const CustomerSaleStats: React.FC<CustomerSaleStatsProps> = ({
       </section>
 
       <section className="my-8 text-right flex justify-between items-center">
-        <Link href={"/"}>
+        <Link
+          href={`/dashboard/invoices/invoiceBySales?customerId=${customer?._id}&monthId=${selectedMonth._id}`}
+        >
           <ButtonLayout isNav>Make Invoice</ButtonLayout>
         </Link>
 

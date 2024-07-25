@@ -1,11 +1,9 @@
-import MonthlySaleStats from "@/components/sales/monthlySale/MonthlySaleStats";
-import NoSalesFound from "@/components/sales/NoSalesFound";
+import SectionSwitcher from "@/components/sales/SectionSwitcher";
 import BackButton from "@/components/shared/BackButton";
 import PageHeading from "@/components/shared/PageHeading";
 import RefreshPage from "@/components/shared/RefreshPage";
 import ServerError from "@/components/shared/ServerError";
 import fetchSalesMonthList from "@/libs/fetch/FetchSalesMonthList";
-import React from "react";
 
 const Sales = async () => {
   // Fetching sales months list from database
@@ -22,12 +20,8 @@ const Sales = async () => {
       {/*  HEADING*/}
       <PageHeading name="SALES" />
 
-      {months.length > 0 ? (
-        <MonthlySaleStats months={months} />
-      ) : (
-        <NoSalesFound />
-      )}
-
+      <SectionSwitcher months={months} />
+    
       {/* COMPONENT TO REFRESH PAGE ON EVERY MOUNT */}
       <RefreshPage />
     </main>

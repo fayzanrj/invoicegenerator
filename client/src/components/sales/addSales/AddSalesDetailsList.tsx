@@ -1,7 +1,8 @@
-import AddSalesItemProps from "@/props/AddSalesItemProps";
+
 import React from "react";
 import AddSalesDetailsListItem from "./AddSalesDetailsListItem";
 import AddNewItem from "../../shared/AddNewItem";
+import { AddSalesItemProps } from "@/props/SaleProps";
 
 // Props
 interface AddSalesDetailsListProps {
@@ -36,7 +37,7 @@ const AddSalesDetailsList: React.FC<AddSalesDetailsListProps> = ({
       {/* SALES ITEMS LIST */}
       {items.map((item, index) => (
         <AddSalesDetailsListItem
-          key={item.id}
+          key={item._id}
           index={index}
           item={item}
           updateItem={updateItem}

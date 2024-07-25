@@ -1,5 +1,5 @@
 export interface InvoiceItemProps {
-  id?: string;
+  _id: string;
   details: string;
   quantity: number;
   rate: number;

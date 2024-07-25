@@ -1,7 +1,7 @@
 "use client";
 import UrduFont from "@/constants/UrduFont";
 import getCurrentDate from "@/libs/GetCurrentDate";
-import AddSalesItemProps from "@/props/AddSalesItemProps";
+import {AddSalesItemProps} from "@/props/SaleProps";
 import CustomerProps from "@/props/CustomerProps";
 import React, { useCallback, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -18,7 +18,7 @@ interface AddSalesSectionProps {
 // Function to initilise empty item
 const getInitialItem = (): AddSalesItemProps => {
   return {
-    id: uuidv4(),
+    _id: uuidv4(),
     details: "",
     quantity: 0,
     builtyNo: "",

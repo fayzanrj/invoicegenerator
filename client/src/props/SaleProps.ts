@@ -1,5 +1,13 @@
 import CustomerProps from "./CustomerProps";
 
+export interface AddSalesItemProps {
+  _id: string;
+  details: string;
+  quantity: number;
+  builtyNo: string;
+  date: string;
+}
+
 export interface SaleMonthProps {
   _id: string;
   monthName: string;
@@ -15,12 +23,7 @@ export interface CustomerSalesProps {
   items: SaleItemProps[];
 }
 
-export interface SaleItemProps {
-  _id?: string;
-  details: string;
-  quantity: number;
-  builtyNo: string;
-  date: string;
+export interface SaleItemProps extends AddSalesItemProps {
   month: SaleMonthProps;
   customer?: CustomerProps;
   createdAt?: Date;

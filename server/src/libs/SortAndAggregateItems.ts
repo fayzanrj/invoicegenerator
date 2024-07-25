@@ -1,6 +1,6 @@
 import { SaleProps } from "../props/SalesProps";
 
-const sortItemsByDate = (items: SaleProps[]): SaleProps[] => {
+export const sortItemsByDate = (items: SaleProps[]): SaleProps[] => {
   return items.sort((a, b) => {
     const [dayA, monthA, yearA] = a.date.split("-").map(Number);
     const [dayB, monthB, yearB] = b.date.split("-").map(Number);

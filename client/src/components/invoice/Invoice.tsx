@@ -33,7 +33,7 @@ interface InvoiceFormProps {
 }
 
 let EmptyListItem: InvoiceItemProps = {
-  id: uuidv4(),
+  _id: uuidv4(),
   details: "",
   quantity: 0,
   rate: 0,
@@ -67,7 +67,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
   // Function to add a new item in the list
   const addItem = () => {
     const newId = uuidv4();
-    EmptyListItem = { ...EmptyListItem, id: newId };
+    EmptyListItem = { ...EmptyListItem, _id: newId };
     setItemsList((prevItemsList) => [...prevItemsList, EmptyListItem]);
   };
 
