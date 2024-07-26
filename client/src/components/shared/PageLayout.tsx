@@ -35,38 +35,6 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   className = "p-4",
   ...props
 }) => {
-  const getLabel = () => {
-    switch (pageName) {
-      case "EDIT INVOICE":
-      case "DRAFT_DETAILS":
-        return "Drafts";
-      case "CUSTOMER SALES":
-        return "Customers";
-      case "ADD SALES":
-        return "Sales";
-      case "INVOICE_DETAILS":
-        return "Invoices";
-      default:
-        return "Dashboard";
-    }
-  };
-
-  const getHref = () => {
-    switch (pageName) {
-      case "EDIT INVOICE":
-      case "DRAFT_DETAILS":
-        return "/dashboard/invoices/drafts";
-      case "CUSTOMER SALES":
-        return "/dashboard/customers";
-      case "ADD SALES":
-        return "/dashboard/sales";
-      case "INVOICE_DETAILS":
-        return "/dashboard/invoices";
-      default:
-        return "/dashboard";
-    }
-  };
-
   const renderPageHeading = () => {
     switch (pageName) {
       case "INVOICE_DETAILS":
@@ -93,7 +61,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   return (
     <main className={className}>
       {/* BACK NAVIGATION BUTTON */}
-      <BackButton label={getLabel()} href={getHref()} />
+      <BackButton />
 
       {/* HEADING */}
       {renderPageHeading()}

@@ -10,6 +10,11 @@ const customerSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    customerNo: {
+      type: Number,
+      required: true,
+      unique : true
+    },
   },
   { timestamps: true }
 );

@@ -49,7 +49,6 @@ const AddCustomerModal: React.FC<AddCustomerModalProps> = ({
       addCustomerToList(res.data.customer);
       closeModal();
     } catch (error) {
-      console.error(error);
       handleApiError(error);
     } finally {
       setIsLoading(false);

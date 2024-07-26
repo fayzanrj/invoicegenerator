@@ -17,18 +17,20 @@ interface MonthlySaleStatsProps {
 
 const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
   // States
-  const [selectedMonth, setSelectedMonth] = useState(months[0]);
+  const [selectedMonth, setSelectedMonth] = useState(months[months.length - 1]);
   const [isLoading, setIsLoading] = useState(false);
   const [saleStats, setSaleStats] = useState<MonthlyStatItemProps[] | null>([]);
 
   // Hook
   const headers = useHeaders();
 
+  // Function to handle selected month change
   const handleMonthChange = (monthId: string) => {
     const index = months.findIndex((month) => month._id === monthId);
     if (index > -1) setSelectedMonth(months[index]);
   };
 
+  // Function to fetch latest stats
   const fetchStats = async () => {
     try {
       setIsLoading(true);
@@ -60,6 +62,7 @@ const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
     <>
       {isLoading && <ScreenLoader />}
 
+      {/* MONTH SELECTION */}
       <section className="flex justify-center items-end">
         <RefreshButton handleClick={fetchStats} />
 
@@ -70,6 +73,7 @@ const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
         />
       </section>
 
+      {/* STATS LIST */}
       {(!saleStats || saleStats.length <= 0) && !isLoading ? (
         <NoSalesFound />
       ) : (

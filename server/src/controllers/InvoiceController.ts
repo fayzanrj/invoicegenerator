@@ -36,19 +36,35 @@ export const getInvoiceNumber = async (req: Request, res: Response) => {
 export const getInvoicesByVariant = async (req: Request, res: Response) => {
   try {
     const variant = req.params.variant as variantProps;
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const limit = 20;
 
     // Validating variant
     if (variant !== "drafts" && variant !== "saved") {
       return ThrowBadRequest(res, "Invalid request");
     }
 
-    // Finding all invoices based on variant (drafts or saved)
+    // Calculating offset
+    const skip = (page - 1) * limit;
+
+    // Finding the total count of invoices based on variant
+    const totalInvoices = await Invoice.countDocuments({
+      isDraft: variant === "drafts",
+    });
+
+    // Finding invoices based on variant with pagination
     const invoices = await Invoice.find({
       isDraft: variant === "drafts",
-    }).sort({ invoiceNumber: -1 });
+    })
+      .sort({ invoiceNumber: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    // Checking if it's the last page
+    const isLastPage = page * limit >= totalInvoices;
 
     // Response
-    return res.status(200).json({ invoices });
+    return res.status(200).json({ invoices, isLastPage });
   } catch (error) {
     console.error(error);
     ThrowServerError(res);
@@ -81,6 +97,57 @@ export const getInvoice = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     ThrowServerError(res);
+  }
+};
+
+/**
+ * Controller to search for invoices based on search type and queyr
+ * @param req Request object from Express.
+ * @param res Response object from Express.
+ * @returns A JSON response containing an array of customers.
+ */
+
+export const searchInvoices = async (req: Request, res: Response) => {
+  try {
+    //  Destructuring
+    const { q, type } = req.query as {
+      q: string;
+      type: "invoiceNumber" | "date" | "buyer";
+    };
+
+    let invoices;
+
+    // Finding invoices based on qeury by determing type of search
+    switch (type) {
+      case "invoiceNumber":
+        const invoiceNumberQuery = Number(q);
+        if (isNaN(invoiceNumberQuery)) {
+          invoices = [];
+        } else {
+          invoices = await Invoice.find({
+            invoiceNumber: invoiceNumberQuery,
+          }).limit(20);
+        }
+        break;
+      case "buyer":
+        invoices = await Invoice.find({
+          buyerName: { $regex: q, $options: "i" },
+        }).limit(20);
+        break;
+      case "date":
+        invoices = await Invoice.find({
+          date: q,
+        }).limit(40);
+        break;
+      default:
+        invoices = [];
+    }
+
+    // Response
+    res.status(200).json({ invoices });
+  } catch (error) {
+    console.error(error);
+    return ThrowServerError(res);
   }
 };
 

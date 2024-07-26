@@ -26,11 +26,20 @@ router.get(
 
 // Route to get invoices by a specific variant
 // This route is protected by the authorised middleware, meaning only authenticated users can access it
-// /api/v1/invoices/getInvoices/{variant} i.e. variant = draft || saved
+// /api/v1/invoices/getInvoices/{variant}?page=number i.e. variant = draft || saved
 router.get(
   "/getInvoices/:variant",
   authorised,
   invoiceControllers.getInvoicesByVariant
+);
+
+// Route to get invoices by searching
+// This route is protected by the authorised middleware, meaning only authenticated users can access it
+// /api/v1/invoices/searchInvoices?q=searchQuery&type=searchType
+router.get(
+  "/searchInvoices",
+  authorised,
+  invoiceControllers.searchInvoices
 );
 
 // Route to save a new invoice

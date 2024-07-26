@@ -1,8 +1,10 @@
-import InvoiceList from "@/components/invoice/InvoiceList";
+import InvoiceList from "@/components/invoice/invoiceList/InvoiceList";
 import PageLayout from "@/components/shared/PageLayout";
 import ServerError from "@/components/shared/ServerError";
-import fetchAllInvoices from "@/libs/fetch/FetchAllInvoices";
+import fetchInvoices from "@/libs/fetch/FetchInvoices";
+import { authOptions } from "@/utilities/AuthOptions";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
 
 // Metata
 export const metadata: Metadata = {
@@ -10,15 +12,24 @@ export const metadata: Metadata = {
 };
 
 const Invoices = async () => {
-  // Fetching invoices that are not drqfts
-  const invoices = await fetchAllInvoices("INVOICES");
+  const session = await getServerSession(authOptions);
+
+  // Fetching invoices that are not drafts
+  const data = await fetchInvoices("invoices", 1, session?.user.accessToken!);
 
   // If invoices are null
-  if (!invoices) return <ServerError label="Dashboard" href="/dashboard" />;
+  if (!data || !data.invoices)
+    return <ServerError label="Dashboard" href="/dashboard" />;
 
+  // Destructuring
+  const { invoices, isLastPage } = data;
   return (
     <PageLayout pageName="INVOICES">
-      <InvoiceList variant="invoices" invoices={invoices} />
+      <InvoiceList
+        variant="invoices"
+        invoices={invoices}
+        isLastPage={isLastPage}
+      />
     </PageLayout>
   );
 };

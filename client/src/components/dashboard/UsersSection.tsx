@@ -11,6 +11,8 @@ import DeletionConfirmation from "../shared/DeletionConfirmation";
 import ScreenLoader from "../shared/ScreenLoader";
 import ScreenModal from "../shared/ScreenModal";
 import SectionHeading from "./SectionHeading";
+import handleApiError from "@/libs/HandleApiError";
+import UrduFont from "@/constants/UrduFont";
 
 // User modal type
 type ModalType =
@@ -63,7 +65,7 @@ const UsersSection = () => {
       // API CALL
       await removeUser(session?.user?._id!, headers, session?.user?._id!);
     } catch (error) {
-      console.error(error);
+      handleApiError(error);
     } finally {
       setIsLoading(false);
     }
@@ -78,26 +80,26 @@ const UsersSection = () => {
         session?.user?.role === "admin" ? "sm:text-center" : "sm:text-left"
       }`}
     >
-      <SectionHeading name="Users" />
+      <SectionHeading name="صارفین" />
 
       {/* ONLY IF LOGGED IN USER IS ADMIN */}
       {session?.user?.role === "admin" && (
         <>
           <ActionButton onClick={() => openModal("ADD_USER")}>
-            Add New User
+            نیا صارف شامل کریں
           </ActionButton>
           <ActionButton onClick={() => openModal("REMOVE_USER")}>
-            Remove User
+            صارف حذف کریں
           </ActionButton>
         </>
       )}
 
       {/* ALL USER BUTTONS*/}
       <ActionButton onClick={() => openModal("DELETE_CONFIRMATION")}>
-        Delete Account
+        اکاؤنٹ حذف کریں
       </ActionButton>
       <ActionButton onClick={() => openModal("CHANGE_PASSWORD")}>
-        Change Password
+        پاس ورڈ تبدیل کریں
       </ActionButton>
 
       {/* ACTION MODAL */}
@@ -126,7 +128,7 @@ interface ActionButtonProps {
 }
 
 const ActionButton: React.FC<ActionButtonProps> = ({ children, onClick }) => (
-  <ButtonLayout onClick={onClick} fullWidth className="max-w-36 text-sm !h-10">
+  <ButtonLayout onClick={onClick} fullWidth className={`${UrduFont} max-w-36 text-sm !h-11`}>
     {children}
   </ButtonLayout>
 );

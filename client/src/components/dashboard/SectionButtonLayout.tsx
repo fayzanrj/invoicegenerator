@@ -1,7 +1,9 @@
 import Link from "next/link";
 import React from "react";
 import ButtonLayout from "../shared/ButtonLayout";
+import UrduFont from "@/constants/UrduFont";
 
+// Props
 interface SectionButtonLayoutProps {
   label: string;
   href: string;
@@ -13,7 +15,7 @@ const SectionButtonLayout: React.FC<SectionButtonLayoutProps> = ({
 }) => {
   return (
     <Link href={href}>
-      <ButtonLayout type="button" className="min-w-56" isNav>
+      <ButtonLayout type="button" className={`${UrduFont} min-w-56`} isNav>
         {label}
       </ButtonLayout>
     </Link>

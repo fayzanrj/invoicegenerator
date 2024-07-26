@@ -3,23 +3,17 @@ import CustomerProps from "@/props/CustomerProps";
 import React from "react";
 import { useRouter } from "next/navigation";
 
-// Props
-interface CustomersListItemProps extends CustomerProps {
-  index: number;
-}
-
-const CustomersListItem: React.FC<CustomersListItemProps> = ({
+const CustomersListItem: React.FC<CustomerProps> = ({
   createdAt,
-  index,
   name,
   _id,
+  customerNo
 }) => {
   // Router for navigations
   const router = useRouter();
 
   return (
     <tr
-      key={index}
       className="cursor-pointer w-full text-center text-sm md:text-[1rem] hover:bg-stone-200"
       onClick={() => router.push(`/dashboard/sales/customerSales/${_id}`)}
     >
@@ -27,7 +21,7 @@ const CustomersListItem: React.FC<CustomersListItemProps> = ({
         {new Date(createdAt).toLocaleDateString("ur-PK")}
       </td>
       <td className="font-semibold">{name}</td>
-      <td className="font-sans text-lg">{index + 1}</td>
+      <td className="font-sans text-lg">{customerNo}</td>
     </tr>
   );
 };

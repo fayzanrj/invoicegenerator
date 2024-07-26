@@ -3,7 +3,6 @@ import React from "react";
 
 // Props
 interface SalesByDateListItemProps extends SaleItemProps {
-
   index: number;
 }
 
@@ -13,6 +12,7 @@ const SalesByDateListItem: React.FC<SalesByDateListItemProps> = ({
   details,
   quantity,
   customer,
+  createdAt,
   index,
 }) => {
   return (
@@ -20,7 +20,7 @@ const SalesByDateListItem: React.FC<SalesByDateListItemProps> = ({
       <td className="w-1/5 text-center font-sans py-3">{builtyNo}</td>
       <td className="w-1/5 text-center font-sans">{quantity}</td>
       <td className="w-1/5 text-center">{details}</td>
-      <td className="w-1/5 text-center py-3"> {customer?.name}</td>
+      <td className="w-1/5 text-center py-3">{customer?.name}</td>
       <td className="w-1/5 text-center py-3 font-sans"> {index + 1}</td>
     </tr>
   );

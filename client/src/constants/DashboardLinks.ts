@@ -2,34 +2,34 @@ import LinkProps from "@/props/LinkProps";
 
 export const InvoiceLinks: LinkProps[] = [
   {
-    label: "Create new invoice",
+    label: "نیا بل بنائیں",
     href: "/dashboard/invoices/createInvoice",
   },
   {
-    label: "View invoices",
+    label: "بلز دیکھیں",
     href: "/dashboard/invoices",
   },
   {
-    label: "View drafts",
+    label: "غیر مکمل بل",
     href: "/dashboard/invoices/drafts",
   },
 ];
 
 export const CustomersAndSalesLinks: LinkProps[] = [
   {
-    label: "Add Sales",
+    label: "فروخت شامل کریں",
     href: "/dashboard/sales/addSale",
   },
   {
-    label: "Sales",
+    label: "فروخت",
     href: "/dashboard/sales",
   },
   {
-    label: "Add Customer",
+    label: "نیا گاہک شامل کریں",
     href: "/dashboard/customers?addNew=true",
   },
   {
-    label: "Customers List",
+    label: "گاہکوں کی فہرست",
     href: "/dashboard/customers",
   },
 ];

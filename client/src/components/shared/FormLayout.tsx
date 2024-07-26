@@ -1,7 +1,9 @@
+"use client";
 import React, { FormEvent } from "react";
 import Loader from "./Loader";
 import Image from "next/image";
 import ButtonLayout from "./ButtonLayout";
+import UrduFont from "@/constants/UrduFont";
 
 // Props
 interface FormLayoutProps {
@@ -24,6 +26,24 @@ const FormLayout: React.FC<FormLayoutProps> = ({
   showHeading = true,
   children,
 }) => {
+  // Mapping variant to Urdu text
+  const getHeadingText = (variant: string) => {
+    switch (variant) {
+      case "ADD USER":
+        return "نیا صارف شامل کریں";
+      case "LOG IN":
+        return "لاگ ان کریں";
+      case "CHANGE PASSWORD":
+        return "پاس ورڈ  تبدیل کریں";
+      case "REMOVE USER":
+        return "صارف کو ہٹائیں";
+      case "ADD CUSTOMER":
+        return "نیا گاہک شامل کریں";
+      default:
+        return "";
+    }
+  };
+
   return (
     <form
       className="bg-white w-[95%] max-w-96 px-3 py-4 drop-shadow-xl shadow-lg rounded-lg"
@@ -43,14 +63,21 @@ const FormLayout: React.FC<FormLayoutProps> = ({
             />
           )}
 
-          <h3 className="text-2xl font-semibold">{variant}</h3>
+          <h3 className={`${UrduFont} text-2xl font-semibold`}>
+            {getHeadingText(variant)}
+          </h3>
         </div>
       )}
 
       <div className="py-6 text-left">{children}</div>
 
-      <ButtonLayout type="submit" disabled={isLoading} fullWidth>
-        {isLoading ? <Loader /> : variant}
+      <ButtonLayout
+        type="submit"
+        disabled={isLoading}
+        fullWidth
+        className={UrduFont}
+      >
+        {isLoading ? <Loader /> : getHeadingText(variant)}
       </ButtonLayout>
     </form>
   );

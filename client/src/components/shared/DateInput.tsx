@@ -1,6 +1,7 @@
 "use client";
 import UrduFont from "@/constants/UrduFont";
 import addZero from "@/libs/AddZero";
+import getCurrentDate from "@/libs/GetCurrentDate";
 import React, { useRef } from "react";
 
 // Props
@@ -17,12 +18,10 @@ interface DateInputProps {
     | "SALES";
 }
 
-const currentDate = `${addZero(new Date().getDate())}-${addZero(
-  new Date().getMonth() + 1
-)}-${new Date().getFullYear()}`;
+
 
 const DateInput: React.FC<DateInputProps> = ({
-  date = currentDate,
+  date = getCurrentDate(),
   setDate,
   variant,
   subVariant,
@@ -43,7 +42,7 @@ const DateInput: React.FC<DateInputProps> = ({
 
       setDate(newDate);
     } else {
-      setDate(currentDate);
+      setDate(getCurrentDate());
     }
   };
 

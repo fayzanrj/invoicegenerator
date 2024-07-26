@@ -10,7 +10,7 @@ interface NotFoundProps {
 const NotFound: React.FC<NotFoundProps> = ({ href, label }) => {
   return (
     <main className="p-4">
-      <BackButton label={label} href={href} />
+      <BackButton />
       <div className="CENTER text-center">
         <p className="text-2xl font-semibold my-5">NO INVOICE FOUND</p>
         <Link href={"/dashboard"}>Go to dashboard</Link>

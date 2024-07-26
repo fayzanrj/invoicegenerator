@@ -1,77 +1,111 @@
 "use client";
+import FetchMoreButton from "@/components/shared/FetchMoreButton";
+import Loader from "@/components/shared/Loader";
+import UrduFont from "@/constants/UrduFont";
+import useHeaders from "@/hooks/useHeaders";
+import fetchCustomers from "@/libs/fetch/FetchCustomers";
 import CustomerProps from "@/props/CustomerProps";
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { CustomerListTableHeading } from "../shared/TableHeaders";
 import AddCustomerButton from "./AddCustomerButton";
 import CustomerSearchField from "./CustomerSearchField";
 import CustomersListItem from "./CustomersListItem";
 import NoCustomerFound from "./NoCustomerFound";
-import UrduFont from "@/constants/UrduFont";
+import ScreenLoader from "../shared/ScreenLoader";
 
 // Props
 interface CustomersListProps {
   customers: CustomerProps[];
+  isLastPage: boolean;
 }
 
-// Table Headings for Customer List
-const CustomerTableHead = () => (
-  <thead>
-    <tr>
-      <th className="py-3 bg-black text-white w-1/4">تاریخ تخلیق</th>
-      <th className="bg-black text-white w-1/4">نام</th>
-      <th className="bg-black text-white w-1/4">نمبر</th>
-    </tr>
-  </thead>
-);
+const CustomersList: React.FC<CustomersListProps> = ({
+  customers,
+  isLastPage,
+}) => {
+  // States
+  const [allCustomers, setAllCustomers] = useState(customers);
+  const [filteredCustomers, setFilteredCustomers] = useState(customers);
+  const [pageNo, setPageNo] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasFetchedAll, setHasFetchedAll] = useState(isLastPage);
+  const [isSearching, setIsSearching] = useState(false);
 
-const CustomersList: React.FC<CustomersListProps> = ({ customers }) => {
-  // State
-  const [filteredCustomer, setFilteredCustomers] = useState(customers);
+  // Hook
+  const headers = useHeaders();
 
-  // Handling Search of customer
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value.toLowerCase();
-    if (query) {
-      // Filtering customers based on the query
-      const filtered = customers.filter((customer) =>
-        customer.name.toLowerCase().includes(query)
-      );
-      setFilteredCustomers(filtered);
-    } else {
-      // Reseting to the full customer list when the search query is empty
-      setFilteredCustomers(customers);
+  // Function to increase customers current page
+  const handleFetchMore = async () => {
+    if (!isLoading && !hasFetchedAll && !isSearching) {
+      setPageNo((prev) => prev + 1);
     }
   };
 
-  // Function to add user to list
-  const addCustomerToList = useCallback((customer: CustomerProps) => {
-    setFilteredCustomers((prev) => [...prev, customer]);
-  }, []);
+  useEffect(() => {
+    // Fuction to fetch more customers when page number is changed
+    const fetchMore = async () => {
+      try {
+        setIsLoading(true);
+        // Fectching
+        const data = await fetchCustomers(pageNo, headers.accessToken!);
+        if (data) {
+          // Setting
+          const newCustomers = data.customers;
+          setFilteredCustomers((prev) => [...prev, ...newCustomers]);
+          setAllCustomers((prev) => [...prev, ...newCustomers]);
+          if (data.isLastPage) {
+            setHasFetchedAll(true);
+          }
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (pageNo > 1 && !hasFetchedAll) fetchMore();
+  }, [pageNo, headers.accessToken, hasFetchedAll]);
 
   return (
     <>
-      {/* SEARCH CUSTOMER */}
-      <CustomerSearchField handleSearch={handleSearch} />
+      {/* FIELD TO SEARCH CUSTOMER  */}
+      <CustomerSearchField
+        allCustomers={allCustomers}
+        setFilteredCustomers={setFilteredCustomers}
+        setIsSearching={setIsSearching}
+        setIsLoading={setIsLoading}
+      />
 
-      {/* NEW CUSTOMER */}
-      <AddCustomerButton addCustomerToList={addCustomerToList} />
+      {/* BUTTON TO ADD A NEW CUSTOMER */}
+      <AddCustomerButton
+        addCustomerToList={(customer) =>
+          setAllCustomers((prev) => [...prev, customer])
+        }
+      />
 
-      {/* CUSTOMER LIST */}
       <section className={`${UrduFont}`}>
+        {/* CUSTOMER LIST */}
         <table className={`my-4 mt-10 w-full`}>
-          {/* HEADING */}
-          <CustomerTableHead />
-
-          {/* BODY */}
+          <CustomerListTableHeading />
           <tbody>
-            {filteredCustomer.length > 0 ? (
-              filteredCustomer.map((customer, index) => (
-                <CustomersListItem key={index} index={index} {...customer} />
+            {filteredCustomers.length > 0 ? (
+              filteredCustomers.map((customer, index) => (
+                <CustomersListItem key={customer.customerNo} {...customer} />
               ))
             ) : (
               <NoCustomerFound />
             )}
           </tbody>
         </table>
+
+        {/* BUTTON TO FETCH MORE CUSTOMERS */}
+        {!hasFetchedAll && !isLoading && !isSearching && (
+          <FetchMoreButton label="کسٹمر" handleFetchMore={handleFetchMore} />
+        )}
+
+        {/* LOADER */}
+        {isLoading && (
+          <ScreenLoader />
+        )}
       </section>
     </>
   );

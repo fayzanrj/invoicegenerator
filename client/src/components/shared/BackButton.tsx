@@ -1,22 +1,29 @@
-import Link from "next/link";
-import React from "react";
+"use client";
+import { useRouter } from "next/navigation";
 import { MdArrowBackIos } from "react-icons/md";
 import ButtonLayout from "./ButtonLayout";
+import UrduFont from "@/constants/UrduFont";
 
-// Props
-interface BackButtonProps {
-  label: string;
-  href: string;
-}
+const BackButton = () => {
+  // Hook
+  const router = useRouter();
 
-const BackButton: React.FC<BackButtonProps> = ({ href, label }) => {
+  // Function to go back
+  const goBack = () => router.back();
+
   return (
-    <Link href={href} className="w-full mb-2 NO_PRINT">
-      <ButtonLayout type="button" isNav background="transparent" className="!text-black">
+    <section className="self-start">
+      <ButtonLayout
+        onClick={goBack}
+        background="transparent"
+        className="!text-black NO_PRINT"
+      >
         <MdArrowBackIos className="inline-block align-middle" />
-        <span className="align-middle font-semibold">{label}</span>
+        <span className={`${UrduFont} align-middle font-semibold`}>
+          واپس جائیں
+        </span>
       </ButtonLayout>
-    </Link>
+    </section>
   );
 };
 

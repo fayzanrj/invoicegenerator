@@ -57,24 +57,24 @@ const SalesByDate = () => {
     <>
       {isLoading && <ScreenLoader />}
 
-      <section>
-        <section className="flex justify-center items-end my-8">
-          <RefreshButton handleClick={fetchSales} />
+      {/* DATE SELECTION */}
+      <section className="flex justify-center items-end my-8">
+        <RefreshButton handleClick={fetchSales} />
 
-          <DateInput
-            variant="SALE"
-            subVariant="SALES"
-            date={selectedDate}
-            setDate={handleDateChange}
-          />
-        </section>
-
-        {sales && sales.length > 0 && !isLoading ? (
-          <SalesByDateList sales={sales} />
-        ) : (
-          <NoSalesFound />
-        )}
+        <DateInput
+          variant="SALE"
+          subVariant="SALES"
+          date={selectedDate}
+          setDate={handleDateChange}
+        />
       </section>
+
+      {/* SALES LIST */}
+      {sales && sales.length > 0 && !isLoading ? (
+        <SalesByDateList sales={sales} />
+      ) : (
+        <NoSalesFound />
+      )}
     </>
   );
 };

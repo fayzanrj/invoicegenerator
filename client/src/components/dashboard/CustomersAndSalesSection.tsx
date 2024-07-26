@@ -5,7 +5,7 @@ import SectionHeading from "./SectionHeading";
 const CustomersAndSalesSection = () => {
   return (
     <section className="my-8 text-center">
-      <SectionHeading name="Sales & Customers" />
+      <SectionHeading name="فروخت اور گاہک" />
 
       {CustomersAndSalesLinks.map((link) => (
         <SectionButtonLayout key={link.href} {...link} />

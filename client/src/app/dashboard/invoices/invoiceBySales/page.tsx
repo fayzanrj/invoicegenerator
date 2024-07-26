@@ -14,8 +14,10 @@ interface InvoiceBySalesProps {
 }
 
 const InvoiceBySales = async ({ searchParams }: InvoiceBySalesProps) => {
+  // Destructuring
   const { customerId, monthId } = searchParams;
 
+  // Validating
   if (
     !customerId ||
     !monthId ||
@@ -24,15 +26,17 @@ const InvoiceBySales = async ({ searchParams }: InvoiceBySalesProps) => {
   )
     redirect("/dashboard");
 
+    // Fetching sales for adding in invoice
   const data = await fetchSalesForInvoice(customerId, monthId);
 
+  // If there is an error while fetching data
   if (!data) return <ServerError label="Dashboard" href="/dashboard" />;
 
+  // Fetching latest invoice number
   const invoiceNumber = await GetInvoiceNumber();
 
-  const { customer, month, sales } = data;
-
-  console.log({ sales });
+  // Destructuring
+  const { customer, sales } = data;
 
   return (
     <PageLayout

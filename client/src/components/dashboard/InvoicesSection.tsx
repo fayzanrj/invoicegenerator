@@ -6,7 +6,7 @@ const InvoicesSection = () => {
   return (
     <section className="my-8 text-center">
       {/* Section heading*/}
-      <SectionHeading name="Invoices" />
+      <SectionHeading name="بلز" />
 
       {InvoiceLinks.map((link) => (
         <SectionButtonLayout key={link.href} {...link} />

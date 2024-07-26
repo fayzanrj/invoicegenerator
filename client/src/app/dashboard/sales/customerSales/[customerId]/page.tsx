@@ -13,6 +13,7 @@ interface ParamsProps {
 }
 
 const CustomerSales = async ({ params }: ParamsProps) => {
+  // Destructuring
   const { customerId } = params;
 
   // Validating params

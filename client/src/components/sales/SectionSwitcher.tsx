@@ -35,6 +35,7 @@ const SectionSwitcher: React.FC<SectionSwitcherProps> = ({ months }) => {
 
   return (
     <>
+      {/* SWITCH BUTTONS */}
       <section className={`${UrduFont} w-full text-center my-4`}>
         {renderButton("MONTH", "ماہانہ فروخت")}
         {renderButton("DATE", "تاریخ کے حساب سے فروخت")}

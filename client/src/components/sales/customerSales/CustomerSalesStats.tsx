@@ -39,6 +39,7 @@ const CustomerSaleStats: React.FC<CustomerSaleStatsProps> = ({
     if (index > -1) setSelectedMonth(months[index]);
   };
 
+  // Function to fetch sales of a particular customer
   const fetchSales = async () => {
     try {
       setIsLoading(true);
@@ -73,6 +74,7 @@ const CustomerSaleStats: React.FC<CustomerSaleStatsProps> = ({
     <>
       {isLoading && <ScreenLoader />}
 
+      {/* MONTH INPUT */}
       <section className="flex justify-center items-end">
         <RefreshButton handleClick={fetchSales} />
 
@@ -83,11 +85,14 @@ const CustomerSaleStats: React.FC<CustomerSaleStatsProps> = ({
         />
       </section>
 
+      {/* ACTION BUTTON AND HEADING */}
       <section className="my-8 text-right flex justify-between items-center">
         <Link
           href={`/dashboard/invoices/invoiceBySales?customerId=${customer?._id}&monthId=${selectedMonth._id}`}
         >
-          <ButtonLayout isNav>بل بنائیں</ButtonLayout>
+          <ButtonLayout isNav className={UrduFont}>
+            بل بنائیں
+          </ButtonLayout>
         </Link>
 
         <h2 className="text-3xl">
@@ -96,6 +101,7 @@ const CustomerSaleStats: React.FC<CustomerSaleStatsProps> = ({
         </h2>
       </section>
 
+      {/* SALES LIST */}
       {(!sales || sales.length <= 0) && !isLoading ? (
         <NoSalesFound />
       ) : (

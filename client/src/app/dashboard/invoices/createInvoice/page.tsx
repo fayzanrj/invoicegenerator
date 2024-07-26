@@ -13,7 +13,7 @@ const CreateInvoice = async () => {
   // Fetching latest invoice number
   const invoiceNumber: number | undefined = await GetInvoiceNumber();
 
-  // If there is an error efcthing invoice number
+  // If there is an error while fecthing invoice number
   if (!invoiceNumber)
     return <ServerError label="Dashboard" href="/dashboard" />;
 

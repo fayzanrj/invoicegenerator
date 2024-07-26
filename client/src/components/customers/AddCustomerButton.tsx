@@ -1,5 +1,4 @@
 "use client";
-
 import CustomerProps from "@/props/CustomerProps";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
