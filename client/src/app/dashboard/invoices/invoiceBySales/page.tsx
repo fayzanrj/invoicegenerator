@@ -30,7 +30,7 @@ const InvoiceBySales = async ({ searchParams }: InvoiceBySalesProps) => {
   const data = await fetchSalesForInvoice(customerId, monthId);
 
   // If there is an error while fetching data
-  if (!data) return <ServerError label="Dashboard" href="/dashboard" />;
+  if (!data) return <ServerError />;
 
   // Fetching latest invoice number
   const invoiceNumber = await GetInvoiceNumber();

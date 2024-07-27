@@ -5,6 +5,7 @@ import ButtonLayout from "../shared/ButtonLayout";
 import MonthlySaleStats from "./monthlySale/MonthlySaleStats";
 import SalesByDate from "./salesByDate/SalesByDate";
 import UrduFont from "@/constants/UrduFont";
+import NoSalesFound from "./NoSalesFound";
 
 // Props
 interface SectionSwitcherProps {
@@ -41,7 +42,9 @@ const SectionSwitcher: React.FC<SectionSwitcherProps> = ({ months }) => {
         {renderButton("DATE", "تاریخ کے حساب سے فروخت")}
       </section>
 
-      {selectedSection === "MONTH" ? (
+      {!months || months.length <= 0 ? (
+        <NoSalesFound />
+      ) : selectedSection === "MONTH" ? (
         <MonthlySaleStats months={months} />
       ) : (
         <SalesByDate />

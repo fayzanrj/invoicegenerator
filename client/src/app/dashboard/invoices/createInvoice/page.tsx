@@ -15,7 +15,7 @@ const CreateInvoice = async () => {
 
   // If there is an error while fecthing invoice number
   if (!invoiceNumber)
-    return <ServerError label="Dashboard" href="/dashboard" />;
+    return <ServerError />;
 
   return (
     <PageLayout

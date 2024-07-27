@@ -35,6 +35,8 @@ const adminAuthorised = async (
     // Finding user details by user ID from the token
     const userDetails = await User.findById(user.userId);
 
+    console.log({userDetails})
+
     // If no user found or user is not an admin
     if (!userDetails || userDetails.role !== "admin") {
       return ThrowUnAuthorizedError(res);

@@ -24,8 +24,8 @@ const InvoiceListItem: React.FC<InvoiceListItemProps> = ({
       onClick={() =>
         router.push(
           variant === "invoices"
-            ? `/dashboard/invoices/${invoiceNumber}`
-            : `/dashboard/invoices/drafts/${invoiceNumber}`
+            ? `/dashboard/invoices/${invoiceNumber}?callbackUrl=${process.env.NEXT_PUBLIC_HOST}/dashboard/invoices`
+            : `/dashboard/invoices/drafts/${invoiceNumber}?callbackUrl=${process.env.NEXT_PUBLIC_HOST}/dashboard/invoices/drafts`
         )
       }
       className="cursor-pointer w-full text-center text-sm md:text-[1rem] hover:bg-stone-200"

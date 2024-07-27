@@ -1,9 +1,15 @@
+import UrduFont from "@/constants/UrduFont";
 import React from "react";
 
 const NoCustomerFound = () => {
   return (
     <tr className="col-span-full">
-      <td colSpan={4} className="font-sans font-semibold text-xl py-4 text-center">NO CUSTOMER FOUND</td>
+      <td
+        colSpan={4}
+        className={`${UrduFont} font-sans font-semibold text-xl py-4 text-center`}
+      >
+        کوئی گاہک نہیں ملا
+      </td>
     </tr>
   );
 };

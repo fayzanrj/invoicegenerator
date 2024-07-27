@@ -27,29 +27,29 @@ const ScreenModal: React.FC<ScreenModalProps> = (props) => {
 
   // State to keep track of page offset
   const [scrollPosition, setScrollPosition] = useState(
-    window && window.pageYOffset
+    typeof window !== "undefined" ? window.pageYOffset : 0
   );
 
   useEffect(() => {
-    if (window) {
+    if (typeof window !== "undefined") {
+      // Client-side-only code
       const handleScroll = () => {
         setScrollPosition(window.pageYOffset);
+
+        document.documentElement.style.overflow = "hidden";
+
+        document.addEventListener("scroll", handleScroll);
       };
-
-      document.documentElement.style.overflow = "hidden";
-
-      document.addEventListener("scroll", handleScroll);
-
       return () => {
         document.removeEventListener("scroll", handleScroll);
 
         document.documentElement.style.overflow = "auto";
       };
     }
-  }, [window]);
+  }, []);
 
   return (
-    <main
+    <div
       className="flex flex-col justify-center items-center min-h-svh py-6 absolute w-screen h-dvh left-0 z-40 overflow-y-auto bg-black/40"
       style={{ top: `${scrollPosition}px` }}
     >
@@ -61,7 +61,7 @@ const ScreenModal: React.FC<ScreenModalProps> = (props) => {
         </div>
       )}
       {props.children}
-    </main>
+    </div>
   );
 };
 

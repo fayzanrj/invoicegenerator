@@ -12,14 +12,13 @@ const Customers = async () => {
   const data = await fetchCustomers(1, session?.user.accessToken!);
 
   // If customers are null
-  if (!data || !data.customers)
-    return <ServerError label="Dashboard" href="/dashboard" />;
+  if (!data || !data.customers) return <ServerError />;
 
   // Destructuring
   const { customers, isLastPage } = data;
   return (
     <PageLayout pageName="CUSTOMERS">
-      <CustomersList customers={customers} isLastPage={isLastPage } />
+      <CustomersList customers={customers} isLastPage={isLastPage} />
     </PageLayout>
   );
 };

@@ -3,33 +3,33 @@ import LinkProps from "@/props/LinkProps";
 export const InvoiceLinks: LinkProps[] = [
   {
     label: "نیا بل بنائیں",
-    href: "/dashboard/invoices/createInvoice",
+    href: `/dashboard/invoices/createInvoice?callbackUrl=${process.env.HOST}/dashboard`,
   },
   {
     label: "بلز دیکھیں",
-    href: "/dashboard/invoices",
+    href: `/dashboard/invoices?callbackUrl=${process.env.HOST}/dashboard`,
   },
   {
     label: "غیر مکمل بل",
-    href: "/dashboard/invoices/drafts",
+    href: `/dashboard/invoices/drafts?callbackUrl=${process.env.HOST}/dashboard`,
   },
 ];
 
 export const CustomersAndSalesLinks: LinkProps[] = [
   {
     label: "فروخت شامل کریں",
-    href: "/dashboard/sales/addSale",
+    href: `/dashboard/sales/addSale?callbackUrl=${process.env.HOST}/dashboard`,
   },
   {
     label: "فروخت",
-    href: "/dashboard/sales",
+    href: `/dashboard/sales?callbackUrl=${process.env.HOST}/dashboard`,
   },
   {
     label: "نیا گاہک شامل کریں",
-    href: "/dashboard/customers?addNew=true",
+    href: `/dashboard/customers?addNew=true&callbackUrl=${process.env.HOST}/dashboard`,
   },
   {
     label: "گاہکوں کی فہرست",
-    href: "/dashboard/customers",
+    href: `/dashboard/customers?callbackUrl=${process.env.HOST}/dashboard`,
   },
 ];

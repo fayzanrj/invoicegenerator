@@ -64,8 +64,8 @@ const AddCustomerModal: React.FC<AddCustomerModalProps> = ({
       >
         <StateInputField
           id="addCustomer"
-          label="کسٹمر کا نام"
-          placeholder="کسٹمر کا نام لکھیں"
+          label="گاہک کا نام"
+          placeholder="گاہک کا نام لکھیں"
           value={customerName}
           onChange={handleNameChange}
           className={UrduFont}

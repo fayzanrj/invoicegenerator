@@ -1,6 +1,7 @@
 import React from "react";
 import BackButton from "./BackButton";
 import RefreshPage from "./RefreshPage";
+import UrduFont from "@/constants/UrduFont";
 
 // Props
 interface PageLayoutBaseProps {
@@ -39,32 +40,53 @@ const PageLayout: React.FC<PageLayoutProps> = ({
     switch (pageName) {
       case "INVOICE_DETAILS":
         return (
-          <PageHeading
-            name={`Invoice#${
-              (props as PageLayoutInvoiceDetailsProps).invoiceNo
-            }`}
-          />
+          <PageHeading>
+            {`بل نمبر `}
+            <span className="font-sans">
+              {(props as PageLayoutInvoiceDetailsProps).invoiceNo}
+            </span>
+          </PageHeading>
         );
       case "DRAFT_DETAILS":
         return (
-          <PageHeading
-            name={`Invoice#${
-              (props as PageLayoutInvoiceDetailsProps).invoiceNo
-            }(Draft)`}
-          />
+          <PageHeading>
+            {`بل نمبر `}
+            <span className="font-sans">
+              {(props as PageLayoutInvoiceDetailsProps).invoiceNo}
+            </span>
+            {` (غیر مکمل)`}
+          </PageHeading>
         );
+      case "CUSTOMERS":
+        return <PageHeading>گاہک</PageHeading>;
+      case "INVOICES":
+        return <PageHeading>بل</PageHeading>;
+      case "DRAFTS":
+        return <PageHeading>غیر مکمل بل</PageHeading>;
+      case "NEW INVOICE":
+        return <PageHeading>نیا بل</PageHeading>;
+      case "EDIT INVOICE":
+        return <PageHeading>بل میں ترمیم کریں</PageHeading>;
+      case "SALES":
+        return <PageHeading>فروخت</PageHeading>;
+      case "CUSTOMER SALES":
+        return <PageHeading>گاہک کی فروخت</PageHeading>;
+      case "ADD SALES":
+        return <PageHeading>فروخت شامل کریں</PageHeading>;
       default:
-        return <PageHeading name={pageName} />;
+        return <PageHeading>{pageName}</PageHeading>;
     }
   };
 
   return (
     <main className={className}>
-      {/* BACK NAVIGATION BUTTON */}
-      <BackButton />
+      <header className="flex justify-between items-center w-full mb-6">
+        {/* BACK NAVIGATION BUTTON */}
+        <BackButton />
 
-      {/* HEADING */}
-      {renderPageHeading()}
+        {/* HEADING */}
+        {renderPageHeading()}
+      </header>
 
       {/* CHILDREN CONTENT */}
       {children}
@@ -79,13 +101,15 @@ export default PageLayout;
 
 // Props
 interface PageHeadingProps {
-  name: string;
+  children: React.ReactNode;
 }
 
-const PageHeading: React.FC<PageHeadingProps> = ({ name }) => {
+const PageHeading: React.FC<PageHeadingProps> = ({ children }) => {
   return (
-    <h1 className="w-full text-left ml-2 md:ml-4 mt-2 mb-4 font-bold text-4xl NO_PRINT">
-      {name}
+    <h1
+      className={`${UrduFont} w-full text-right mr-2 md:mr-4 mt-2 mb-4 font-bold text-4xl NO_PRINT`}
+    >
+      {children}
     </h1>
   );
 };

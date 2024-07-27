@@ -89,14 +89,12 @@ const RemoveUserForm = () => {
   // Deletion confirmation modal
   if (isModalOpen) {
     return (
-      <ScreenModal closeModal={closeModal} showCancel={false} isForm>
         <DeletionConfirmation
           closeModal={closeModal}
           variant="USER"
           username={selectedUser?.username || ""}
           handleClick={handleRemove}
         />
-      </ScreenModal>
     );
   }
 

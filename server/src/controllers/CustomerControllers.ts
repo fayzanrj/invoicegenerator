@@ -25,7 +25,9 @@ export const getCustomers = async (req: Request, res: Response) => {
     const totalCustomers = await Customer.countDocuments();
 
     // Finding customer based on pagination
-    const customers = await Customer.find()
+    const customers = await Customer.find({
+      isActive : true
+    })
       .sort({ customerNo: 1 })
       .skip(skip)
       .limit(limit);
@@ -57,6 +59,7 @@ export const searchCustomer = async (req: Request, res: Response) => {
     // Finding customer based on query
     const customers = await Customer.find({
       name: { $regex: q, $options: "i" },
+      isActive : true
     }).limit(20);
 
     // Response
@@ -93,8 +96,8 @@ export const addCustomer = async (req: Request, res: Response) => {
     if (customerAlreadyExists)
       return ThrowBadRequest(res, "CustomerName already exists");
 
-    const customerId = await CustomerNumber.findOne();
-    const latestNumber = customerId.number + 1;
+    const id = await CustomerNumber.findOne();
+    const latestNumber = id.number + 1;
 
     // Creating new customerName
     const newCustomer = await Customer.create({
@@ -105,12 +108,45 @@ export const addCustomer = async (req: Request, res: Response) => {
 
     if (!newCustomer) return ThrowServerError(res);
 
-    await CustomerNumber.findByIdAndUpdate(customerId._id, {
+    await CustomerNumber.findByIdAndUpdate(id._id, {
       number: latestNumber,
     });
     return res.status(201).json({
       message: "Customer has been added",
       customer: newCustomer,
+    });
+  } catch (error) {
+    console.error(error);
+    return ThrowServerError(res);
+  }
+};
+
+/**
+ * Controller to deactivate a customer (set isActive to false)
+ * @param req Request object from Express.
+ * @param res Response object from Express.
+ * @returns A JSON response containing message and the updated customer.
+ */
+export const deactivateCustomer = async (req: Request, res: Response) => {
+  try {
+    // Destructuring id from request params
+    const { id } = req.params as { id: string };
+
+    // Finding the customer by ID
+    const customer = await Customer.findById(id);
+
+    if (!customer) return ThrowBadRequest(res, "Customer not found");
+
+    // Setting isActive to false
+    customer.isActive = false;
+
+    // Saving the updated customer
+    const updatedCustomer = await customer.save();
+
+    if (!updatedCustomer) return ThrowServerError(res);
+
+    return res.status(200).json({
+      message: "Customer has been deactivated",
     });
   } catch (error) {
     console.error(error);

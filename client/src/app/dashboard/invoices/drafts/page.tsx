@@ -20,7 +20,7 @@ const Drafts = async () => {
 
   // If invoices are null
   if (!data || !data.invoices)
-    return <ServerError label="Dashboard" href="/dashboard" />;
+    return <ServerError/>;
 
   // Destruturing
   const { invoices, isLastPage } = data;

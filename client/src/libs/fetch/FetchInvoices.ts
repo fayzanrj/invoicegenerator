@@ -10,7 +10,6 @@ const fetchInvoices = async (
 ) => {
   try {
     const fetchType = type === "drafts" ? "drafts" : "saved";
-    console.log({ page });
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/invoices/getInvoices/${fetchType}?page=${page}`,
       {

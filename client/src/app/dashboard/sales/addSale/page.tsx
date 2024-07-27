@@ -26,7 +26,7 @@ const AddSale = async () => {
   const customers = res.customers as CustomerProps[];
 
   // If customers are null
-  if (!customers) return <ServerError label="Dashboard" href="/dashboard" />;
+  if (!customers) return <ServerError/>;
 
   return (
     <PageLayout pageName="ADD SALES">

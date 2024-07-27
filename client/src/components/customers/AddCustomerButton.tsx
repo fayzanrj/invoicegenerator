@@ -40,7 +40,7 @@ const AddCustomerButton: React.FC<AddCustomerButtonProps> = ({
           onClick={toggleModal}
           className={`${UrduFont} px-5 ml-auto`}
         >
-          نیا کسٹمر شامل کریں
+          نیا گاہک شامل کریں
         </ButtonLayout>
       </section>
     </>

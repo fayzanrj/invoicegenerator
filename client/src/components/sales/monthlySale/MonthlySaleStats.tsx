@@ -46,7 +46,6 @@ const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
 
       setSaleStats(res.data.sales);
     } catch (error) {
-      handleApiError(error);
       setSaleStats(null);
     } finally {
       setIsLoading(false);
@@ -69,7 +68,7 @@ const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
         <MonthSelectionInput
           months={months}
           handleSelection={handleMonthChange}
-          selectedMonthId={selectedMonth._id}
+          selectedMonthId={selectedMonth._id || ""}
         />
       </section>
 

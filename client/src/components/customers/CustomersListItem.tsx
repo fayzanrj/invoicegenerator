@@ -15,7 +15,7 @@ const CustomersListItem: React.FC<CustomerProps> = ({
   return (
     <tr
       className="cursor-pointer w-full text-center text-sm md:text-[1rem] hover:bg-stone-200"
-      onClick={() => router.push(`/dashboard/sales/customerSales/${_id}`)}
+      onClick={() => router.push(`/dashboard/sales/customerSales/${_id}?callbackUrl=${process.env.NEXT_PUBLIC_HOST}/dashboard/customers`)}
     >
       <td className="font-sans py-3">
         {new Date(createdAt).toLocaleDateString("ur-PK")}

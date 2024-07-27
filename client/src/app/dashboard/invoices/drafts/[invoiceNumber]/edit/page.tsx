@@ -28,7 +28,7 @@ const EditInvoice: React.FC<EditInvoiceProps> = async ({ params }) => {
   const href = "/dashboard/invoices/drafts";
 
   // If error occurs while fetching invoice
-  if (invoice === undefined) return <ServerError label="Drafts" href={href} />;
+  if (invoice === undefined) return <ServerError />;
 
   // If invoice is not found || invoice is not drafts (as it is drafts page)
   if (invoice === null || !invoice.isDraft)

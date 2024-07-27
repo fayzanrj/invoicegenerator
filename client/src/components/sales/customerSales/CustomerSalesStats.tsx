@@ -13,6 +13,7 @@ import Link from "next/link";
 import ButtonLayout from "@/components/shared/ButtonLayout";
 import RefreshButton from "@/components/shared/RefreshButton";
 import NoSalesFound from "../NoSalesFound";
+import CustomerDeleteButton from "@/components/customers/CustomerDeleteButton";
 
 // Props
 interface CustomerSaleStatsProps {
@@ -58,8 +59,8 @@ const CustomerSaleStats: React.FC<CustomerSaleStatsProps> = ({
       setCustomer(res.data.customer);
     } catch (error) {
       handleApiError(error);
-      setSales(null);
-      setCustomer(null);
+      // setSales(null);
+      // setCustomer(null);
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +69,7 @@ const CustomerSaleStats: React.FC<CustomerSaleStatsProps> = ({
   // Use effect to run on compnent mount
   useEffect(() => {
     fetchSales();
-  }, [selectedMonth, headers.accessToken, customerId]);
+  }, [selectedMonth, customerId]);
 
   return (
     <>
@@ -87,13 +88,19 @@ const CustomerSaleStats: React.FC<CustomerSaleStatsProps> = ({
 
       {/* ACTION BUTTON AND HEADING */}
       <section className="my-8 text-right flex justify-between items-center">
-        <Link
-          href={`/dashboard/invoices/invoiceBySales?customerId=${customer?._id}&monthId=${selectedMonth._id}`}
-        >
-          <ButtonLayout isNav className={UrduFont}>
-            بل بنائیں
-          </ButtonLayout>
-        </Link>
+        <div>
+          <Link
+            href={`/dashboard/invoices/invoiceBySales?customerId=${customer?._id}&monthId=${selectedMonth._id}&callbackUrl=${process.env.NEXT_PUBLIC_HOST}/dashboard/sales/customerSales/${customerId}`}
+          >
+            <ButtonLayout isNav className={UrduFont}>
+              بل بنائیں
+            </ButtonLayout>
+          </Link>
+          <CustomerDeleteButton
+            customerId={customer?._id || ""}
+            customerName={customer?.name || ""}
+          />
+        </div>
 
         <h2 className="text-3xl">
           <span className={UrduFont}>{customer?.name} </span>-{" "}

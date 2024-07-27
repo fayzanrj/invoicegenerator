@@ -27,8 +27,7 @@ const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
   const href = "/dashboard/invoices";
 
   // If error occurs while fetching invoice
-  if (invoice === undefined)
-    return <ServerError label="Invoices" href={href} />;
+  if (invoice === undefined) return <ServerError />;
 
   // If invoice is not found || invoice is drafts (as it is not drafts page)
   if (invoice === null || invoice.isDraft)
@@ -39,7 +38,7 @@ const InvoiceDetails: React.FC<InvoiceDetailsProps> = async ({ params }) => {
       pageName="INVOICE_DETAILS"
       invoiceNo={invoice.invoiceNumber}
       className="flex flex-col p-4 md:items-center"
-    > 
+    >
       <Invoice variant="VIEW_INVOICE" {...invoice} />
     </PageLayout>
   );

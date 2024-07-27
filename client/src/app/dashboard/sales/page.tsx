@@ -8,7 +8,7 @@ const Sales = async () => {
   const months = await fetchSalesMonthList();
 
   // If months are null
-  if (!months) return <ServerError label="Dashboard" href="/dashboard" />;
+  if (!months) return <ServerError/>;
 
   return (
     <PageLayout pageName="SALES">

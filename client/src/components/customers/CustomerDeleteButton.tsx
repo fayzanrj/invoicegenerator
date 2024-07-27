@@ -10,16 +10,17 @@ import ButtonLayout from "../shared/ButtonLayout";
 import DeletionConfirmation from "../shared/DeletionConfirmation";
 import ScreenLoader from "../shared/ScreenLoader";
 import ScreenModal from "../shared/ScreenModal";
+import UrduFont from "@/constants/UrduFont";
 
 // Props
-interface InvoiceDeleteButtonProps {
-  invoiceNumber: number;
-  isDraft: boolean;
+interface CustomerDeleteButtonProps {
+  customerId: string;
+  customerName: string;
 }
 
-const InvoiceDeleteButton: React.FC<InvoiceDeleteButtonProps> = ({
-  invoiceNumber,
-  isDraft,
+const CustomerDeleteButton: React.FC<CustomerDeleteButtonProps> = ({
+  customerId,
+  customerName,
 }) => {
   // States
   const [isLoading, setIsLoading] = useState(false);
@@ -37,17 +38,14 @@ const InvoiceDeleteButton: React.FC<InvoiceDeleteButtonProps> = ({
       setIsModalOpen(false);
 
       // API CALL
-      const res = await axios.delete(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/invoices/deleteInvoice/${invoiceNumber}`,
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/customers/deactivate/${customerId}`,{},
         { headers }
       );
 
       toast.success(res.data.message);
-      router.push(
-        isDraft ? "/dashboard/invoices/drafts" : "/dashboard/invoices"
-      );
+      router.push("/dashboard/customers");
     } catch (error) {
-      console.error(error);
       handleApiError(error);
     } finally {
       setIsLoading(false);
@@ -64,12 +62,12 @@ const InvoiceDeleteButton: React.FC<InvoiceDeleteButtonProps> = ({
 
       {/* Confirmation modal */}
       {isModalOpen && (
-          <DeletionConfirmation
-            variant="INVOICE"
-            handleClick={handleClick}
-            closeModal={closeModal}
-            invoiceNumber={invoiceNumber}
-          />
+        <DeletionConfirmation
+          closeModal={closeModal}
+          handleClick={handleClick}
+          variant="CUSTOMER"
+          customerName={customerName}
+        />
       )}
 
       {/* Delete button */}
@@ -77,13 +75,13 @@ const InvoiceDeleteButton: React.FC<InvoiceDeleteButtonProps> = ({
         <ButtonLayout
           onClick={() => setIsModalOpen(true)}
           background="danger"
-          className="font-semibold align-middle"
+          className={`${UrduFont} font-semibold`}
         >
-          Delete Invoice
+          گاہک کو حذف کریں
         </ButtonLayout>
       )}
     </>
   );
 };
 
-export default InvoiceDeleteButton;
+export default CustomerDeleteButton;
