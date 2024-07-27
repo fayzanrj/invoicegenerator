@@ -53,3 +53,16 @@ export const CustomerListTableHeading = () => (
     </tr>
   </thead>
 );
+
+export const LatestSalesTableHeading = () => (
+  <thead>
+    <tr className={UrduFont}>
+      <th className="py-3 bg-black text-white w-1/5">بلٹی نمبر</th>
+      <th className="bg-black text-white w-1/6">مقدار</th>
+      <th className="bg-black text-white w-1/6">تفصیل</th>
+      <th className="bg-black text-white w-1/6">خریدار</th>
+      <th className="bg-black text-white w-1/6">تاریخ خرید</th>
+      <th className="bg-black text-white w-1/6">تاریخ</th>
+    </tr>
+  </thead>
+);

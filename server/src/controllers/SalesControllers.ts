@@ -118,6 +118,38 @@ export const getMonthsList = async (req: Request, res: Response) => {
 };
 
 /**
+ * Controller to get sales page by oage.
+ * @param req Request object from Express.
+ * @param res Response object from Express.
+ * @returns A JSON response containing the sales data.
+ */
+export const getSales = async (req: Request, res: Response) => {
+  try {
+    // Destructuring
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const limit = 20;
+
+    // Calculating offset
+    const skip = (page - 1) * limit;
+
+    // Finding the total count of sales
+    const totalSales = await Sale.countDocuments();
+
+    // Finding sales
+    const sales = await Sale.find().populate("customer").skip(skip).limit(limit);
+
+    // Checking if it's the last page
+    const isLastPage = page * limit >= totalSales;
+
+    // Response
+    return res.status(200).json({ sales, isLastPage });
+  } catch (error) {
+    console.error(error);
+    return ThrowServerError(res);
+  }
+};
+
+/**
  * Controller to get sales by customerId.
  * @param req Request object from Express.
  * @param res Response object from Express.

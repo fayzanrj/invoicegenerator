@@ -26,26 +26,21 @@ const ScreenModal: React.FC<ScreenModalProps> = (props) => {
   const showCancel = (props as ScreenModalFormProps).showCancel;
 
   // State to keep track of page offset
-  const [scrollPosition, setScrollPosition] = useState(
-    typeof window !== "undefined" ? window.pageYOffset : 0
-  );
+  const [scrollPosition, setScrollPosition] = useState(window.pageYOffset);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Client-side-only code
-      const handleScroll = () => {
-        setScrollPosition(window.pageYOffset);
+    // Client-side-only code
+    const handleScroll = () => {
+      setScrollPosition(window.pageYOffset);
+    };
+    document.documentElement.style.overflow = "hidden";
+    document.addEventListener("scroll", handleScroll);
 
-        document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
 
-        document.addEventListener("scroll", handleScroll);
-      };
-      return () => {
-        document.removeEventListener("scroll", handleScroll);
-
-        document.documentElement.style.overflow = "auto";
-      };
-    }
+      document.documentElement.style.overflow = "auto";
+    };
   }, []);
 
   return (

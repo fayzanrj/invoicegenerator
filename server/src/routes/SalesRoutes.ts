@@ -11,6 +11,11 @@ const router = express.Router();
 // /api/v1/sales/getMonthsList
 router.get("/getMonthsList", authorised, salesControllers.getMonthsList);
 
+// Route to get latest sales list page by page
+// This route is protected by the authorised middleware, meaning only authroised users can access it
+// /api/v1/sales/getSales?page=number
+router.get("/getSales", authorised, salesControllers.getSales);
+
 // Route to get sales record of a specific month
 // This route is protected by the authorised middleware, meaning only authroised users can access it
 // /api/v1/sales/getMonthlySalesStats
@@ -24,11 +29,7 @@ router.get(
 // Route to get sales for a specifc date
 // This route is protected by the authorised middleware, meaning only authroised users can access it
 // /api/v1/sales/getSalesByDate
-router.get(
-  "/getSalesByDate",
-  authorised,
-  salesControllers.getSalesByDate
-);
+router.get("/getSalesByDate", authorised, salesControllers.getSalesByDate);
 
 // Route to get monthly sales data for invoice of a specific month and user
 // This route is protected by the authorised middleware, meaning only authorized users can access it

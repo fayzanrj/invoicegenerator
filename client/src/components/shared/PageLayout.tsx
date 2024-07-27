@@ -19,7 +19,8 @@ interface PageLayoutCommonProps extends PageLayoutBaseProps {
     | "EDIT INVOICE"
     | "SALES"
     | "CUSTOMER SALES"
-    | "ADD SALES";
+    | "ADD SALES"
+    | "LATEST SALES";
 }
 
 // Props
@@ -73,6 +74,8 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         return <PageHeading>گاہک کی فروخت</PageHeading>;
       case "ADD SALES":
         return <PageHeading>فروخت شامل کریں</PageHeading>;
+      case "LATEST SALES": // Added new case here
+        return <PageHeading>تازہ ترین فروخت</PageHeading>;
       default:
         return <PageHeading>{pageName}</PageHeading>;
     }

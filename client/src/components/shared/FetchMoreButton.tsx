@@ -5,7 +5,7 @@ import UrduFont from "@/constants/UrduFont";
 // Props
 interface FetchMoreButtonProps {
   handleFetchMore: () => void;
-  label : "بل" | "کسٹمر"
+  label : "بل" | "کسٹمر" | "فروخت"
 }
 
 const FetchMoreButton: React.FC<FetchMoreButtonProps> = ({

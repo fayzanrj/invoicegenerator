@@ -22,11 +22,11 @@ export const getCustomers = async (req: Request, res: Response) => {
     const skip = (page - 1) * limit;
 
     // Finding the total count of invoices based on variant
-    const totalCustomers = await Customer.countDocuments();
+    const totalCustomers = await Customer.countDocuments({ isActive: true });
 
     // Finding customer based on pagination
     const customers = await Customer.find({
-      isActive : true
+      isActive: true,
     })
       .sort({ customerNo: 1 })
       .skip(skip)
@@ -59,7 +59,7 @@ export const searchCustomer = async (req: Request, res: Response) => {
     // Finding customer based on query
     const customers = await Customer.find({
       name: { $regex: q, $options: "i" },
-      isActive : true
+      isActive: true,
     }).limit(20);
 
     // Response
