@@ -11,7 +11,6 @@ import CustomerNumber from "../models/CustomerNumberModel";
  * Controller to get customers list
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing an array of customers.
  */
 export const getCustomers = async (req: Request, res: Response) => {
   try {
@@ -47,7 +46,6 @@ export const getCustomers = async (req: Request, res: Response) => {
  * Controller to search for a customer
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing an array of customers.
  */
 export const searchCustomer = async (req: Request, res: Response) => {
   try {
@@ -74,7 +72,6 @@ export const searchCustomer = async (req: Request, res: Response) => {
  * Controller to add a new customer.
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing message and newly added customer.
  */
 export const addCustomer = async (req: Request, res: Response) => {
   try {
@@ -125,7 +122,6 @@ export const addCustomer = async (req: Request, res: Response) => {
  * Controller to deactivate a customer (set isActive to false)
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing message and the updated customer.
  */
 export const deactivateCustomer = async (req: Request, res: Response) => {
   try {

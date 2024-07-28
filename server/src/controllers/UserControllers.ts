@@ -10,7 +10,6 @@ import UserProps from "props/UserProps";
  * Controller to fetch all users.
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing an array of user objects with `_id` and `username` fields.
  */
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -32,7 +31,6 @@ export const getUsers = async (req: Request, res: Response) => {
  * Controller to remove a user by ID.
  * @param req Request object from Express, containing `params` with `id` of the user to be deleted.
  * @param res Response object from Express.
- * @returns A JSON response indicating success after deleting the user.
  */
 export const removeUser = async (req: Request, res: Response) => {
   try {

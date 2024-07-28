@@ -77,6 +77,17 @@ input[type="number"] {
     margin: 0 !important;
   }
 
+  #saleMonthInput {
+    visibility: visible;
+    border: none;
+    width: fit-content;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: "";
+    font-weight: bold;
+  }
+
   #print,
   #print * {
     visibility: visible;

@@ -1,11 +1,12 @@
 "use client";
+import UrduFont from "@/constants/UrduFont";
 import { SaleMonthProps } from "@/props/SaleProps";
 import React, { useState } from "react";
 import ButtonLayout from "../shared/ButtonLayout";
 import MonthlySaleStats from "./monthlySale/MonthlySaleStats";
-import SalesByDate from "./salesByDate/SalesByDate";
-import UrduFont from "@/constants/UrduFont";
 import NoSalesFound from "./NoSalesFound";
+import SalesActionButtons from "./SalesActionButtons";
+import SalesByDate from "./salesByDate/SalesByDate";
 
 // Props
 interface SectionSwitcherProps {
@@ -36,11 +37,14 @@ const SectionSwitcher: React.FC<SectionSwitcherProps> = ({ months }) => {
 
   return (
     <>
+      <SalesActionButtons />
+      
       {/* SWITCH BUTTONS */}
-      <section className={`${UrduFont} w-full text-center my-4`}>
+      <section className={`${UrduFont} w-full text-center my-4 NO_PRINT`}>
         {renderButton("MONTH", "ماہانہ فروخت")}
         {renderButton("DATE", "تاریخ کے حساب سے فروخت")}
       </section>
+
 
       {!months || months.length <= 0 ? (
         <NoSalesFound />

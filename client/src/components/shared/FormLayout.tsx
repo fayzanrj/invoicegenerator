@@ -12,7 +12,8 @@ interface FormLayoutProps {
     | "LOG IN"
     | "CHANGE PASSWORD"
     | "REMOVE USER"
-    | "ADD CUSTOMER";
+    | "ADD CUSTOMER"
+    | "ADD BUILTY NUMBER";
   handleSubmit: (() => void) | ((e: FormEvent) => void);
   isLoading: boolean;
   children: React.ReactNode;
@@ -39,6 +40,8 @@ const FormLayout: React.FC<FormLayoutProps> = ({
         return "صارف کو ہٹائیں";
       case "ADD CUSTOMER":
         return "نیا گاہک شامل کریں";
+      case "ADD BUILTY NUMBER":
+        return "بلٹی نمبر شامل کریں";
       default:
         return "";
     }
@@ -51,7 +54,11 @@ const FormLayout: React.FC<FormLayoutProps> = ({
     >
       {/* Heading */}
       {showHeading && (
-        <div className={`${variant === "LOG IN" ? "flex justify-between items-center" : "" } px-4`}>
+        <div
+          className={`${
+            variant === "LOG IN" ? "flex justify-between items-center" : ""
+          } px-4`}
+        >
           {variant === "LOG IN" && (
             <Image
               src={"/logo.jpg"}

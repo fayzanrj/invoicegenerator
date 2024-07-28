@@ -72,4 +72,15 @@ router.delete(
   salesControllers.deleteSale
 );
 
+// Route to add/update builty number of a sale
+// This route is protected by the authorised middleware, meaning only authroised users can access it
+// This route also uses validateSalesData middleware to make sure all required fields are provided
+// /api/v1/sales/addBuiltyNo/:id
+router.post(
+  "/addBuiltyNo/:id",
+  authorised,
+  isValidId,
+  salesControllers.addBuiltyNumber
+);
+
 export default router;

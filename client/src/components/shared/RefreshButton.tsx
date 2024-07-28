@@ -9,7 +9,7 @@ interface RefreshButtonProps {
 
 const RefreshButton: React.FC<RefreshButtonProps> = ({ handleClick }) => {
   return (
-    <ButtonLayout onClick={handleClick} background="transparent" className="mx-3">
+    <ButtonLayout  onClick={handleClick} background="transparent" className="mx-3 NO_PRINT">
       <IoMdRefresh size={"1.5rem"} className=" inline-block text-black" />
     </ButtonLayout>
   );

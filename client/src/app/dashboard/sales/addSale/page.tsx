@@ -2,7 +2,6 @@ import AddSalesSection from "@/components/sales/addSales/AddSalesSection";
 import PageLayout from "@/components/shared/PageLayout";
 import ServerError from "@/components/shared/ServerError";
 import fetchCustomers from "@/libs/fetch/FetchCustomers";
-import CustomerProps from "@/props/CustomerProps";
 import { authOptions } from "@/utilities/AuthOptions";
 import { getServerSession } from "next-auth";
 
@@ -20,7 +19,7 @@ const AddSale = async () => {
 
   return (
     <PageLayout pageName="ADD SALES">
-      <AddSalesSection customers={customers} />
+      <AddSalesSection variant="PAGE" customers={customers} />
     </PageLayout>
   );
 };

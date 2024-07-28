@@ -9,7 +9,6 @@ type variantProps = "saved" | "drafts";
  * Controller to get the latest invoice number.
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response with the latest invoice number.
  */
 export const getInvoiceNumber = async (req: Request, res: Response) => {
   try {
@@ -31,7 +30,6 @@ export const getInvoiceNumber = async (req: Request, res: Response) => {
  * Controller to get invoices by variant (saved or drafts).
  * @param req Request object from Express containing the variant in params.
  * @param res Response object from Express.
- * @returns A JSON response with invoices filtered by variant.
  */
 export const getInvoicesByVariant = async (req: Request, res: Response) => {
   try {
@@ -75,7 +73,6 @@ export const getInvoicesByVariant = async (req: Request, res: Response) => {
  * Controller to get an invoice by invoice number.
  * @param req Request object from Express containing the invoice number in params.
  * @param res Response object from Express.
- * @returns A JSON response with the found invoice.
  */
 export const getInvoice = async (req: Request, res: Response) => {
   try {
@@ -104,7 +101,6 @@ export const getInvoice = async (req: Request, res: Response) => {
  * Controller to search for invoices based on search type and queyr
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing an array of customers.
  */
 
 export const searchInvoices = async (req: Request, res: Response) => {
@@ -155,7 +151,6 @@ export const searchInvoices = async (req: Request, res: Response) => {
  * Controller to save a new invoice.
  * @param req Request object from Express containing invoice data in body and user data.
  * @param res Response object from Express.
- * @returns A JSON response indicating success or failure of invoice creation.
  */
 export const saveInvoice = async (req: Request, res: Response) => {
   try {
@@ -192,7 +187,6 @@ export const saveInvoice = async (req: Request, res: Response) => {
  * Controller to delete an invoice by invoice number.
  * @param req Request object from Express containing the invoice number in params.
  * @param res Response object from Express.
- * @returns A JSON response indicating success or failure of invoice deletion.
  */
 export const deleteInvoice = async (req: Request, res: Response) => {
   try {
@@ -227,7 +221,6 @@ export const deleteInvoice = async (req: Request, res: Response) => {
  * Controller to update an invoice.
  * @param req Request object from Express containing updated invoice data in body.
  * @param res Response object from Express.
- * @returns A JSON response indicating success or failure of invoice update.
  */
 export const updateInvoice = async (req: Request, res: Response) => {
   try {

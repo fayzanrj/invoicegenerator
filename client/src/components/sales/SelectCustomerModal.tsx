@@ -8,19 +8,36 @@ import CustomerProps from "@/props/CustomerProps";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
+import { MdArrowBackIos } from "react-icons/md";
 
-// Props
-interface SelectCustomerModalProps {
+// Common props interface
+interface CommonProps {
   setCustomer: React.Dispatch<
     React.SetStateAction<{ id: string; name: string }>
   >;
   initialCustomers: CustomerProps[];
 }
 
+// Props for Modal variant
+interface ModalProps extends CommonProps {
+  addVariant: "MODAL";
+  closeModal: () => void;
+}
+
+// Props for Page variant
+interface PageProps extends CommonProps {
+  addVariant: "PAGE";
+}
+
+// Union type for props
+type SelectCustomerModalProps = ModalProps | PageProps;
+
 // Creating the SelectCustomerModal component
 const SelectCustomerModal: React.FC<SelectCustomerModalProps> = ({
   setCustomer,
   initialCustomers,
+  addVariant,
+  ...props // spread to capture additional props
 }) => {
   // Using state to manage the search query
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,7 +54,6 @@ const SelectCustomerModal: React.FC<SelectCustomerModalProps> = ({
   useEffect(() => {
     const fetchSearchResults = async () => {
       if (debouncedSearchQuery) {
-        console.log("called");
         setIsLoading(true);
         try {
           // API CALL
@@ -65,13 +81,25 @@ const SelectCustomerModal: React.FC<SelectCustomerModalProps> = ({
 
   return (
     <ScreenModal isSimpleModal showCancel={false}>
-      <div className="w-96 bg-white overflow-y-auto rounded-lg">
-        <BackButton />
+      <div className="w-96 bg-white overflow-y-auto rounded-lg p-3">
+        {addVariant === "PAGE" ? (
+          <BackButton />
+        ) : (
+          <button
+            onClick={
+              addVariant === "MODAL"
+                ? (props as ModalProps).closeModal
+                : undefined
+            }
+          >
+            <MdArrowBackIos />
+          </button>
+        )}
 
         {/* INPUT FIELD */}
         <div className="w-3/4 h-16 max-w-96 mx-auto my-4 relative text-right">
           <label className="text-right sr-only" htmlFor="customerSearch">
-            گاہک کا نام تالاش کریں
+            گاہک کا نام تلاش کریں
           </label>
           <input
             id="customerSearch"

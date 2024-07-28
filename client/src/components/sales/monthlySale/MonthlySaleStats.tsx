@@ -9,6 +9,8 @@ import ScreenLoader from "@/components/shared/ScreenLoader";
 import MonthlyStatsList from "./MonthlyStatsList";
 import RefreshButton from "@/components/shared/RefreshButton";
 import NoSalesFound from "../NoSalesFound";
+import ButtonLayout from "@/components/shared/ButtonLayout";
+import UrduFont from "@/constants/UrduFont";
 
 // Props
 interface MonthlySaleStatsProps {
@@ -20,6 +22,7 @@ const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
   const [selectedMonth, setSelectedMonth] = useState(months[months.length - 1]);
   const [isLoading, setIsLoading] = useState(false);
   const [saleStats, setSaleStats] = useState<MonthlyStatItemProps[] | null>([]);
+  const [totalSales, setTotalSales] = useState(0);
 
   // Hook
   const headers = useHeaders();
@@ -45,6 +48,7 @@ const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
       );
 
       setSaleStats(res.data.sales);
+      setTotalSales(res.data.totalSales);
     } catch (error) {
       setSaleStats(null);
     } finally {
@@ -70,13 +74,15 @@ const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
           handleSelection={handleMonthChange}
           selectedMonthId={selectedMonth._id || ""}
         />
+
+        <ButtonLayout onClick={() => window.print()} className={`${UrduFont} NO_PRINT`}>پرنٹ</ButtonLayout>
       </section>
 
       {/* STATS LIST */}
       {(!saleStats || saleStats.length <= 0) && !isLoading ? (
         <NoSalesFound />
       ) : (
-        <MonthlyStatsList stats={saleStats || []} />
+        <MonthlyStatsList stats={saleStats || []} totalSales={totalSales} />
       )}
     </>
   );

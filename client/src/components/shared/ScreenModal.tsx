@@ -7,6 +7,7 @@ interface ScreenModalFormProps {
   children: React.ReactNode;
   closeModal: () => void;
   isForm: true;
+  isAddSale? : true
   showCancel?: boolean;
 }
 
@@ -31,6 +32,7 @@ const ScreenModal: React.FC<ScreenModalProps> = (props) => {
   const isForm = (props as ScreenModalFormProps).isForm === true;
   const closeModal = (props as ScreenModalFormProps).closeModal;
   const showCancel = (props as ScreenModalFormProps).showCancel;
+  const isAddSale = (props as ScreenModalFormProps).isAddSale;
 
   // State to keep track of page offset
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -61,7 +63,7 @@ const ScreenModal: React.FC<ScreenModalProps> = (props) => {
       style={{ top: `${scrollPosition}px` }}
     >
       {isForm && closeModal && showCancel && (
-        <div className="w-[95%] max-w-96 text-right p-2 bg-white relative top-3 rounded-lg">
+        <div className={`w-[95%] text-right p-2 bg-white relative top-3 rounded-lg ${isAddSale ? "max-w-[42rem]" : "max-w-96"}`}>
           <button onClick={closeModal}>
             <IoMdClose size={"2rem"} />
           </button>

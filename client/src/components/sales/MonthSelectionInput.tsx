@@ -24,7 +24,7 @@ const MonthSelectionInput: React.FC<MonthSelectionInputProps> = ({
         placeholder="Select a month"
         options={months}
         value={selectedMonthId}
-        className="max-w-60 text-2xl border-none mx-auto text-center"
+        className="max-w-60 text-2xl border-none mx-auto text-center print"
       />
     </section>
   );

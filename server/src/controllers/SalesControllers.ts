@@ -24,7 +24,6 @@ import { ObjectId } from "mongoose";
  * Controller to add a sale.
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing message.
  */
 export const addSales = async (req: Request, res: Response) => {
   try {
@@ -101,7 +100,6 @@ export const addSales = async (req: Request, res: Response) => {
  * Controller to get months list.
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing months list.
  */
 export const getMonthsList = async (req: Request, res: Response) => {
   try {
@@ -134,7 +132,6 @@ export const getMonthsList = async (req: Request, res: Response) => {
  * Controller to get sales page by oage.
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing the sales data.
  */
 export const getSales = async (req: Request, res: Response) => {
   try {
@@ -170,7 +167,6 @@ export const getSales = async (req: Request, res: Response) => {
  * Controller to get sales by customerId.
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing the sales data.
  */
 export const getSalesByCustomerId = async (req: Request, res: Response) => {
   try {
@@ -208,7 +204,6 @@ export const getSalesByCustomerId = async (req: Request, res: Response) => {
  * Controller to get monthly sale stats of a specific month by id.
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing month and sales stats.
  */
 export const getMonthlySalesStats = async (req: Request, res: Response) => {
   try {
@@ -220,12 +215,16 @@ export const getMonthlySalesStats = async (req: Request, res: Response) => {
       return ThrowNotFoundError(res, "Monthly sales record not found");
 
     // Aggregating items
-    const aggregatedItems = aggregateItemQuantities(monthlySales.sales);
+    const { aggregatedSales, totalSales } = aggregateItemQuantities(
+      monthlySales.sales
+    );
 
     // Response
-    return res
-      .status(200)
-      .json({ month: monthlySales.monthName, sales: aggregatedItems });
+    return res.status(200).json({
+      month: monthlySales.monthName,
+      sales: aggregatedSales,
+      totalSales,
+    });
   } catch (error) {
     console.error(error);
     return ThrowServerError(res);
@@ -236,7 +235,6 @@ export const getMonthlySalesStats = async (req: Request, res: Response) => {
  * Controller to get monthly sales data for invoice of a specific month and user
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing month and sales stats.
  */
 export const getMonthlySalesInvoiceData = async (
   req: Request,
@@ -289,7 +287,6 @@ export const getMonthlySalesInvoiceData = async (
  * Controller to get sales for a specific date.
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing month and sales stats.
  */
 export const getSalesByDate = async (req: Request, res: Response) => {
   try {
@@ -308,10 +305,33 @@ export const getSalesByDate = async (req: Request, res: Response) => {
 };
 
 /**
+ * Controller to update builty number of a specific sale
+ * @param req Request object from Express.
+ * @param res Response object from Express.
+ */
+export const addBuiltyNumber = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { newBuiltyNo } = req.body as { newBuiltyNo: string };
+
+    const updated = await Sale.findByIdAndUpdate(id, {
+      builtyNo: newBuiltyNo,
+    });
+
+    if (!updated) return ThrowNotFoundError(res, "No sale found");
+
+    // Response
+    return res.status(200).json({ message: "Builty no. has been added" });
+  } catch (error) {
+    console.error(error);
+    return ThrowServerError(res);
+  }
+};
+
+/**
  * Controller to delet sale by id
  * @param req Request object from Express.
  * @param res Response object from Express.
- * @returns A JSON response containing month and sales stats.
  */
 export const deleteSale = async (req: Request, res: Response) => {
   try {

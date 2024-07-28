@@ -8,6 +8,7 @@ import axios from "axios";
 import validateSalesData from "@/libs/ValidateSalesData";
 import { toast } from "sonner";
 import ScreenLoader from "@/components/shared/ScreenLoader";
+import { useRouter } from "next/navigation";
 
 // Props
 interface SaveSaleButtonProps {
@@ -24,6 +25,7 @@ const SaveSaleButton: React.FC<SaveSaleButtonProps> = ({
 
   // Hook
   const headers = useHeaders();
+  const router = useRouter()
 
   // Function to save sale in database
   const saveSale = async () => {
@@ -52,6 +54,7 @@ const SaveSaleButton: React.FC<SaveSaleButtonProps> = ({
       );
 
       toast.success(res.data.message);
+      router.refresh()
     } catch (error) {
       console.error(error);
       handleApiError(error);

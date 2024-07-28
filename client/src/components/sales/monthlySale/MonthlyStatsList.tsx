@@ -7,11 +7,15 @@ import MonthlyStatsListItem from "./MonthlyStatsListItem";
 // Props
 interface MonthlyStatsListProps {
   stats: MonthlyStatItemProps[];
+  totalSales: number;
 }
 
-const MonthlyStatsList: React.FC<MonthlyStatsListProps> = ({ stats }) => {
+const MonthlyStatsList: React.FC<MonthlyStatsListProps> = ({
+  stats,
+  totalSales,
+}) => {
   return (
-    <section>
+    <section id="print"> 
       <table className={`${UrduFont} w-full my-4`}>
         <MonthlySalesTableHeading />
 
@@ -26,6 +30,14 @@ const MonthlyStatsList: React.FC<MonthlyStatsListProps> = ({ stats }) => {
             />
           ))}
         </tbody>
+      </table>
+
+      <table className="w-full my-3">
+        <tr>
+          <td className="w-1/3 text-center text-xl font-semibold">{totalSales}</td>
+          <th className={`${UrduFont} py-3 bg-black text-white w-1/3`}>ٹوٹل</th>
+          <td className="w-1/3"></td>
+        </tr>
       </table>
     </section>
   );

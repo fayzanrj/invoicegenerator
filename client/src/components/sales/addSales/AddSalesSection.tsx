@@ -1,22 +1,35 @@
 "use client";
+import ClearButton from "@/components/shared/ClearButton";
 import UrduFont from "@/constants/UrduFont";
 import getCurrentDate from "@/libs/GetCurrentDate";
-import { AddSalesItemProps } from "@/props/SaleProps";
 import CustomerProps from "@/props/CustomerProps";
+import { AddSalesItemProps } from "@/props/SaleProps";
 import React, { useCallback, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import SelectInput from "../../shared/SelectInput";
 import SalesFormDetailsList from "./AddSalesDetailsList";
 import SaveSaleButton from "./SaveSaleButton";
-import ClearButton from "@/components/shared/ClearButton";
-import SelectCustomerModal from "./SelectCustomerModal";
+import SelectCustomerModal from "../SelectCustomerModal";
 
-// Props
-interface AddSalesSectionProps {
+// Common props interface
+interface CommonProps {
   customers: CustomerProps[];
 }
 
-// Function to initilise empty item
+// Props for Modal variant
+interface ModalProps extends CommonProps {
+  variant: "MODAL";
+  closeModal: () => void;
+}
+
+// Props for Page variant
+interface PageProps extends CommonProps {
+  variant: "PAGE";
+}
+
+// Union type for props
+type AddSalesSectionProps = ModalProps | PageProps;
+
+// Function to initialize an empty item
 const getInitialItem = (): AddSalesItemProps => {
   return {
     _id: uuidv4(),
@@ -27,8 +40,12 @@ const getInitialItem = (): AddSalesItemProps => {
   };
 };
 
-const AddSalesSection: React.FC<AddSalesSectionProps> = ({ customers }) => {
-  // Staes
+const AddSalesSection: React.FC<AddSalesSectionProps> = ({
+  customers,
+  variant,
+  ...props // spread to capture additional props
+}) => {
+  // States
   const [customer, setCustomer] = useState<{ id: string; name: string }>({
     id: "",
     name: "",
@@ -61,18 +78,26 @@ const AddSalesSection: React.FC<AddSalesSectionProps> = ({ customers }) => {
     []
   );
 
-  // Functio to clear everyting
+  // Function to clear everything
   const handleClear = () => {
-    setCustomer({
-      id: "",
-      name: "",
-    });
+    setCustomer({ id: "", name: "" });
     setItems([getInitialItem()]);
   };
 
   return (
-    <section className={`${UrduFont} w-[40rem] mx-auto mt-16`}>
-      {!customer.id && <SelectCustomerModal setCustomer={setCustomer} initialCustomers={customers} />}
+    <section
+      className={`${UrduFont} w-[42rem] p-3 rounded-md mx-auto bg-white ${
+        variant === "PAGE" ? "mt-16" : ""
+      }`}
+    >
+      {!customer.id && (
+        <SelectCustomerModal
+          setCustomer={setCustomer}
+          initialCustomers={customers}
+          addVariant={variant}
+          closeModal={(props as ModalProps).closeModal}
+        />
+      )}
 
       <div className="my-6 flex justify-between items-center">
         <button
@@ -102,7 +127,7 @@ const AddSalesSection: React.FC<AddSalesSectionProps> = ({ customers }) => {
       <div>
         {/* SAVE BUTTON */}
         <SaveSaleButton customerId={customer.id!} saleItems={items} />
-        {/* BUTTON TO CLEAR EVERTHING */}
+        {/* BUTTON TO CLEAR EVERYTHING */}
         <ClearButton onClick={handleClear} />
       </div>
     </section>

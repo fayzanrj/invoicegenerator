@@ -14,7 +14,6 @@ import UserProps from "../props/UserProps";
  * Controller to register a new user.
  * @param req Request object from Express containing new user data in body.
  * @param res Response object from Express.
- * @returns A JSON response indicating success or failure of user registration.
  */
 export const registerUser = async (req: Request, res: Response) => {
   try {
@@ -58,7 +57,6 @@ export const registerUser = async (req: Request, res: Response) => {
  * Controller to log in a user.
  * @param req Request object from Express containing username and password in body.
  * @param res Response object from Express.
- * @returns A JSON response with user details and access token upon successful login.
  */
 export const logIn = async (req: Request, res: Response) => {
   try {
@@ -105,7 +103,6 @@ export const logIn = async (req: Request, res: Response) => {
  * Controller to change a user's password.
  * @param req Request object from Express containing old and new password in body, and user details.
  * @param res Response object from Express.
- * @returns A JSON response indicating success or failure of password change.
  */
 export const changePassword = async (req: Request, res: Response) => {
   try {
