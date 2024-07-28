@@ -7,26 +7,16 @@ import { authOptions } from "@/utilities/AuthOptions";
 import { getServerSession } from "next-auth";
 
 const AddSale = async () => {
-  // TODO : FIX
   const session = await getServerSession(authOptions);
-  const response = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_SERVER_URL
-    }/api/v1/customers/getCustomers?page=${1}`,
-    {
-      method: "GET",
-      cache: "no-store",
-      headers: {
-        accessToken: session?.user.accessToken!,
-      },
-    }
-  );
 
-  const res = await response.json();
-  const customers = res.customers as CustomerProps[];
+  // Fetching customers
+  const data = await fetchCustomers(1, session?.user.accessToken!);
 
   // If customers are null
-  if (!customers) return <ServerError/>;
+  if (!data || !data.customers) return <ServerError />;
+
+  // Destructuring
+  const { customers } = data;
 
   return (
     <PageLayout pageName="ADD SALES">

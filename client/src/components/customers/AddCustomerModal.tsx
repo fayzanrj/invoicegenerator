@@ -70,6 +70,7 @@ const AddCustomerModal: React.FC<AddCustomerModalProps> = ({
           onChange={handleNameChange}
           className={UrduFont}
           required
+          srOnly
         />
       </FormLayout>
     </ScreenModal>

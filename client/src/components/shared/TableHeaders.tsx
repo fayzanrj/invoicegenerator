@@ -35,7 +35,8 @@ export const MonthlySalesTableHeading = () => (
 export const SalesByDateTableHeading = () => (
   <thead>
     <tr>
-      <th className="bg-black text-white w-1/5 py-3">بلٹی نمبر</th>
+      <th className="py-3 bg-black text-white w-[6%]"></th>
+      <th className="py-3 bg-black text-white w-[10%]">بلٹی نمبر</th>
       <th className="bg-black text-white w-1/5">مقدار</th>
       <th className="bg-black text-white w-1/5">تفصیل</th>
       <th className="bg-black text-white w-1/5">خریدار</th>
@@ -49,20 +50,30 @@ export const CustomerListTableHeading = () => (
     <tr>
       <th className="py-3 bg-black text-white w-1/4">تاریخ تخلیق</th>
       <th className="bg-black text-white w-1/4">نام</th>
-      <th className="bg-black text-white w-1/4">نمبر</th>
+      <th className="bg-black text-white w-1/4"> گاہک نمبر</th>
     </tr>
   </thead>
 );
 
-export const LatestSalesTableHeading = () => (
+export const SalesListTableHeading = () => (
   <thead>
     <tr className={UrduFont}>
-      <th className="py-3 bg-black text-white w-1/5">بلٹی نمبر</th>
+      <th className="py-3 bg-black text-white w-[6%]"></th>
+      <th className="py-3 bg-black text-white w-[10%]">بلٹی نمبر</th>
       <th className="bg-black text-white w-1/6">مقدار</th>
       <th className="bg-black text-white w-1/6">تفصیل</th>
       <th className="bg-black text-white w-1/6">خریدار</th>
       <th className="bg-black text-white w-1/6">تاریخ خرید</th>
       <th className="bg-black text-white w-1/6">تاریخ</th>
+    </tr>
+  </thead>
+);
+
+export const SearchedCustomerTableHeading = () => (
+  <thead>
+    <tr className={UrduFont}>
+      <th className="py-3 bg-black text-white w-1/2">نام</th>
+      <th className="bg-black text-white w-1/2">گاہک نمبر</th>
     </tr>
   </thead>
 );

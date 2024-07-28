@@ -33,7 +33,7 @@ export const CustomersAndSalesLinks: LinkProps[] = [
     href: `/dashboard/customers?callbackUrl=${process.env.HOST}/dashboard`,
   },
   {
-    label: "تازہ ترین فروخت",
-    href: `/dashboard/sales/latestSales?callbackUrl=${process.env.HOST}/dashboard`,
+    label: "فروخت کی فہرست",
+    href: `/dashboard/sales/salesList?callbackUrl=${process.env.HOST}/dashboard`,
   },
 ];

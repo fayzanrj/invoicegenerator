@@ -26,7 +26,7 @@ const CustomerSaleStats: React.FC<CustomerSaleStatsProps> = ({
   customerId,
 }) => {
   // States
-  const [selectedMonth, setSelectedMonth] = useState(months[0]);
+  const [selectedMonth, setSelectedMonth] = useState(months[months.length - 1]);
   const [isLoading, setIsLoading] = useState(true);
   const [sales, setSales] = useState<CustomerSalesProps[] | null>([]);
   const [customer, setCustomer] = useState<CustomerProps | null>();

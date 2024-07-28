@@ -1,7 +1,7 @@
 "use client";
 import UrduFont from "@/constants/UrduFont";
 import getCurrentDate from "@/libs/GetCurrentDate";
-import {AddSalesItemProps} from "@/props/SaleProps";
+import { AddSalesItemProps } from "@/props/SaleProps";
 import CustomerProps from "@/props/CustomerProps";
 import React, { useCallback, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -9,6 +9,7 @@ import SelectInput from "../../shared/SelectInput";
 import SalesFormDetailsList from "./AddSalesDetailsList";
 import SaveSaleButton from "./SaveSaleButton";
 import ClearButton from "@/components/shared/ClearButton";
+import SelectCustomerModal from "./SelectCustomerModal";
 
 // Props
 interface AddSalesSectionProps {
@@ -28,11 +29,11 @@ const getInitialItem = (): AddSalesItemProps => {
 
 const AddSalesSection: React.FC<AddSalesSectionProps> = ({ customers }) => {
   // Staes
-  const [customerId, setCustomerId] = useState<string>("");
+  const [customer, setCustomer] = useState<{ id: string; name: string }>({
+    id: "",
+    name: "",
+  });
   const [items, setItems] = useState<AddSalesItemProps[]>([getInitialItem()]);
-
-  // Function to handle customer selection change
-  const handleCustomerChange = (val: string) => setCustomerId(val);
 
   // Function to add a new item
   const addItem = useCallback(() => {
@@ -62,22 +63,33 @@ const AddSalesSection: React.FC<AddSalesSectionProps> = ({ customers }) => {
 
   // Functio to clear everyting
   const handleClear = () => {
-    setCustomerId("");
+    setCustomer({
+      id: "",
+      name: "",
+    });
     setItems([getInitialItem()]);
   };
 
   return (
-    <section className={`${UrduFont} w-[40rem] mx-auto`}>
-      {/* CUSTOMER SELECTION INPUT */}
-      <SelectInput
-        variant="CUSTOMERS"
-        id="customerSelectInput"
-        label="کسٹمر"
-        onChange={handleCustomerChange}
-        options={customers}
-        placeholder="کسٹمر کا انتخاب کریں"
-        value={customerId}
-      />
+    <section className={`${UrduFont} w-[40rem] mx-auto mt-16`}>
+      {!customer.id && <SelectCustomerModal setCustomer={setCustomer} initialCustomers={customers} />}
+
+      <div className="my-6 flex justify-between items-center">
+        <button
+          onClick={() =>
+            setCustomer({
+              id: "",
+              name: "",
+            })
+          }
+        >
+          خریدار بدلیں
+        </button>
+
+        <p className={`${UrduFont} text-right text-lg`}>
+          خریدار : {customer.name}
+        </p>
+      </div>
 
       {/* SALES ITEMS */}
       <SalesFormDetailsList
@@ -89,7 +101,7 @@ const AddSalesSection: React.FC<AddSalesSectionProps> = ({ customers }) => {
 
       <div>
         {/* SAVE BUTTON */}
-        <SaveSaleButton customerId={customerId} saleItems={items} />
+        <SaveSaleButton customerId={customer.id!} saleItems={items} />
         {/* BUTTON TO CLEAR EVERTHING */}
         <ClearButton onClick={handleClear} />
       </div>

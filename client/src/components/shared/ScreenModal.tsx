@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 
-// Props
+// Props interfaces
 interface ScreenModalFormProps {
   children: React.ReactNode;
   closeModal: () => void;
@@ -10,14 +10,21 @@ interface ScreenModalFormProps {
   showCancel?: boolean;
 }
 
-// Loader props
 interface ScreenModalLoaderProps {
   children: React.ReactNode;
   isLoader: true;
 }
 
-// Props
-type ScreenModalProps = ScreenModalFormProps | ScreenModalLoaderProps;
+interface ScreenModalSimpleProps {
+  children: React.ReactNode;
+  isSimpleModal: true;
+}
+
+// Props type union
+type ScreenModalProps =
+  | ScreenModalFormProps
+  | ScreenModalLoaderProps
+  | ScreenModalSimpleProps;
 
 const ScreenModal: React.FC<ScreenModalProps> = (props) => {
   // Extracting items from FORM PROPS
@@ -26,21 +33,26 @@ const ScreenModal: React.FC<ScreenModalProps> = (props) => {
   const showCancel = (props as ScreenModalFormProps).showCancel;
 
   // State to keep track of page offset
-  const [scrollPosition, setScrollPosition] = useState(window.pageYOffset);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
-    // Client-side-only code
-    const handleScroll = () => {
+    if (typeof window !== "undefined") {
+      // Function to handle scroll
+      const handleScroll = () => {
+        setScrollPosition(window.pageYOffset);
+      };
+
+      // Set initial scroll position and disable scrolling
       setScrollPosition(window.pageYOffset);
-    };
-    document.documentElement.style.overflow = "hidden";
-    document.addEventListener("scroll", handleScroll);
+      document.documentElement.style.overflow = "hidden";
+      document.addEventListener("scroll", handleScroll);
 
-    return () => {
-      document.removeEventListener("scroll", handleScroll);
-
-      document.documentElement.style.overflow = "auto";
-    };
+      // Cleanup function
+      return () => {
+        document.removeEventListener("scroll", handleScroll);
+        document.documentElement.style.overflow = "auto";
+      };
+    }
   }, []);
 
   return (

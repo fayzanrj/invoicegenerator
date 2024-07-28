@@ -51,7 +51,7 @@ const FormLayout: React.FC<FormLayoutProps> = ({
     >
       {/* Heading */}
       {showHeading && (
-        <div className="flex justify-between items-center px-4">
+        <div className={`${variant === "LOG IN" ? "flex justify-between items-center" : "" } px-4`}>
           {variant === "LOG IN" && (
             <Image
               src={"/logo.jpg"}
@@ -63,7 +63,7 @@ const FormLayout: React.FC<FormLayoutProps> = ({
             />
           )}
 
-          <h3 className={`${UrduFont} text-2xl font-semibold`}>
+          <h3 className={`${UrduFont} text-2xl font-semibold text-right`}>
             {getHeadingText(variant)}
           </h3>
         </div>

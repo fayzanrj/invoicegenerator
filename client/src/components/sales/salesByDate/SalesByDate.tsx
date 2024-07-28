@@ -25,6 +25,12 @@ const SalesByDate = () => {
     setSelectedDate(newDate);
   }, []);
 
+  // Function to remove sale from list
+  const removeSaleById = async (id: string) => {
+    setSales(
+      (prevSales) => prevSales && prevSales.filter((sale) => sale._id !== id)
+    );
+  };
   // Function to fetch sales
   const fetchSales = async () => {
     try {
@@ -71,7 +77,7 @@ const SalesByDate = () => {
 
       {/* SALES LIST */}
       {sales && sales.length > 0 && !isLoading ? (
-        <SalesByDateList sales={sales} />
+        <SalesByDateList sales={sales} handleRemove={removeSaleById} />
       ) : (
         <NoSalesFound />
       )}

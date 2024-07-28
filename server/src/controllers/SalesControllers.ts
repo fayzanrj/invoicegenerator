@@ -18,6 +18,7 @@ import Customer from "../models/CustomerModel";
 import MonthlySale from "../models/MonthlySaleModel";
 import Sale from "../models/SaleModel";
 import { InvoiceItemProps } from "props/InvoiceProps";
+import { ObjectId } from "mongoose";
 
 /**
  * Controller to add a sale.
@@ -109,6 +110,18 @@ export const getMonthsList = async (req: Request, res: Response) => {
       { monthName: true, _id: true }
     );
 
+    // Helper function to convert month name and year to Date object
+    const monthYearToDate = (monthYear: string) => {
+      const [month, year] = monthYear.split("-");
+      const date = new Date(`${month} 1, ${year}`);
+      return date.getTime();
+    };
+
+    // Sort saleMonths by converting monthName to Date object
+    saleMonths.sort(
+      (a, b) => monthYearToDate(a.monthName) - monthYearToDate(b.monthName)
+    );
+
     // Response
     return res.status(200).json({ saleMonths });
   } catch (error) {
@@ -136,7 +149,11 @@ export const getSales = async (req: Request, res: Response) => {
     const totalSales = await Sale.countDocuments();
 
     // Finding sales
-    const sales = await Sale.find().populate("customer").skip(skip).limit(limit);
+    const sales = await Sale.find()
+      .populate("customer")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
     // Checking if it's the last page
     const isLastPage = page * limit >= totalSales;
@@ -286,6 +303,53 @@ export const getSalesByDate = async (req: Request, res: Response) => {
     return res.status(200).json({ sales });
   } catch (error) {
     console.error(error);
+    return ThrowServerError(res);
+  }
+};
+
+/**
+ * Controller to delet sale by id
+ * @param req Request object from Express.
+ * @param res Response object from Express.
+ * @returns A JSON response containing month and sales stats.
+ */
+export const deleteSale = async (req: Request, res: Response) => {
+  try {
+    // Destructuring
+    const { id } = req.params;
+
+    // Finding the sale item to be deleted
+    const saleItem = await Sale.findById(id);
+
+    if (!saleItem) {
+      return ThrowNotFoundError(res, "Sale item not found");
+    }
+
+    // Finding the corresponding monthly sales record
+    const monthlySales = await MonthlySale.findById(saleItem.month);
+
+    if (monthlySales) {
+      // Removing the sale item ID from the monthly sales record
+      monthlySales.sales = monthlySales.sales.filter(
+        (saleId: ObjectId) => saleId.toString() !== id
+      );
+
+      if (monthlySales.sales.length <= 0) {
+        await MonthlySale.findByIdAndDelete(monthlySales.id);
+      } else {
+        // Saving the updated monthly sales record
+        await monthlySales.save();
+      }
+    }
+
+    // Deleting the sale item
+    await Sale.findByIdAndDelete(id);
+
+    // Sending a success response
+    return res.status(200).json({ message: "Sale item deleted successfully" });
+  } catch (error) {
+    // Logging the error and sending a server error response
+    console.error("Error deleting sale item:", error);
     return ThrowServerError(res);
   }
 };

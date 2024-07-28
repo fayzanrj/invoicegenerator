@@ -61,4 +61,15 @@ router.post(
   salesControllers.addSales
 );
 
+// Route to delete a sale
+// This route is protected by the authorised middleware, meaning only authroised users can access it
+// This route also uses validateSalesData middleware to make sure all required fields are provided
+// /api/v1/sales/deleteSale/:id
+router.delete(
+  "/deleteSale/:id",
+  authorised,
+  isValidId,
+  salesControllers.deleteSale
+);
+
 export default router;

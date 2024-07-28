@@ -18,7 +18,15 @@ const CustomersListItem: React.FC<CustomerProps> = ({
       onClick={() => router.push(`/dashboard/sales/customerSales/${_id}?callbackUrl=${process.env.NEXT_PUBLIC_HOST}/dashboard/customers`)}
     >
       <td className="font-sans py-3">
-        {new Date(createdAt).toLocaleDateString("ur-PK")}
+      {new Date(createdAt!).toLocaleString("en-GB", {
+          timeZone: "Asia/Karachi",
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        })}
       </td>
       <td className="font-semibold">{name}</td>
       <td className="font-sans text-lg">{customerNo}</td>

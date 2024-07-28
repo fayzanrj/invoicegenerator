@@ -1,12 +1,12 @@
-import LatestSalesList from "@/components/sales/latestSales/LatestSalesList";
+
+import SalesList from "@/components/sales/latestSales/SalesList";
 import PageLayout from "@/components/shared/PageLayout";
 import ServerError from "@/components/shared/ServerError";
 import fetchSales from "@/libs/fetch/FetchSales";
 import { authOptions } from "@/utilities/AuthOptions";
 import { getServerSession } from "next-auth";
-import React from "react";
 
-const LatestSales = async () => {
+const SalesListPage = async () => {
   const session = await getServerSession(authOptions);
 
   // Fetching invoices that are not drafts
@@ -20,9 +20,9 @@ const LatestSales = async () => {
 
   return (
     <PageLayout pageName="LATEST SALES">
-      <LatestSalesList sales={sales} isLastPage={isLastPage} />
+      <SalesList sales={sales} isLastPage={isLastPage} />
     </PageLayout>
   );
 };
 
-export default LatestSales;
+export default SalesListPage;

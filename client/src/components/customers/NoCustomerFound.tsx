@@ -6,7 +6,7 @@ const NoCustomerFound = () => {
     <tr className="col-span-full">
       <td
         colSpan={4}
-        className={`${UrduFont} font-sans font-semibold text-xl py-4 text-center`}
+        className={`${UrduFont} font-semibold text-xl py-4 text-center`}
       >
         کوئی گاہک نہیں ملا
       </td>

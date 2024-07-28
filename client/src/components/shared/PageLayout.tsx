@@ -74,8 +74,8 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         return <PageHeading>گاہک کی فروخت</PageHeading>;
       case "ADD SALES":
         return <PageHeading>فروخت شامل کریں</PageHeading>;
-      case "LATEST SALES": // Added new case here
-        return <PageHeading>تازہ ترین فروخت</PageHeading>;
+      case "LATEST SALES": 
+        return <PageHeading>فروخت کی فہرست</PageHeading>;
       default:
         return <PageHeading>{pageName}</PageHeading>;
     }

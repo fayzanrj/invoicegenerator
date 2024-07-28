@@ -69,7 +69,7 @@ const CustomerSearchField: React.FC<CustomerSearchFieldProps> = ({
         id="customerSearch"
         className={`${UrduFont} w-full h-10 px-2 pr-9 border-2 border-gray-200 rounded-md text-right`}
         onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="کسٹمر کا نام تلاش کریں"
+        placeholder="گاہک کا نام تلاش کریں"
       />
       {/* SEARCH ICON */}
       <IoIosSearch className="absolute right-1.5 top-2" size={"1.5rem"} />

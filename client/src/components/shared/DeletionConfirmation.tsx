@@ -11,12 +11,14 @@ interface DeletionConfirmationBaseProps {
 }
 
 // Props for account deletion
-interface DeletionConfirmationAccountProps extends DeletionConfirmationBaseProps {
+interface DeletionConfirmationAccountProps
+  extends DeletionConfirmationBaseProps {
   variant: "ACCOUNT";
 }
 
 // Props for invoice deletion
-interface DeletionConfirmationInvoiceProps extends DeletionConfirmationBaseProps {
+interface DeletionConfirmationInvoiceProps
+  extends DeletionConfirmationBaseProps {
   variant: "INVOICE";
   invoiceNumber: number;
 }
@@ -28,9 +30,18 @@ interface DeletionConfirmationUserProps extends DeletionConfirmationBaseProps {
 }
 
 // Props for customer deletion
-interface DeletionConfirmationCustomerProps extends DeletionConfirmationBaseProps {
+interface DeletionConfirmationCustomerProps
+  extends DeletionConfirmationBaseProps {
   variant: "CUSTOMER";
   customerName: string;
+}
+
+// Props for sale deletion
+interface DeletionConfirmationSaleProps extends DeletionConfirmationBaseProps {
+  variant: "SALE";
+  customerName: string;
+  details: string;
+  date: string;
 }
 
 // Props
@@ -38,7 +49,8 @@ type DeletionConfirmationProps =
   | DeletionConfirmationAccountProps
   | DeletionConfirmationInvoiceProps
   | DeletionConfirmationUserProps
-  | DeletionConfirmationCustomerProps;
+  | DeletionConfirmationCustomerProps
+  | DeletionConfirmationSaleProps;
 
 const DeletionConfirmation: React.FC<DeletionConfirmationProps> = ({
   handleClick,
@@ -47,13 +59,21 @@ const DeletionConfirmation: React.FC<DeletionConfirmationProps> = ({
   ...props
 }) => {
   // Extracting invoice number from invoice props
-  const invoiceNumber = (props as DeletionConfirmationInvoiceProps).invoiceNumber;
+  const invoiceNumber = (props as DeletionConfirmationInvoiceProps)
+    .invoiceNumber;
 
   // Extracting username from user props
   const username = (props as DeletionConfirmationUserProps).username;
 
   // Extracting customer name from customer props
-  const customerName = (props as DeletionConfirmationCustomerProps).customerName;
+  const customerName = (props as DeletionConfirmationCustomerProps)
+    .customerName;
+
+  // Extracting sale details from sale props
+  const saleCustomerName = (props as DeletionConfirmationSaleProps)
+    .customerName;
+  const saleDetails = (props as DeletionConfirmationSaleProps).details;
+  const saleDate = (props as DeletionConfirmationSaleProps).date;
 
   // For text
   const renderText = () => {
@@ -63,19 +83,21 @@ const DeletionConfirmation: React.FC<DeletionConfirmationProps> = ({
       case "INVOICE":
         return (
           <>
-            بل نمبر <span className="font-sans">{invoiceNumber}</span> حذف کریں؟
+            بل نمبر <span className="font-sans">{invoiceNumber}</span> کو حذف
+            کریں؟
           </>
         );
       case "USER":
-        return (
-          <>
-            صارف <span className="font-sans">{username}</span> کو ہٹائیں؟
-          </>
-        );
+        return "صارف کو ہٹائیں؟";
       case "CUSTOMER":
+        return `گاہک ${customerName} کو ہٹائیں؟`;
+      case "SALE":
         return (
           <>
-            گاہک <span className="font-sans">{customerName}</span> کو ہٹائیں؟
+            <span className="font-sans">{saleDate}</span>
+            <span className={UrduFont}>
+              {`کو ${saleCustomerName} کو ${saleDetails} کی گئی فروخت کو حذف کریں؟`}
+            </span>
           </>
         );
       default:
@@ -97,23 +119,14 @@ const DeletionConfirmation: React.FC<DeletionConfirmationProps> = ({
       case "USER":
         return (
           <>
-            صارف{" "}
+            کو ہٹائیں{" "}
             <span className="font-sans">
               {username.length > 10 ? username.slice(0, 8) + "..." : username}
             </span>{" "}
-            کو ہٹائیں
           </>
         );
       case "CUSTOMER":
-        return (
-          <>
-            گاہک{" "}
-            <span className="font-sans">
-              {customerName.length > 10 ? customerName.slice(0, 8) + "..." : customerName}
-            </span>{" "}
-            کو ہٹائیں
-          </>
-        );
+        return `${customerName} کو ہٹائیں`;
       default:
         return "حذف کریں";
     }
@@ -124,20 +137,32 @@ const DeletionConfirmation: React.FC<DeletionConfirmationProps> = ({
       <div className="w-[95%] max-w-96 p-4 bg-white shadow-xl rounded-xl">
         <div className="pt-1 pb-3 border-b border-gray-400 text-right">
           <h3 className={`text-xl font-semibold ${UrduFont}`}>
-            {variant === "USER" || variant === "CUSTOMER" ? "ہٹانے کی تصدیق" : "حذف کرنے کی تصدیق"}
+            {variant === "USER" || variant === "CUSTOMER" || variant === "SALE"
+              ? "ہٹانے کی تصدیق"
+              : "حذف کرنے کی تصدیق"}
           </h3>
         </div>
         <div className="my-6 text-right">
-          <p className={UrduFont}>
-            کیا آپ واقعی چاہتے ہیں کہ <span className="font-semibold">{renderText()}</span>
+          <p className={`${UrduFont} leading-8`}>
+            کیا آپ واقعی چاہتے ہیں کہ {renderText()}
           </p>
-          <p className={`text-sm font-bold my-4 ${UrduFont}`}>یہ عمل ناقابل واپسی ہے۔</p>
+          <p className={`text-sm font-bold my-4 ${UrduFont}`}>
+            یہ عمل ناقابل واپسی ہے۔
+          </p>
         </div>
         <div className="text-right">
-          <ButtonLayout className={`px-3 !text-black ${UrduFont}`} background="transparent" onClick={closeModal}>
+          <ButtonLayout
+            className={`px-3 !text-black ${UrduFont}`}
+            background="transparent"
+            onClick={closeModal}
+          >
             منسوخ کریں
           </ButtonLayout>
-          <ButtonLayout className={`px-3 ${UrduFont}`} onClick={handleClick} background="danger">
+          <ButtonLayout
+            className={`px-3 ${UrduFont}`}
+            onClick={handleClick}
+            background="danger"
+          >
             {renderButtonText()}
           </ButtonLayout>
         </div>

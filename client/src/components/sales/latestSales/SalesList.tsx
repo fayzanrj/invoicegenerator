@@ -6,20 +6,17 @@ import fetchSales from "@/libs/fetch/FetchSales";
 import { SaleItemProps } from "@/props/SaleProps";
 import React, { useEffect, useState } from "react";
 import NoSalesFound from "../NoSalesFound";
-import { LatestSalesTableHeading } from "@/components/shared/TableHeaders";
-import LatestSalesListItem from "./LatestSalesListItem";
+import { SalesListTableHeading } from "@/components/shared/TableHeaders";
+import SalesListItem from "./SalesListItem";
 import ScreenLoader from "@/components/shared/ScreenLoader";
 
 // Props
-interface LatestSalesListProps {
+interface SalesListProps {
   sales: SaleItemProps[];
   isLastPage: boolean;
 }
 
-const LatestSalesList: React.FC<LatestSalesListProps> = ({
-  sales,
-  isLastPage,
-}) => {
+const SalesList: React.FC<SalesListProps> = ({ sales, isLastPage }) => {
   // States
   const [allSales, setAllSales] = useState(sales);
   const [pageNo, setPageNo] = useState(1);
@@ -33,6 +30,20 @@ const LatestSalesList: React.FC<LatestSalesListProps> = ({
   const handleFetchMore = async () => {
     if (!isLoading && !hasFetchedAll) {
       setPageNo((prev) => prev + 1);
+    }
+  };
+
+  // Function to remove sale from list
+  const removeSaleById = async (id: string) => {
+    if (allSales.length > 100) {
+      const sales = await fetchSales(1, headers.accessToken!);
+      if (sales) {
+        setAllSales(allSales);
+        setPageNo(1);
+        setHasFetchedAll(sales.isLastPage);
+      }
+    } else {
+      setAllSales((prevSales) => prevSales.filter((sale) => sale._id !== id));
     }
   };
 
@@ -63,11 +74,11 @@ const LatestSalesList: React.FC<LatestSalesListProps> = ({
     <section className={`${UrduFont}`}>
       {/* CUSTOMER LIST */}
       <table className={`my-4 mt-10 w-full`}>
-        <LatestSalesTableHeading />
+        <SalesListTableHeading />
         <tbody>
           {allSales.length > 0 ? (
             allSales.map((sale) => (
-              <LatestSalesListItem key={sale._id} {...sale} />
+              <SalesListItem key={sale._id} {...sale} handleRemove={removeSaleById} />
             ))
           ) : (
             <NoSalesFound />
@@ -86,4 +97,4 @@ const LatestSalesList: React.FC<LatestSalesListProps> = ({
   );
 };
 
-export default LatestSalesList;
+export default SalesList;
