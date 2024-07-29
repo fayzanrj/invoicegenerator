@@ -24,6 +24,7 @@ import { ObjectId } from "mongoose";
  * Controller to add a sale.
  * @param req Request object from Express.
  * @param res Response object from Express.
+ * @returns A JSON response containing message.
  */
 export const addSales = async (req: Request, res: Response) => {
   try {
@@ -88,8 +89,15 @@ export const addSales = async (req: Request, res: Response) => {
     // Waiting for all monthly sales updates to complete
     await Promise.all(monthlySalesPromises);
 
+    // Populating sales with customer details
+    const sales = await Sale.find({
+      _id: { $in: createdSaleItems.map((item) => item._id) },
+    })
+      .populate("customer")
+      .exec();
+
     // Response
-    return res.status(200).json({ message: "Sales added successfully" });
+    return res.status(200).json({ message: "Sales added successfully", sales });
   } catch (error) {
     console.error("Error adding sales:", error);
     return ThrowServerError(res);
@@ -100,6 +108,7 @@ export const addSales = async (req: Request, res: Response) => {
  * Controller to get months list.
  * @param req Request object from Express.
  * @param res Response object from Express.
+ * @returns A JSON response containing months list.
  */
 export const getMonthsList = async (req: Request, res: Response) => {
   try {
@@ -132,6 +141,7 @@ export const getMonthsList = async (req: Request, res: Response) => {
  * Controller to get sales page by oage.
  * @param req Request object from Express.
  * @param res Response object from Express.
+ * @returns A JSON response containing the sales data.
  */
 export const getSales = async (req: Request, res: Response) => {
   try {
@@ -167,6 +177,7 @@ export const getSales = async (req: Request, res: Response) => {
  * Controller to get sales by customerId.
  * @param req Request object from Express.
  * @param res Response object from Express.
+ * @returns A JSON response containing the sales data.
  */
 export const getSalesByCustomerId = async (req: Request, res: Response) => {
   try {
@@ -204,6 +215,7 @@ export const getSalesByCustomerId = async (req: Request, res: Response) => {
  * Controller to get monthly sale stats of a specific month by id.
  * @param req Request object from Express.
  * @param res Response object from Express.
+ * @returns A JSON response containing month and sales stats.
  */
 export const getMonthlySalesStats = async (req: Request, res: Response) => {
   try {
@@ -235,6 +247,7 @@ export const getMonthlySalesStats = async (req: Request, res: Response) => {
  * Controller to get monthly sales data for invoice of a specific month and user
  * @param req Request object from Express.
  * @param res Response object from Express.
+ * @returns A JSON response containing month and sales stats.
  */
 export const getMonthlySalesInvoiceData = async (
   req: Request,
@@ -287,6 +300,7 @@ export const getMonthlySalesInvoiceData = async (
  * Controller to get sales for a specific date.
  * @param req Request object from Express.
  * @param res Response object from Express.
+ * @returns A JSON response containing month and sales stats.
  */
 export const getSalesByDate = async (req: Request, res: Response) => {
   try {
@@ -308,6 +322,7 @@ export const getSalesByDate = async (req: Request, res: Response) => {
  * Controller to update builty number of a specific sale
  * @param req Request object from Express.
  * @param res Response object from Express.
+ * @returns A JSON response containing month and sales stats.
  */
 export const addBuiltyNumber = async (req: Request, res: Response) => {
   try {
@@ -332,6 +347,7 @@ export const addBuiltyNumber = async (req: Request, res: Response) => {
  * Controller to delet sale by id
  * @param req Request object from Express.
  * @param res Response object from Express.
+ * @returns A JSON response containing month and sales stats.
  */
 export const deleteSale = async (req: Request, res: Response) => {
   try {

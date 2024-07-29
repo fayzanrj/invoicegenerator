@@ -1,31 +1,33 @@
 "use client";
-import React, { useState } from "react";
-import ButtonLayout from "../../shared/ButtonLayout";
-import { AddSalesItemProps } from "@/props/SaleProps";
-import handleApiError from "@/libs/HandleApiError";
-import useHeaders from "@/hooks/useHeaders";
-import axios from "axios";
-import validateSalesData from "@/libs/ValidateSalesData";
-import { toast } from "sonner";
 import ScreenLoader from "@/components/shared/ScreenLoader";
+import useHeaders from "@/hooks/useHeaders";
+import handleApiError from "@/libs/HandleApiError";
+import validateSalesData from "@/libs/ValidateSalesData";
+import { AddSalesItemProps, SaleItemProps } from "@/props/SaleProps";
+import axios from "axios";
 import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { toast } from "sonner";
+import ButtonLayout from "../../shared/ButtonLayout";
 
 // Props
 interface SaveSaleButtonProps {
   customerId: string;
   saleItems: AddSalesItemProps[];
+  handleAddSales?: (sales: SaleItemProps[]) => void;
 }
 
 const SaveSaleButton: React.FC<SaveSaleButtonProps> = ({
   customerId,
   saleItems,
+  handleAddSales,
 }) => {
   // State
   const [isLoading, setIsLoading] = useState(false);
 
   // Hook
   const headers = useHeaders();
-  const router = useRouter()
+  const router = useRouter();
 
   // Function to save sale in database
   const saveSale = async () => {
@@ -54,7 +56,10 @@ const SaveSaleButton: React.FC<SaveSaleButtonProps> = ({
       );
 
       toast.success(res.data.message);
-      router.refresh()
+
+      if (handleAddSales) {
+        handleAddSales(res.data.sales);
+      }
     } catch (error) {
       console.error(error);
       handleApiError(error);

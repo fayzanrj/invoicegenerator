@@ -10,6 +10,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import NoSalesFound from "../NoSalesFound";
 import SalesByDateList from "./SalesByDateList";
 import RefreshButton from "@/components/shared/RefreshButton";
+import AddSalesButton from "./AddSalesButton";
 
 const SalesByDate = () => {
   // States
@@ -26,11 +27,29 @@ const SalesByDate = () => {
   }, []);
 
   // Function to remove sale from list
-  const removeSaleById = async (id: string) => {
+  const handleRemove = async (id: string) => {
     setSales(
       (prevSales) => prevSales && prevSales.filter((sale) => sale._id !== id)
     );
   };
+
+  // Function to add new sales
+  const handleAddSales = (newSales: SaleItemProps[]) => {
+    setSales((prev) => {
+      const updatedSales = [...(prev || [])];
+
+      // Adding the new sales that match the selected date
+      newSales.forEach((sale) => {
+        if (sale.date === selectedDate) {
+          updatedSales.push(sale);
+        }
+      });
+
+      // Return the new array
+      return updatedSales;
+    });
+  };
+
   // Function to fetch sales
   const fetchSales = async () => {
     try {
@@ -61,8 +80,6 @@ const SalesByDate = () => {
 
   return (
     <>
-      {isLoading && <ScreenLoader />}
-
       {/* DATE SELECTION */}
       <section className="flex justify-center items-end my-8">
         <RefreshButton handleClick={fetchSales} />
@@ -75,11 +92,19 @@ const SalesByDate = () => {
         />
       </section>
 
-      {/* SALES LIST */}
-      {sales && sales.length > 0 && !isLoading ? (
-        <SalesByDateList sales={sales} handleRemove={removeSaleById} />
+      {isLoading ? (
+        <ScreenLoader />
       ) : (
-        <NoSalesFound />
+        <>
+          {/* SALES LIST */}
+          {sales && sales.length > 0 && !isLoading ? (
+            <SalesByDateList sales={sales} handleRemove={handleRemove} />
+          ) : (
+            <NoSalesFound />
+          )}
+
+          <AddSalesButton handleAddSales={handleAddSales} />
+        </>
       )}
     </>
   );

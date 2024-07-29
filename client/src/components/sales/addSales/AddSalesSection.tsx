@@ -3,7 +3,7 @@ import ClearButton from "@/components/shared/ClearButton";
 import UrduFont from "@/constants/UrduFont";
 import getCurrentDate from "@/libs/GetCurrentDate";
 import CustomerProps from "@/props/CustomerProps";
-import { AddSalesItemProps } from "@/props/SaleProps";
+import { AddSalesItemProps, SaleItemProps } from "@/props/SaleProps";
 import React, { useCallback, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import SalesFormDetailsList from "./AddSalesDetailsList";
@@ -19,6 +19,7 @@ interface CommonProps {
 interface ModalProps extends CommonProps {
   variant: "MODAL";
   closeModal: () => void;
+  handleAddSales: (items: SaleItemProps[]) => void;
 }
 
 // Props for Page variant
@@ -126,7 +127,7 @@ const AddSalesSection: React.FC<AddSalesSectionProps> = ({
 
       <div>
         {/* SAVE BUTTON */}
-        <SaveSaleButton customerId={customer.id!} saleItems={items} />
+        <SaveSaleButton customerId={customer.id!} saleItems={items} handleAddSales={(props as ModalProps).handleAddSales} />
         {/* BUTTON TO CLEAR EVERYTHING */}
         <ClearButton onClick={handleClear} />
       </div>
