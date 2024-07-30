@@ -7,6 +7,7 @@ import MonthlySaleStats from "./monthlySale/MonthlySaleStats";
 import NoSalesFound from "./NoSalesFound";
 import SalesActionButtons from "./SalesActionButtons";
 import SalesByDate from "./salesByDate/SalesByDate";
+import AddSalesButton from "./salesByDate/AddSalesButton";
 
 // Props
 interface SectionSwitcherProps {
@@ -46,9 +47,7 @@ const SectionSwitcher: React.FC<SectionSwitcherProps> = ({ months }) => {
       </section>
 
 
-      {!months || months.length <= 0 ? (
-        <NoSalesFound />
-      ) : selectedSection === "MONTH" ? (
+      {selectedSection === "MONTH" ? (
         <MonthlySaleStats months={months} />
       ) : (
         <SalesByDate />

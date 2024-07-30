@@ -19,7 +19,7 @@ interface MonthlySaleStatsProps {
 
 const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
   // States
-  const [selectedMonth, setSelectedMonth] = useState(months[months.length - 1]);
+  const [selectedMonth, setSelectedMonth] = useState(months.length > 0 ? months[months.length - 1] : null);
   const [isLoading, setIsLoading] = useState(false);
   const [saleStats, setSaleStats] = useState<MonthlyStatItemProps[] | null>([]);
   const [totalSales, setTotalSales] = useState(0);
@@ -72,7 +72,7 @@ const MonthlySaleStats: React.FC<MonthlySaleStatsProps> = ({ months }) => {
         <MonthSelectionInput
           months={months}
           handleSelection={handleMonthChange}
-          selectedMonthId={selectedMonth._id || ""}
+          selectedMonthId={selectedMonth ?  selectedMonth._id : ""}
         />
 
         <ButtonLayout onClick={() => window.print()} className={`${UrduFont} NO_PRINT`}>پرنٹ</ButtonLayout>

@@ -1,4 +1,5 @@
 import NotFound from "@/app/not-found";
+import CustomerDeleteButton from "@/components/customers/CustomerDeleteButton";
 import CustomerSaleStats from "@/components/sales/customerSales/CustomerSalesStats";
 import NoSalesFound from "@/components/sales/NoSalesFound";
 import PageLayout from "@/components/shared/PageLayout";
@@ -30,7 +31,10 @@ const CustomerSales = async ({ params }: ParamsProps) => {
       {months.length > 0 ? (
         <CustomerSaleStats months={months} customerId={customerId} />
       ) : (
+        <>
+        <CustomerDeleteButton customerId={customerId} customerName="گاہک" />
         <NoSalesFound />
+        </>
       )}
     </PageLayout>
   );

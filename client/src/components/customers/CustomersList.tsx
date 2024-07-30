@@ -77,8 +77,13 @@ const CustomersList: React.FC<CustomersListProps> = ({
 
       {/* BUTTON TO ADD A NEW CUSTOMER */}
       <AddCustomerButton
-        addCustomerToList={(customer) =>
-          setAllCustomers((prev) => [...prev, customer])
+        addCustomerToList={(newCustomer) => {
+            const newCustromerList = [...customers, newCustomer]
+            setAllCustomers(newCustromerList)
+            if(filteredCustomers.length === newCustromerList.length -1 ){
+              setFilteredCustomers(newCustromerList)
+            }
+          }
         }
       />
 
