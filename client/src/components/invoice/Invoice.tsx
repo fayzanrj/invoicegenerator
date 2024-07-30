@@ -117,7 +117,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
 
       {/* Invoice */}
       <div
-        className={`${font.className} mt-3 w-[49rem] min-h-[90] rounded-lg border border-gray-300 p-4 `}
+        className={`${font.className} mt-3 w-[46rem] min-h-[90] rounded-lg border border-gray-300 p-4 `}
         id="print"
       >
         <CompanyInfoInvoiceNumber invoiceNumber={invoiceNumber} />

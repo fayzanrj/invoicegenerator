@@ -73,7 +73,7 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
 
   return (
     <div className="borderBottom border-stone-300 text-black min-h-12 my-2 align-middle">
-      <div className="text-center w-[29%] inline-block align-middle font-sans">
+      <div className="text-center w-[32%] inline-block align-middle font-sans">
         <div className="flex gap-1">
           {/* DELETE INVOICE BUTTON */}
           {(variant === "NEW_INVOICE" || variant === "EDIT_INVOICE") && (
@@ -108,7 +108,7 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
         aria-label="rate"
         value={fields.rate.toString()}
         onChange={handleRateChange}
-        className={`w-[10%] border mx-1 min-h-12 rounded-lg align-middle font-sans h-full font-lg text-center inputBorder  ${
+        className={`w-[11%] border mx-1 min-h-12 rounded-lg align-middle font-sans h-full font-lg text-center inputBorder  ${
           isReadOnly ? "outline-none" : ""
         }`}
       />
@@ -120,13 +120,13 @@ const DetailsListItem: React.FC<DetailsListItemProps> = ({
         readOnly={isReadOnly}
         value={fields.quantity.toString()}
         onChange={handleQuantityChange}
-        className={`text-center w-[10%] min-h-12 border h-full align-middle mr-1 rounded-lg font-sans inputBorder ${
+        className={`text-center w-[11%] min-h-12 border h-full align-middle mr-1 rounded-lg font-sans inputBorder ${
           isReadOnly ? "outline-none" : ""
         }`}
       />
 
       {/* Details input field */}
-      <div className="inline-block w-[48%] align-middle">
+      <div className="inline-block w-[44%] align-middle">
         <div className="flex items-center">
           <input
             value={fields.details}

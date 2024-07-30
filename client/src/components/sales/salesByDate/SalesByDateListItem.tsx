@@ -1,9 +1,8 @@
 import { SaleItemProps } from "@/props/SaleProps";
+import Link from "next/link";
 import React, { useState } from "react";
-import SaleDeleteButton from "../SaleDeleteButton";
 import AddBuiltyNumberButton from "../AddBuiltyNumberButton";
-import { Span } from "next/dist/trace";
-import { MdAdd, MdEdit } from "react-icons/md";
+import SaleDeleteButton from "../SaleDeleteButton";
 
 // Props
 interface SalesByDateListItemProps extends SaleItemProps {
@@ -49,7 +48,7 @@ const SalesByDateListItem: React.FC<SalesByDateListItemProps> = ({
       </td>
       <td className="w-1/5 text-center font-sans border">{quantity}</td>
       <td className="w-1/5 text-center border">{details}</td>
-      <td className="w-1/5 text-center py-3 border">{customer?.name}</td>
+      <td className="w-1/5 text-center py-3 border"><Link href={`/dashboard/sales/customerSales/${customer?._id}?callbackUrl=${process.env.NEXT_PUBLIC_HOST}/dashboard/sales`}>{customer?.name}</Link></td>
       <td className="w-1/5 text-center py-3 font-sans border"> {index + 1}</td>
     </tr>
   );
