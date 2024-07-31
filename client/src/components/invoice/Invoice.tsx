@@ -1,7 +1,6 @@
 "use client";
 import getCurrentDate from "@/libs/GetCurrentDate";
 import { InvoiceItemProps } from "@/props/InvoiceProps";
-import { Noto_Nastaliq_Urdu } from "next/font/google";
 import { useCallback, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import DateInput from "../shared/DateInput";
@@ -11,12 +10,7 @@ import InvoiceActionButtons from "./InvoiceActionButtons";
 import InvoiceDetailsList from "./InvoiceDetailsList";
 import InvoiceNote from "./InvoiceNote";
 import TotalAndSignature from "./TotalAndSignature";
-
-// Font
-const font = Noto_Nastaliq_Urdu({
-  subsets: ["arabic"],
-  weight: ["400", "600"],
-});
+import UrduFont from "@/constants/UrduFont";
 
 // Props
 interface InvoiceFormProps {
@@ -117,7 +111,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
 
       {/* Invoice */}
       <div
-        className={`${font.className} mt-3 w-[46rem] min-h-[90] rounded-lg border border-gray-300 p-4 `}
+        className={`${UrduFont} mt-3 w-[46rem] min-h-[90] rounded-lg border border-gray-300 p-4 `}
         id="print"
       >
         <CompanyInfoInvoiceNumber invoiceNumber={invoiceNumber} />

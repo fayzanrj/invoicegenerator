@@ -1,4 +1,3 @@
-import { string } from "zod"
 
 interface LinkProps {
     label : string
