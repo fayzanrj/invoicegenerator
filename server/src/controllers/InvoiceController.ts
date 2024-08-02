@@ -4,6 +4,7 @@ import Invoice from "../models/InvoiceModel";
 import InvoiceNumber from "../models/InvoiceNumberModel";
 
 type variantProps = "saved" | "drafts";
+type InvoiceTypeProps = "waterset" | "circle" | "pathi";
 
 /**
  * Controller to get the latest invoice number.
@@ -20,6 +21,45 @@ export const getInvoiceNumber = async (req: Request, res: Response) => {
 
     // Response
     return res.status(200).json(latestInvoiceNumber);
+  } catch (error) {
+    console.error(error);
+    ThrowServerError(res);
+  }
+};
+
+/**
+ * Controller to get invoices by type (waterset, circle, pathi).
+ * @param req Request object from Express containing the type in params.
+ * @param res Response object from Express.
+ */
+export const getInvoicesByType = async (req: Request, res: Response) => {
+  try {
+    const type = req.params.type as InvoiceTypeProps;
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const limit = 20;
+
+    // Validating type
+    if (type !== "waterset" && type !== "circle" && type !== "pathi") {
+      return ThrowBadRequest(res, "Invalid request");
+    }
+
+    // Calculating offset
+    const skip = (page - 1) * limit;
+
+    // Finding the total count of invoices based on type
+    const totalInvoices = await Invoice.countDocuments({ invoiceType : type  });
+
+    // Finding invoices based on type with pagination
+    const invoices = await Invoice.find({ invoiceType : type, isDraft : false })
+      .sort({ invoiceNumber: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    // Checking if it's the last page
+    const isLastPage = page * limit >= totalInvoices;
+
+    // Response
+    return res.status(200).json({ invoices, isLastPage });
   } catch (error) {
     console.error(error);
     ThrowServerError(res);

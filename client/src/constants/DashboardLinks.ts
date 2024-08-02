@@ -10,6 +10,18 @@ export const InvoiceLinks: LinkProps[] = [
     href: `/dashboard/invoices?callbackUrl=${process.env.HOST}/dashboard`,
   },
   {
+    label: "واٹرسیٹ بلز دیکھیں",
+    href: `/dashboard/invoices?invoiceType=waterset&callbackUrl=${process.env.HOST}/dashboard`,
+  },
+  {
+    label: "سرکل بلز دیکھیں",
+    href: `/dashboard/invoices?invoiceType=circle&callbackUrl=${process.env.HOST}/dashboard`,
+  },
+  {
+    label: "پٹھی بلز دیکھیں",
+    href: `/dashboard/invoices?invoiceType=pathi&callbackUrl=${process.env.HOST}/dashboard`,
+  },
+  {
     label: "غیر مکمل بل",
     href: `/dashboard/invoices/drafts?callbackUrl=${process.env.HOST}/dashboard`,
   },

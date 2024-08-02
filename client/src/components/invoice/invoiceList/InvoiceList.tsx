@@ -10,18 +10,34 @@ import React, { useEffect, useState } from "react";
 import InvoiceListItem from "./InvoiceListItem";
 import InvoiceSearchField from "./InvoiceSearchField";
 import NoInvoicesFound from "./NoInvoicesFound";
+import { InvoiceTypeProps } from "@/props/InvoiceProps";
+import fetchInvoicesByType from "@/libs/fetch/FetchInvoicesByType";
 
-// Props
-interface InvoiceListProps {
+// Common Props
+interface InvoiceListCommonProps {
   invoices: InvoiceProps[];
-  variant: "invoices" | "drafts";
   isLastPage: boolean;
 }
+
+// Props for invoices variant
+interface InvoiceListInvoicesProps extends InvoiceListCommonProps {
+  variant: "invoices";
+  invoiceType: InvoiceTypeProps | undefined;
+}
+
+// Props for drafts variant
+interface InvoiceListDraftsProps extends InvoiceListCommonProps {
+  variant: "drafts";
+}
+
+// Combine Props
+type InvoiceListProps = InvoiceListInvoicesProps | InvoiceListDraftsProps;
 
 const InvoiceList: React.FC<InvoiceListProps> = ({
   invoices,
   variant,
   isLastPage,
+  ...props
 }) => {
   // States
   const [allInvoices, setAllInvoices] = useState(invoices);
@@ -47,8 +63,19 @@ const InvoiceList: React.FC<InvoiceListProps> = ({
       try {
         setIsLoading(true);
 
-        // Fetching
-        const data = await fetchInvoices(variant, pageNo, headers.accessToken!);
+        const invoiceType = (props as InvoiceListInvoicesProps).invoiceType;
+
+        let data;
+        if (variant === "invoices" && invoiceType) {
+          data = await fetchInvoicesByType(
+            invoiceType,
+            pageNo,
+            headers.accessToken!
+          );
+        } else {
+          // Fetching
+          data = await fetchInvoices(variant, pageNo, headers.accessToken!);
+        }
 
         // Setting
         if (data) {

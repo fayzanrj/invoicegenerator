@@ -2,6 +2,7 @@ import { InvoiceItemProps } from "@/props/InvoiceProps";
 import React from "react";
 import AddNewItem from "../shared/AddNewItem";
 import InvoiceDetailsListItem from "./InvoiceDetailsListItem";
+import { InvoiceTypeProps } from "@/props/InvoiceProps";
 
 // Props
 interface InvoiceDetailsListProps {
@@ -10,6 +11,7 @@ interface InvoiceDetailsListProps {
   updateItem: (index: number, updatedItem: InvoiceItemProps) => void;
   removeItem: (index: number) => void;
   variant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
+  invoiceType : InvoiceTypeProps
 }
 
 const InvoiceDetailsList: React.FC<InvoiceDetailsListProps> = ({
@@ -18,6 +20,7 @@ const InvoiceDetailsList: React.FC<InvoiceDetailsListProps> = ({
   removeItem,
   updateItem,
   variant,
+  invoiceType
 }) => {
   return (
     <>
@@ -26,7 +29,7 @@ const InvoiceDetailsList: React.FC<InvoiceDetailsListProps> = ({
         <p className="text-white w-[16%] text-center">بلٹی نمبر</p>
         <p className="text-white w-[16%] text-center">روپے</p>
         <p className="text-white w-[11.5%] text-center">ریٹ</p>
-        <p className="text-white w-[11.5%] text-center">مقدار</p>
+        <p className="text-white w-[11.5%] text-center">{invoiceType === "circle" ? "وزن" : "مقدار"}</p>
         <p className="text-white w-[30%] text-center">تفصیل</p>
       </div>
 

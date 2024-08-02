@@ -45,6 +45,10 @@ const invoiceSchema = new Schema(
     isDraft: {
       type: Boolean,
     },
+    invoiceType : {
+      type : String,
+      required : false
+    }
   },
   { timestamps: true }
 );

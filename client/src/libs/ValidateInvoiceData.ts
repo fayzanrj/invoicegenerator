@@ -3,7 +3,7 @@ import InvoiceProps from "@/props/InvoiceProps";
 // Function to validate all invoice data to make sure all required fields are filled
 const validateInvoiceData = (data: InvoiceProps) => {
   // Checking if all required fields are present
-  const { buyerName, date, list, total } = data;
+  const { buyerName, date, list, total, invoiceType } = data;
   if (!buyerName || !date || !list || !total) {
     return false;
   }
@@ -25,6 +25,13 @@ const validateInvoiceData = (data: InvoiceProps) => {
       return false;
     }
   }
+
+  if (
+    invoiceType !== "circle" &&
+    invoiceType !== "pathi" &&
+    invoiceType !== "waterset"
+  )
+    return false;
 
   return true;
 };

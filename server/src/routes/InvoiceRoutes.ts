@@ -33,6 +33,17 @@ router.get(
   invoiceControllers.getInvoicesByVariant
 );
 
+// Route to get invoices by invoiceType
+// This route is protected by the authorised middleware, meaning only authenticated users can access it
+// /api/v1/invoices/getInvoicesByType/{type}?page=number i.e. vtype = waterset || pathi || circle
+router.get(
+  "/getInvoicesByType/:type",
+  authorised,
+  invoiceControllers.getInvoicesByType
+);
+
+
+
 // Route to get invoices by searching
 // This route is protected by the authorised middleware, meaning only authenticated users can access it
 // /api/v1/invoices/searchInvoices?q=searchQuery&type=searchType

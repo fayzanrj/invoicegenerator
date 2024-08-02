@@ -1,3 +1,5 @@
+export type InvoiceTypeProps = "waterset" | "circle" | "pathi"
+
 export interface InvoiceItemProps {
   _id: string;
   details: string;
@@ -18,6 +20,7 @@ interface InvoiceProps {
   outstanding?: number;
   createdBy?: string;
   isDraft: boolean;
+  invoiceType : InvoiceTypeProps
   createdAt?: Date;
   updatedAt?: Date;
 }

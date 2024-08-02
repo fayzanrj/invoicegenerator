@@ -1,9 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { InvoiceProps } from "../props/InvoiceProps";
-import {
-  ThrowIncompleteError,
-  ThrowServerError,
-} from "../libs/ResponseErrors";
+import { ThrowIncompleteError, ThrowServerError } from "../libs/ResponseErrors";
 
 /**
  * Middleware function to validate invoice data.
@@ -23,7 +20,7 @@ const validateInvoiceData = (
     const data: InvoiceProps = req.body.invoice;
 
     // Checking if all required fields are present
-    const { buyerName, date, list, total } = data;
+    const { buyerName, date, list, total, invoiceType } = data;
     if (!buyerName || !date || !list || !total) {
       return ThrowIncompleteError(res);
     }
@@ -34,7 +31,7 @@ const validateInvoiceData = (
     }
 
     // Removing _id and checking if each item in the list is valid
-    const updatedList = list.map(item => {
+    const updatedList = list.map((item) => {
       const { _id, ...rest } = item;
       return rest;
     });
@@ -52,6 +49,14 @@ const validateInvoiceData = (
       ) {
         return ThrowIncompleteError(res);
       }
+    }
+
+    if (
+      invoiceType !== "circle" &&
+      invoiceType !== "pathi" &&
+      invoiceType !== "waterset"
+    ) {
+      return ThrowIncompleteError(res);
     }
 
     // Moving to the next middleware or controller

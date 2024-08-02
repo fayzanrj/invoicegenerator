@@ -1,6 +1,7 @@
 "use client";
+import UrduFont from "@/constants/UrduFont";
 import getCurrentDate from "@/libs/GetCurrentDate";
-import { InvoiceItemProps } from "@/props/InvoiceProps";
+import { InvoiceItemProps, InvoiceTypeProps } from "@/props/InvoiceProps";
 import { useCallback, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import DateInput from "../shared/DateInput";
@@ -10,7 +11,8 @@ import InvoiceActionButtons from "./InvoiceActionButtons";
 import InvoiceDetailsList from "./InvoiceDetailsList";
 import InvoiceNote from "./InvoiceNote";
 import TotalAndSignature from "./TotalAndSignature";
-import UrduFont from "@/constants/UrduFont";
+import InvoiceTypeModal from "./InvoiceTypeModal";
+import InvoiceTypeHeading from "./InvoiceTypeHeading";
 
 // Props
 interface InvoiceFormProps {
@@ -24,6 +26,7 @@ interface InvoiceFormProps {
   note?: string;
   isDraft?: boolean;
   builtyNo?: string;
+  invoiceType?: InvoiceTypeProps | null;
 }
 
 const getEmptyItem = (): InvoiceItemProps => {
@@ -47,6 +50,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
   outstanding = 0,
   total = 0,
   isDraft = false,
+  invoiceType = null,
   list = [getEmptyItem()],
   date = getCurrentDate(),
 }) => {
@@ -56,6 +60,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
   const [buyer, setBuyer] = useState(buyerName);
   const [invoiceNote, setInvoiceNote] = useState(note);
   const [invoiceDate, setInvoiceDate] = useState(date);
+  const [type, setType] = useState<InvoiceTypeProps | null>(invoiceType);
   const [outstandingAmount, setOutStandingAmount] =
     useState<number>(outstanding);
 
@@ -94,10 +99,12 @@ const Invoice: React.FC<InvoiceFormProps> = ({
     setTotalAmount(totalAmount);
   }, [itemsList, outstandingAmount]);
 
+  if (!type) return <InvoiceTypeModal setInvoiceType={setType} />;
+
   return (
     <>
-      {/* All Invoice buttons */}
       <InvoiceActionButtons
+        invoiceType={type}
         variant={variant}
         buyerName={buyer}
         date={invoiceDate}
@@ -107,6 +114,11 @@ const Invoice: React.FC<InvoiceFormProps> = ({
         outstanding={outstandingAmount}
         note={invoiceNote}
         isDraft={isDraft}
+      />
+      <InvoiceTypeHeading
+        invoiceType={type}
+        setInvoiceType={setType}
+        variant={variant}
       />
 
       {/* Invoice */}
@@ -139,6 +151,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
           addItem={addItem}
           removeItem={removeItem}
           updateItem={updateItem}
+          invoiceType={type}
         />
 
         {/* Display total */}

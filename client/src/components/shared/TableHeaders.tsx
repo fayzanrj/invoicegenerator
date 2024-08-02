@@ -3,10 +3,11 @@ import UrduFont from "@/constants/UrduFont";
 export const InvoiceListTableHeading = () => (
   <thead>
     <tr>
-      <th className="py-3 bg-black text-white w-1/4">گرینڈ ٹوٹل</th>
-      <th className="bg-black text-white w-1/4">تاریخ</th>
-      <th className="bg-black text-white w-1/4">خریدار</th>
-      <th className="bg-black text-white w-1/4">#بل</th>
+      <th className="bg-black text-white w-1/5">بل کی قسم</th>
+      <th className="py-3 bg-black text-white w-1/5">گرینڈ ٹوٹل</th>
+      <th className="bg-black text-white w-1/5">تاریخ</th>
+      <th className="bg-black text-white w-1/5">خریدار</th>
+      <th className="bg-black text-white w-1/5">#بل</th>
     </tr>
   </thead>
 );

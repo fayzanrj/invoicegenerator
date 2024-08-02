@@ -1,4 +1,5 @@
 "use client";
+import renderInvoiceType from "@/libs/GetInvoiceType";
 import InvoiceProps from "@/props/InvoiceProps";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -14,6 +15,7 @@ const InvoiceListItem: React.FC<InvoiceListItemProps> = ({
   outstanding,
   date,
   variant,
+  invoiceType
 }) => {
   // Hook
   const router = useRouter();
@@ -30,6 +32,7 @@ const InvoiceListItem: React.FC<InvoiceListItemProps> = ({
       }
       className="cursor-pointer w-full text-center text-sm md:text-[1rem] hover:bg-stone-200"
     >
+      <td>{renderInvoiceType(invoiceType)}</td>
       <td className="font-sans py-2">{total + (outstanding || 0)}</td>
       <td className="font-sans">{date}</td>
       <td>{buyerName}</td>
