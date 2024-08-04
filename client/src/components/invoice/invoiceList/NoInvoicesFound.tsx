@@ -5,7 +5,7 @@ const NoInvoicesFound = () => {
   return (
     <tr className="col-span-full">
       <td
-        colSpan={4}
+        colSpan={5}
         className={`${UrduFont} font-sans font-semibold text-xl py-4 text-center`}
       >
         کوئی بل نہیں ملا

@@ -53,7 +53,7 @@ const validateInvoiceData = (
 
     if (
       invoiceType !== "circle" &&
-      invoiceType !== "pathi" &&
+      invoiceType !== "tapayi" &&
       invoiceType !== "waterset"
     ) {
       return ThrowIncompleteError(res);

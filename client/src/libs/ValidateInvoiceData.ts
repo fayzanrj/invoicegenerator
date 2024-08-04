@@ -28,7 +28,7 @@ const validateInvoiceData = (data: InvoiceProps) => {
 
   if (
     invoiceType !== "circle" &&
-    invoiceType !== "pathi" &&
+    invoiceType !== "tapayi" &&
     invoiceType !== "waterset"
   )
     return false;

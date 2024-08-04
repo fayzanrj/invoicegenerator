@@ -18,8 +18,8 @@ export const InvoiceLinks: LinkProps[] = [
     href: `/dashboard/invoices?invoiceType=circle&callbackUrl=${process.env.HOST}/dashboard`,
   },
   {
-    label: "پٹھی بلز دیکھیں",
-    href: `/dashboard/invoices?invoiceType=pathi&callbackUrl=${process.env.HOST}/dashboard`,
+    label: "تپائی بلز دیکھیں",
+    href: `/dashboard/invoices?invoiceType=tapayi&callbackUrl=${process.env.HOST}/dashboard`,
   },
   {
     label: "غیر مکمل بل",

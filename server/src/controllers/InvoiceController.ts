@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import { ThrowBadRequest, ThrowServerError } from "../libs/ResponseErrors";
 import Invoice from "../models/InvoiceModel";
 import InvoiceNumber from "../models/InvoiceNumberModel";
+import { InvoiceTypeProps } from "props/InvoiceProps";
 
 type variantProps = "saved" | "drafts";
-type InvoiceTypeProps = "waterset" | "circle" | "pathi";
 
 /**
  * Controller to get the latest invoice number.
@@ -39,7 +39,7 @@ export const getInvoicesByType = async (req: Request, res: Response) => {
     const limit = 20;
 
     // Validating type
-    if (type !== "waterset" && type !== "circle" && type !== "pathi") {
+    if (type !== "waterset" && type !== "circle" && type !== "tapayi") {
       return ThrowBadRequest(res, "Invalid request");
     }
 

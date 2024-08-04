@@ -1,4 +1,4 @@
-export type InvoiceTypeProps = "waterset" | "circle" | "pathi"
+export type InvoiceTypeProps = "waterset" | "circle" | "tapayi"
 
 export interface InvoiceItemProps {
   _id?: string;

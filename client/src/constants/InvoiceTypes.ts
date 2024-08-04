@@ -13,7 +13,7 @@ export const INVOICE_TYPES : {
         label : "سرکل",
     },
     {
-        type : "pathi",
-        label : "پٹھی"
+        type : "tapayi",
+        label : "تپائی"
     }
 ]

@@ -10,9 +10,8 @@ import CompanyInfoInvoiceNumber from "./CompanyInfoInvoiceNumber";
 import InvoiceActionButtons from "./InvoiceActionButtons";
 import InvoiceDetailsList from "./InvoiceDetailsList";
 import InvoiceNote from "./InvoiceNote";
-import TotalAndSignature from "./TotalAndSignature";
 import InvoiceTypeModal from "./InvoiceTypeModal";
-import InvoiceTypeHeading from "./InvoiceTypeHeading";
+import TotalAndSignature from "./TotalAndSignature";
 
 // Props
 interface InvoiceFormProps {
@@ -115,18 +114,18 @@ const Invoice: React.FC<InvoiceFormProps> = ({
         note={invoiceNote}
         isDraft={isDraft}
       />
-      <InvoiceTypeHeading
-        invoiceType={type}
-        setInvoiceType={setType}
-        variant={variant}
-      />
 
       {/* Invoice */}
       <div
         className={`${UrduFont} mt-3 w-[46rem] min-h-[90] rounded-lg border border-gray-300 p-4 `}
         id="print"
       >
-        <CompanyInfoInvoiceNumber invoiceNumber={invoiceNumber} />
+        <CompanyInfoInvoiceNumber
+          invoiceNumber={invoiceNumber}
+          invoiceType={type}
+          setInvoiceType={setType}
+          variant={variant}
+        />
 
         {/* Date and buyer */}
         <div className="flex justify-between items-center my-8">

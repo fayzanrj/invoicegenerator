@@ -22,7 +22,7 @@ export async function generateMetadata({
   const { invoiceType } = searchParams;
   let title = "All Invoices";
   
-  if (invoiceType === "circle" || invoiceType === "pathi" || invoiceType === "waterset") {
+  if (invoiceType === "circle" || invoiceType === "tapayi" || invoiceType === "waterset") {
     title = `${invoiceType.charAt(0).toUpperCase() + invoiceType.slice(1)} Invoices`;
   }
 
@@ -44,7 +44,7 @@ const Invoices = async ({ searchParams }: InvoicePageProps) => {
     data = await fetchInvoices("invoices", 1, session?.user.accessToken!);
   } else if (
     invoiceType === "circle" ||
-    invoiceType === "pathi" ||
+    invoiceType === "tapayi" ||
     invoiceType === "waterset"
   ) {
     // Fetching invoices by type

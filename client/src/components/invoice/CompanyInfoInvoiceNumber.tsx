@@ -1,3 +1,4 @@
+import { InvoiceTypeProps } from "@/props/InvoiceProps";
 import Image from "next/image";
 import React from "react";
 import { RiWhatsappFill } from "react-icons/ri";
@@ -5,11 +6,32 @@ import { RiWhatsappFill } from "react-icons/ri";
 // Props
 interface CompanyInfoInvoiceNumberProps {
   invoiceNumber: number;
+  invoiceType: InvoiceTypeProps;
+  setInvoiceType: React.Dispatch<React.SetStateAction<InvoiceTypeProps | null>>;
+  variant: "NEW_INVOICE" | "VIEW_INVOICE" | "EDIT_INVOICE" | "DRAFT";
 }
 
 const CompanyInfoInvoiceNumber: React.FC<CompanyInfoInvoiceNumberProps> = ({
   invoiceNumber,
+  invoiceType,
+  setInvoiceType,
+  variant,
 }) => {
+  const renderInvoiceHeading = () => {
+    switch (invoiceType) {
+      case "circle":
+        return "سرکل بل";
+      case "tapayi":
+        return "گلشن  تپائی مرکز";
+      case "waterset":
+      default:
+        return "گلشن سٹین لیس سٹیل";
+    }
+  };
+
+  // Function to reset invoice type
+  const handleChangeInoviceType = () => setInvoiceType(null);
+
   return (
     <>
       {/* Invoice number and logo */}
@@ -20,9 +42,16 @@ const CompanyInfoInvoiceNumber: React.FC<CompanyInfoInvoiceNumberProps> = ({
         </p>
 
         {/* Name */}
-        <h2 className="w-1/2 text-2xl tracking-tighter font-bold text-center">
-          گلشن سٹین لیس سٹیل
-        </h2>
+        <div className="w-1/2 text-center relative">
+          <h2 className="text-3xl tracking-tighter font-bold text-center">
+            {renderInvoiceHeading()}
+          </h2>
+          {(variant === "EDIT_INVOICE" || variant === "NEW_INVOICE") && (
+            <button onClick={handleChangeInoviceType} className="NO_PRINT absolute top-14 bg-black text-white rounded-md px-1 py-1.5 text-sm -translate-x-1/2 left-1/2">
+              بل بدلیں
+            </button>
+          )}
+        </div>
 
         <div className="w-[25%] text-right relative">
           <Image

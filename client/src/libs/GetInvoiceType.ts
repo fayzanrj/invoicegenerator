@@ -6,8 +6,8 @@ const renderInvoiceType = (type: InvoiceTypeProps) => {
         return "واٹرسیٹ بل";
       case "circle":
         return "سرکل بل";
-      case "pathi":
-        return "پٹھی بل";
+      case "tapayi":
+        return "تپائی بل";
       default:
         return "";
     }
