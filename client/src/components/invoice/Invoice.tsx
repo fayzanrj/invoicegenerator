@@ -8,10 +8,10 @@ import DateInput from "../shared/DateInput";
 import BuyerInputField from "./BuyerInputField";
 import CompanyInfoInvoiceNumber from "./CompanyInfoInvoiceNumber";
 import InvoiceActionButtons from "./InvoiceActionButtons";
-import InvoiceDetailsList from "./InvoiceDetailsList";
 import InvoiceNote from "./InvoiceNote";
 import InvoiceTypeModal from "./InvoiceTypeModal";
 import TotalAndSignature from "./TotalAndSignature";
+import InvoiceDetailsList from "./invoiceDetailsList/InvoiceDetailsList";
 
 // Props
 interface InvoiceFormProps {
@@ -117,7 +117,7 @@ const Invoice: React.FC<InvoiceFormProps> = ({
 
       {/* Invoice */}
       <div
-        className={`${UrduFont} mt-3 w-[46rem] min-h-[90] rounded-lg border border-gray-300 p-4 `}
+        className={`${UrduFont} mt-3 w-[39rem] min-h-[90] rounded-lg border border-gray-300 p-4 `}
         id="print"
       >
         <CompanyInfoInvoiceNumber

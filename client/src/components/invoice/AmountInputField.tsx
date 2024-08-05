@@ -30,7 +30,7 @@ const AmountInputField: React.FC<AmountInputFieldProps> = ({
       <input
         type="number"
         id={id}
-        value={parseInt(value.toFixed(2)).toString()}
+        value={Math.round(value)}
         readOnly={readOnly}
         onChange={handleChange}
         className={`w-32 text-right pr-7 font-sans ${
